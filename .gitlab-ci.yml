@@ -156,7 +156,6 @@ centos-stream-8-dist-build:
   <<: *dist_build_job_definition
   variables:
     NAME: centos-stream-8
-    GO111MODULE: auto
 
 debian-10-dist-build:
   <<: *dist_build_job_definition
@@ -177,25 +176,21 @@ fedora-34-dist-build:
   <<: *dist_build_job_definition
   variables:
     NAME: fedora-34
-    GO111MODULE: auto
 
 fedora-rawhide-dist-build:
   <<: *dist_build_job_definition
   variables:
     NAME: fedora-rawhide
-    GO111MODULE: auto
 
 opensuse-leap-152-dist-build:
   <<: *dist_build_job_definition
   variables:
     NAME: opensuse-leap-152
-    GO111MODULE: auto
 
 opensuse-tumbleweed-dist-build:
   <<: *dist_build_job_definition
   variables:
     NAME: opensuse-tumbleweed
-    GO111MODULE: auto
 
 ubuntu-1804-dist-build:
   <<: *dist_build_job_definition
