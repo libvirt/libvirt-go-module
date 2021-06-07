@@ -2,8 +2,8 @@
 libvirt-go
 ==========
 
-.. image:: https://travis-ci.org/libvirt/libvirt-go.svg?branch=master
-   :target: https://travis-ci.org/libvirt/libvirt-go
+.. image:: https://gitlab.com/libvirt/libvirt-go/badges/master/pipeline.svg
+   :target: https://gitlab.com/libvirt/libvirt-go/pipelines
    :alt: Build Status
 .. image:: https://img.shields.io/static/v1?label=godev&message=reference&color=00add8
    :target: https://pkg.go.dev/libvirt.org/libvirt-go
@@ -126,12 +126,3 @@ Then create a sasl user
    $ saslpasswd2 -a libvirt user
 
 and enter "pass" as the password.
-
-Alternatively a ``Vagrantfile``, requiring use of virtualbox,
-is included to run the integration tests:
-
-* ``cd ./vagrant``
-* ``vagrant up`` to provision the virtual machine
-* ``vagrant ssh`` to login to the virtual machine
-
-Once inside, ``sudo su -`` and ``go test -tags integration libvirt``.
