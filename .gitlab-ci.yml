@@ -11,7 +11,7 @@ stages:
     - docker:dind
   before_script:
     - export TAG="$CI_REGISTRY_IMAGE/ci-$NAME:latest"
-    - export COMMON_TAG="$CI_REGISTRY/libvirt/libvirt-go/ci-$NAME:latest"
+    - export COMMON_TAG="$CI_REGISTRY/libvirt/libvirt-go-module/ci-$NAME:latest"
     - docker info
     - docker login registry.gitlab.com -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
   script:
