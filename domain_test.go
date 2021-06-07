@@ -1,5 +1,5 @@
 /*
- * This file is part of the libvirt-go project
+ * This file is part of the libvirt-go-module project
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -259,7 +259,7 @@ func TestSaveDomain(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	const tmpFile = "/tmp/libvirt-go-test.tmp"
+	const tmpFile = "/tmp/libvirt-go-module-test.tmp"
 	if err := dom.Save(tmpFile); err != nil {
 		t.Error(err)
 		return
@@ -288,7 +288,7 @@ func TestSaveDomainFlags(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	const srcFile = "/tmp/libvirt-go-test.tmp"
+	const srcFile = "/tmp/libvirt-go-module-test.tmp"
 	if err := dom.SaveFlags(srcFile, "", 0); err == nil {
 		t.Fatal("expected xml modification unsupported")
 		return
@@ -823,7 +823,7 @@ func TestParserCPUString(t *testing.T) {
 }
 
 func TestSetMetadata(t *testing.T) {
-	xmlns := "http://libvirt.org/xmlns/libvirt-go/test"
+	xmlns := "http://libvirt.org/xmlns/libvirt-go-module/test"
 	xmlprefix := "test"
 	meta := "<blob/>"
 

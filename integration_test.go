@@ -1,7 +1,7 @@
 // +build integration
 
 /*
- * This file is part of the libvirt-go project
+ * This file is part of the libvirt-go-module project
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ func buildTestQEMUConnection() *Connect {
 
 func buildTestQEMUDomain(transient bool, name string) (*Domain, *Connect) {
 	conn := buildTestQEMUConnection()
-	fullname := fmt.Sprintf("libvirt-go-test-%s", name)
+	fullname := fmt.Sprintf("libvirt-go-module-test-%s", name)
 
 	dom, err := conn.LookupDomainByName(fullname)
 	if err == nil {
@@ -58,7 +58,7 @@ func buildTestQEMUDomain(transient bool, name string) (*Domain, *Connect) {
 	}
 
 	xml := fmt.Sprintf(`<domain type="qemu">
-		<name>libvirt-go-test-%s</name>
+		<name>libvirt-go-module-test-%s</name>
 		<memory unit="KiB">128</memory>
                 <features>
                   <acpi/>
@@ -270,7 +270,7 @@ password=pass
 [auth-libvirt-default]
 credentials=defgrp
 `
-	authFile, err := ioutil.TempFile("", "libvirt-go-auth-file")
+	authFile, err := ioutil.TempFile("", "libvirt-go-module-auth-file")
 	if err != nil {
 		t.Error(err)
 		return
@@ -387,7 +387,7 @@ func TestDomainCreateWithFlags(t *testing.T) {
 }
 
 func defineTestLxcDomain(conn *Connect, name string) (*Domain, error) {
-	fullname := "libvirt-go-test-" + name
+	fullname := "libvirt-go-module-test-" + name
 	dom, err := conn.LookupDomainByName(fullname)
 	if err == nil {
 		dom.Destroy()
@@ -1678,13 +1678,13 @@ func TestDomainBlockCopy(t *testing.T) {
 	pool := getDefaultStoragePool(conn)
 	defer pool.Free()
 
-	srcVol := getOrCreateStorageVol(pool, "libvirt-go-test-block-copy-src.img", 1024*1024*10)
+	srcVol := getOrCreateStorageVol(pool, "libvirt-go-module-test-block-copy-src.img", 1024*1024*10)
 	defer func() {
 		srcVol.Delete(0)
 		srcVol.Free()
 	}()
 
-	dstVol := getOrCreateStorageVol(pool, "libvirt-go-test-block-copy-dst.img", 1024*1024*10)
+	dstVol := getOrCreateStorageVol(pool, "libvirt-go-module-test-block-copy-dst.img", 1024*1024*10)
 	defer func() {
 		dstVol.Delete(0)
 		dstVol.Free()

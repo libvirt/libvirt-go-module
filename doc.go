@@ -1,5 +1,5 @@
 /*
- * This file is part of the libvirt-go project
+ * This file is part of the libvirt-go-module project
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -70,8 +70,8 @@
 // method parameter will be declared as a "flags uint32". Callers should always
 // pass the literal integer value 0 for such parameters, without forcing any
 // specific type. This will allow compatibility with future updates to the
-// libvirt-go binding which may replace the 'uint32' type with a enum type
-// at a later date.
+// libvirt-go-module binding which may replace the 'uint32' type with a enum
+// type at a later date.
 //
 // For enums, the VIR_ prefix is removed from the name. The enums get a dedicated
 // type defined in Go. e.g. the VIR_NODE_SUSPEND_TARGET_MEM enum constant in C,
@@ -116,7 +116,7 @@
 // To connect to libvirt
 //
 //   import (
-//       libvirt "libvirt.org/libvirt-go"
+//       libvirt "libvirt.org/go/libvirt"
 //   )
 //   conn, err := libvirt.NewConnect("qemu:///system")
 //   if err != nil {

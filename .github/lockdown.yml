@@ -17,7 +17,7 @@ issues:
 
     We kindly request that new issues are reported to
 
-      https://gitlab.com/libvirt/libvirt-go/-/issues/new
+      https://gitlab.com/libvirt/libvirt-go-module/-/issues/new
 
     Thank you for your time and understanding.
 
@@ -29,10 +29,10 @@ pulls:
 
     We kindly request that contributors fork the project at
 
-      https://gitlab.com/libvirt/libvirt-go/
+      https://gitlab.com/libvirt/libvirt-go-module/
 
     push changes to the fork, and then open a new merge request at
 
-      https://gitlab.com/libvirt/libvirt-go/-/merge_requests/new
+      https://gitlab.com/libvirt/libvirt-go-module/-/merge_requests/new
 
     Thank you for your time and understanding.

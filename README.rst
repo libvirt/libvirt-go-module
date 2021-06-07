@@ -1,12 +1,12 @@
-==========
-libvirt-go
-==========
+=================
+libvirt-go-module
+=================
 
-.. image:: https://gitlab.com/libvirt/libvirt-go/badges/master/pipeline.svg
-   :target: https://gitlab.com/libvirt/libvirt-go/pipelines
+.. image:: https://gitlab.com/libvirt/libvirt-go-module/badges/master/pipeline.svg
+   :target: https://gitlab.com/libvirt/libvirt-go-module/pipelines
    :alt: Build Status
 .. image:: https://img.shields.io/static/v1?label=godev&message=reference&color=00add8
-   :target: https://pkg.go.dev/libvirt.org/libvirt-go
+   :target: https://pkg.go.dev/libvirt.org/go/libvirt
    :alt: API Documentation
 
 Go bindings for libvirt.
@@ -48,18 +48,18 @@ changes may apply to future versions:
 Documentation
 =============
 
-* `API documentation for the bindings <https://pkg.go.dev/libvirt.org/libvirt-go>`_
+* `API documentation for the bindings <https://pkg.go.dev/libvirt.org/go/libvirt>`_
 * `API documentation for libvirt <https://libvirt.org/html/index.html>`_
 
 
 Contributing
 ============
 
-The libvirt project aims to add support for new APIs to libvirt-go
+The libvirt project aims to add support for new APIs to libvirt-go-module
 as soon as they are added to the main libvirt C library. If you
 are submitting changes to the libvirt C library API, please submit
-a libvirt-go change at the same time. Bug fixes and other
-improvements to the libvirt-go library are welcome at any time.
+a libvirt-go-module change at the same time. Bug fixes and other
+improvements to the libvirt-go-module library are welcome at any time.
 
 For more information, see the `CONTRIBUTING <CONTRIBUTING.rst>`_
 file.
