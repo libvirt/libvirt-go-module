@@ -138,6 +138,8 @@ ubuntu-2004-container:
 
 centos-8-git-build:
   <<: *git_build_job_definition
+  needs:
+    - centos-8-container
   variables:
     NAME: centos-8
   artifacts:
@@ -149,56 +151,78 @@ centos-8-git-build:
 
 centos-8-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - centos-8-container
   variables:
     NAME: centos-8
 
 centos-stream-8-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - centos-stream-8-container
   variables:
     NAME: centos-stream-8
 
 debian-10-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - debian-10-container
   variables:
     NAME: debian-10
 
 debian-sid-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - debian-sid-container
   variables:
     NAME: debian-sid
 
 fedora-33-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - fedora-33-container
   variables:
     NAME: fedora-33
 
 fedora-34-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - fedora-34-container
   variables:
     NAME: fedora-34
 
 fedora-rawhide-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - fedora-rawhide-container
   variables:
     NAME: fedora-rawhide
 
 opensuse-leap-152-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - opensuse-leap-152-container
   variables:
     NAME: opensuse-leap-152
 
 opensuse-tumbleweed-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - opensuse-tumbleweed-container
   variables:
     NAME: opensuse-tumbleweed
 
 ubuntu-1804-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - ubuntu-1804-container
   variables:
     NAME: ubuntu-1804
 
 ubuntu-2004-dist-build:
   <<: *dist_build_job_definition
+  needs:
+    - ubuntu-2004-container
   variables:
     NAME: ubuntu-2004
 
