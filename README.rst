@@ -44,6 +44,9 @@ changes may apply to future versions:
   '0' to any 'flags uint32' parameter, since this will auto-cast to
   any future typedef that is introduced.
 
+Please see the `VERSIONING <VERSIONING.rst>`_ file for information
+about release schedule and versioning scheme.
+
 
 Documentation
 =============
