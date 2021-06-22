@@ -232,4 +232,11 @@
 #define VIR_ERR_MULTIPLE_DOMAINS 110
 #endif
 
+/* 7.5.0 */
+
+#ifndef VIR_FROM_CH
+#define VIR_FROM_CH 72
+#endif
+
+
 #endif /* LIBVIRT_GO_ERROR_COMPAT_H__ */

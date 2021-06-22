@@ -612,6 +612,9 @@ const (
 
 	// Error from BPF
 	FROM_BPF = ErrorDomain(C.VIR_FROM_BPF)
+
+	// Error from Cloud Hypervisor
+	FROM_CH = ErrorDomain(C.VIR_FROM_CH)
 )
 
 type Error struct {
