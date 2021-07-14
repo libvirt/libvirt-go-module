@@ -120,9 +120,7 @@ func getOrCreateStorageVol(pool *StoragePool, name string, size int64) *StorageV
 }
 
 func TestMultipleCloseCallback(t *testing.T) {
-	nbCall1 := 0
-	nbCall2 := 0
-	nbCall3 := 0
+	var callbackCalled = false
 	conn := buildTestQEMUConnection()
 	defer func() {
 		res, _ := conn.Close()
@@ -133,10 +131,8 @@ func TestMultipleCloseCallback(t *testing.T) {
 				t.Errorf("Close() == %d, expected 0", res)
 			}
 		}
-		if nbCall1 != 0 || nbCall2 != 0 || nbCall3 != 1 {
-			t.Errorf("Wrong number of calls to callback, got %v, expected %v",
-				[]int{nbCall1, nbCall2, nbCall3},
-				[]int{0, 0, 1})
+		if !callbackCalled {
+			t.Errorf("The registered close callback was not called uppon Close()")
 		}
 	}()
 
@@ -146,35 +142,44 @@ func TestMultipleCloseCallback(t *testing.T) {
 				CONNECT_CLOSE_REASON_KEEPALIVE, reason)
 		}
 	}
+	for i := 0; i < 10; i++ {
+		err := conn.RegisterCloseCallback(func(conn *Connect, reason ConnectCloseReason) {
+			callback(conn, reason)
+			t.Errorf("Wrong callback called")
+		})
+		if err != nil {
+			t.Fatalf("Unable to register close callback: %+v", err)
+		}
+	}
+	// The last one is the only one to be called
 	err := conn.RegisterCloseCallback(func(conn *Connect, reason ConnectCloseReason) {
 		callback(conn, reason)
-		nbCall1++
+		callbackCalled = true
 	})
 	if err != nil {
 		t.Fatalf("Unable to register close callback: %+v", err)
 	}
-	err = conn.RegisterCloseCallback(func(conn *Connect, reason ConnectCloseReason) {
-		callback(conn, reason)
-		nbCall2++
-	})
-	if err != nil {
-		t.Fatalf("Unable to register close callback: %+v", err)
-	}
-	err = conn.RegisterCloseCallback(func(conn *Connect, reason ConnectCloseReason) {
-		callback(conn, reason)
-		nbCall3++
-	})
-	if err != nil {
-		t.Fatalf("Unable to register close callback: %+v", err)
-	}
-
 	// To trigger a disconnect, we use a keepalive
 	if err := conn.SetKeepAlive(1, 0); err != nil {
 		t.Fatalf("Unable to enable keeplive: %+v", err)
 	}
-	EventRunDefaultImpl()
-	time.Sleep(2 * time.Second)
-	EventRunDefaultImpl()
+	// Wait until we have a keepalive message or timeout
+	done := make(chan struct{})
+	timeout := time.After(5 * time.Second)
+	go func() {
+		for {
+			if callbackCalled {
+				close(done)
+				return
+			}
+			EventRunDefaultImpl()
+		}
+	}()
+	select {
+	case <-done: // OK!
+	case <-timeout:
+		t.Fatalf("timeout reached while waiting for keepalive")
+	}
 }
 
 func TestUnregisterCloseCallback(t *testing.T) {
