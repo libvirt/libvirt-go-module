@@ -169,7 +169,7 @@ func TestMultipleCloseCallback(t *testing.T) {
 	}
 
 	// To trigger a disconnect, we use a keepalive
-	if err := conn.SetKeepAlive(1, 1); err != nil {
+	if err := conn.SetKeepAlive(1, 0); err != nil {
 		t.Fatalf("Unable to enable keeplive: %+v", err)
 	}
 	EventRunDefaultImpl()
