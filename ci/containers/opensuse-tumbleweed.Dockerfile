@@ -1,8 +1,8 @@
 # THIS FILE WAS AUTO-GENERATED
 #
-#  $ lcitool dockerfile opensuse-tumbleweed libvirt+dist,libvirt-go
+#  $ lcitool manifest ci/manifest.yml
 #
-# https://gitlab.com/libvirt/libvirt-ci/-/commit/1c5d87ecd2283614a8b0c31cead0b6d7883afd28
+# https://gitlab.com/libvirt/libvirt-ci
 
 FROM registry.opensuse.org/opensuse/tumbleweed:latest
 
