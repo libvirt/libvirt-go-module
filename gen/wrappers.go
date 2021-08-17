@@ -30,8 +30,10 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 )
 
@@ -86,6 +88,7 @@ type APIEnum struct {
 	ValueBitshift string `xml:"value_bitshift,attr"`
 	Type          string `xml:"type,attr"`
 	Version       string `xml:"version,attr"`
+	ValueRaw      int64
 }
 
 type APIStruct struct {
@@ -154,6 +157,46 @@ type APIVariable struct {
 	Version string `xml:"version,attr"`
 }
 
+// Calculate raw values
+func prepareEnums(a, coreAPI *API) {
+	enumValues := make(map[string]*APIEnum)
+	/* Some of the secondary API module enums are defined
+	 * using constants from the core API */
+	if coreAPI != nil {
+		for idx, _ := range coreAPI.Enums {
+			enum := &coreAPI.Enums[idx]
+			enumValues[enum.Name] = enum
+		}
+	}
+	for idx, _ := range a.Enums {
+		enum := &a.Enums[idx]
+		val, err := strconv.ParseInt(enum.Value, 10, 64)
+		if err == nil {
+			enum.ValueRaw = val
+			enumValues[enum.Name] = enum
+		}
+	}
+	for idx, _ := range a.Enums {
+		enum := &a.Enums[idx]
+		_, ok := enumValues[enum.Name]
+		if !ok {
+			enumref, ok2 := enumValues[enum.Value]
+			if !ok2 {
+				log.Fatalf("Resolving %s -> %s still empty", enum.Name, enum.Value)
+			} else {
+				enum.ValueRaw = enumref.ValueRaw
+			}
+		}
+	}
+}
+
+func (a *API) prepare(coreAPI *API) {
+	if coreAPI != nil {
+		prepareEnums(coreAPI, nil)
+	}
+	prepareEnums(a, coreAPI)
+}
+
 func getAPIPathPkgConfig(varname, modname string) (string, error) {
 	cmd := exec.Command("pkg-config", "--variable="+varname, modname)
 
@@ -172,19 +215,21 @@ func getAPIPathPkgConfig(varname, modname string) (string, error) {
 	return apixml, nil
 }
 
-func generate(apixml string) error {
+func generate(apixml string, coreAPI *API) (*API, error) {
 	var api API
 	xmldata, err := ioutil.ReadFile(apixml)
 	if err != nil {
-		return fmt.Errorf("Cannot read %s: %s", apixml, err)
+		return nil, fmt.Errorf("Cannot read %s: %s", apixml, err)
 	}
 
 	err = xml.Unmarshal(xmldata, &api)
 	if err != nil {
-		return fmt.Errorf("Cannot parse %s: %s", apixml, err)
+		return nil, fmt.Errorf("Cannot parse %s: %s", apixml, err)
 	}
 
-	return nil
+	api.prepare(coreAPI)
+
+	return &api, nil
 }
 
 type APIModule struct {
@@ -199,6 +244,7 @@ func main() {
 		APIModule{"libvirt_qemu_api", "libvirt-qemu"},
 	}
 
+	var coreAPI *API
 	for _, apimodule := range apimodules {
 		apixml, err := getAPIPathPkgConfig(apimodule.APIVar, apimodule.PkgConfigFile)
 		if err != nil {
@@ -206,10 +252,14 @@ func main() {
 			os.Exit(1)
 		}
 
-		err = generate(apixml)
+		api, err := generate(apixml, coreAPI)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%s", err)
 			os.Exit(1)
+		}
+
+		if coreAPI == nil {
+			coreAPI = api
 		}
 	}
 	os.Exit(0)
