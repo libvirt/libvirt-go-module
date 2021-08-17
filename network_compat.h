@@ -27,14 +27,6 @@
 #ifndef LIBVIRT_GO_NETWORK_COMPAT_H__
 #define LIBVIRT_GO_NETWORK_COMPAT_H__
 
-/* 1.2.1 */
-
-#if LIBVIR_VERSION_NUMBER < 1002001
-typedef void (*virConnectNetworkEventGenericCallback)(virConnectPtr conn,
-                                                      virNetworkPtr net,
-                                                      void *opaque);
-#endif
-
 
 /* 1.2.5 */
 

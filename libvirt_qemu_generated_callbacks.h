@@ -19,13 +19,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * Copyright (c) 2013 Alex Zorin
- * Copyright (C) 2016 Red Hat, Inc.
+ * Copyright (C) 2022 Red Hat, Inc.
  *
  */
+/****************************************************************************
+ * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
+ ****************************************************************************/
 
-#ifndef LIBVIRT_GO_STORAGE_POOL_COMPAT_H__
-#define LIBVIRT_GO_STORAGE_POOL_COMPAT_H__
+#pragma once
 
-
-#endif /* LIBVIRT_GO_STORAGE_POOL_COMPAT_H__ */
+#if !LIBVIR_CHECK_VERSION(1, 2, 3)
+typedef void (*virConnectDomainQemuMonitorEventCallback)(virConnectPtr conn,
+                                                         virDomainPtr dom,
+                                                         const char * event,
+                                                         long long seconds,
+                                                         unsigned int micros,
+                                                         const char * details,
+                                                         void * opaque);
+#endif

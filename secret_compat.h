@@ -27,14 +27,5 @@
 #ifndef LIBVIRT_GO_SECRET_COMPAT_H__
 #define LIBVIRT_GO_SECRET_COMPAT_H__
 
-/* 3.0.0 */
-
-
-#if LIBVIR_VERSION_NUMBER < 3000000
-typedef void (*virConnectSecretEventGenericCallback)(virConnectPtr conn,
-						     virSecretPtr secret,
-						     void *opaque);
-#endif
-
 
 #endif /* LIBVIRT_GO_SECRET_COMPAT_H__ */

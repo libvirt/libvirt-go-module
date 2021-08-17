@@ -294,6 +294,12 @@ func getVersionMicro(version string) int {
 	return micro
 }
 
+// Break line at all ',' and indent based on @prefix's length.
+func indentArgs(input, prefix string) string {
+	indent := fmt.Sprintf(",\n%s", strings.Repeat(" ", len(prefix)))
+	return strings.ReplaceAll(input, ",", indent)
+}
+
 func getIncludeName(module string) string {
 	return strings.Replace(module, "-", "_", -1)
 }
@@ -372,9 +378,11 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 		"generated_macros.h",
 		"generated_enums.h",
 		"generated_typedefs.h",
+		"generated_callbacks.h",
 	}
 
 	fnMap := template.FuncMap{
+		"indent":          indentArgs,
 		"getVersionMajor": getVersionMajor,
 		"getVersionMinor": getVersionMinor,
 		"getVersionMicro": getVersionMicro,

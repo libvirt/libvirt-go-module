@@ -36,3 +36,4 @@
 #include "libvirt_qemu_generated_macros.h"
 #include "libvirt_qemu_generated_enums.h"
 #include "libvirt_qemu_generated_typedefs.h"
+#include "libvirt_qemu_generated_callbacks.h"

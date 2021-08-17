@@ -27,17 +27,5 @@
 #ifndef LIBVIRT_GO_QEMU_COMPAT_H__
 #define LIBVIRT_GO_QEMU_COMPAT_H__
 
-/* 1.2.3 */
-
-#if LIBVIR_VERSION_NUMBER < 1002003
-typedef void (*virConnectDomainQemuMonitorEventCallback)(virConnectPtr conn,
-                                                         virDomainPtr dom,
-                                                         const char *event,
-                                                         long long seconds,
-                                                         unsigned int micros,
-                                                         const char *details,
-                                                         void *opaque);
-#endif
-
 
 #endif /* LIBVIRT_GO_QEMU_COMPAT_H__ */

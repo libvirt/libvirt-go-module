@@ -27,13 +27,5 @@
 #ifndef LIBVIRT_GO_NODE_DEVICE_COMPAT_H__
 #define LIBVIRT_GO_NODE_DEVICE_COMPAT_H__
 
-/* 2.2.0 */
-
-
-#if LIBVIR_VERSION_NUMBER < 2002000
-typedef void (*virConnectNodeDeviceEventGenericCallback)(virConnectPtr conn,
-                                                         virNodeDevicePtr dev,
-                                                         void *opaque);
-#endif
 
 #endif /* LIBVIRT_GO_NODE_DEVICE_COMPAT_H__ */
