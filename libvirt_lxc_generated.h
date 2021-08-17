@@ -35,3 +35,4 @@
 
 #include "libvirt_lxc_generated_macros.h"
 #include "libvirt_lxc_generated_enums.h"
+#include "libvirt_lxc_generated_typedefs.h"

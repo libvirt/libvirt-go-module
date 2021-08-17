@@ -28,9 +28,14 @@
 
 #pragma once
 
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
+#if !LIBVIR_CHECK_VERSION(1, 2, 3)
+typedef int virConnectDomainQemuMonitorEventRegisterFlags;
+#endif
 
-#include "libvirt_generated_macros.h"
-#include "libvirt_generated_enums.h"
-#include "libvirt_generated_typedefs.h"
+#if !LIBVIR_CHECK_VERSION(0, 10, 0)
+typedef int virDomainQemuAgentCommandTimeoutValues;
+#endif
+
+#if !LIBVIR_CHECK_VERSION(0, 8, 8)
+typedef int virDomainQemuMonitorCommandFlags;
+#endif

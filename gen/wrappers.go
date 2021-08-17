@@ -371,6 +371,7 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 		"generated.h",
 		"generated_macros.h",
 		"generated_enums.h",
+		"generated_typedefs.h",
 	}
 
 	fnMap := template.FuncMap{
