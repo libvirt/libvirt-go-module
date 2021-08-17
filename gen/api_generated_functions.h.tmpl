@@ -22,21 +22,42 @@
  * Copyright (C) 2022 Red Hat, Inc.
  *
  */
+
+{{- /* The C comment bellow is intended for the output of this template.*/}}
 /****************************************************************************
  * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
  ****************************************************************************/
 
 #pragma once
 
-#include <libvirt/libvirt-lxc.h>
-#include <libvirt/virterror.h>
+{{- with .Functions }}
+    {{- range . }}
+        {{- if eq .Name "virCopyLastError" }}
+            {{- continue }}
+        {{- end }}
+        {{- $args := "void" }}
+        {{- with .Args }}
+            {{- $nargs := len . }}
+            {{- range $i, $e := . }}
+                {{- $newArg := (printf "%s %s" $e.Type $e.Name) }}
+                {{- if eq $i 0 }}
+                    {{- $args = $newArg }}
+                {{- else }}
+                    {{- $args = (printf "%s,%s" $args $newArg) }}
+                {{- end }}
+            {{- end }}
+        {{- end }}
+        {{- if ne .Return.Type "void" }}
+            {{- if eq $args "void" }}
+                {{- $args = "virErrorPtr err" }}
+            {{- else }}
+                {{- $args = (printf "%s,virErrorPtr err" $args) }}
+            {{- end }}
+        {{- end }}
+        {{- $functionPrefix := (printf "%sWrapper(" .Name) }}
 
-#include "libvirt_generated.h"
-
-#include "libvirt_lxc_generated_macros.h"
-#include "libvirt_lxc_generated_enums.h"
-#include "libvirt_lxc_generated_typedefs.h"
-#include "libvirt_lxc_generated_callbacks.h"
-#include "libvirt_lxc_generated_structs.h"
-#include "libvirt_lxc_generated_variables.h"
-#include "libvirt_lxc_generated_functions.h"
+{{ .Return.Type }}
+{{ $functionPrefix }}{{ indent $args $functionPrefix }});
+{{- end }}
+{{- end }}
+{{- /* vim: set syntax=gotexttmpl : */}}

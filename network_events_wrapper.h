@@ -30,19 +30,4 @@
 #include "libvirt_generated.h"
 #include "network_compat.h"
 
-int
-virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
-                                         virNetworkPtr net,
-                                         int eventID,
-                                         virConnectNetworkEventGenericCallback cb,
-                                         void *opaque,
-                                         virFreeCallback freecb,
-                                         virErrorPtr err);
-
-int
-virConnectNetworkEventDeregisterAnyWrapper(virConnectPtr conn,
-                                           int callbackID,
-					   virErrorPtr err);
-
-
 #endif /* LIBVIRT_GO_NETWORK_EVENTS_WRAPPER_H__ */

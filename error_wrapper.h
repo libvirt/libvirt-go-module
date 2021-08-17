@@ -30,8 +30,4 @@
 #include "libvirt_generated.h"
 #include "error_compat.h"
 
-void virResetErrorWrapper(virErrorPtr err);
-void virSetErrorFuncWrapper(void *userData,
-                            virErrorFunc handler);
-
 #endif /* LIBVIRT_GO_ERROR_WRAPPER_H__ */

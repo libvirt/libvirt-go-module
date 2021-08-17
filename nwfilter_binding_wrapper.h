@@ -29,31 +29,4 @@
 #include "libvirt_generated.h"
 #include "nwfilter_binding_compat.h"
 
-
-int
-virNWFilterBindingDeleteWrapper(virNWFilterBindingPtr binding,
-                                virErrorPtr err);
-
-int
-virNWFilterBindingFreeWrapper(virNWFilterBindingPtr binding,
-                              virErrorPtr err);
-
-const char *
-virNWFilterBindingGetFilterNameWrapper(virNWFilterBindingPtr binding,
-                                       virErrorPtr err);
-
-const char *
-virNWFilterBindingGetPortDevWrapper(virNWFilterBindingPtr binding,
-                                    virErrorPtr err);
-
-char *
-virNWFilterBindingGetXMLDescWrapper(virNWFilterBindingPtr binding,
-                                    unsigned int flags,
-                                    virErrorPtr err);
-
-int
-virNWFilterBindingRefWrapper(virNWFilterBindingPtr binding,
-                             virErrorPtr err);
-
-
 #endif /* LIBVIRT_GO_NWFILTER_BINDING_WRAPPER_H__ */

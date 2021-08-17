@@ -28,15 +28,29 @@
 
 #pragma once
 
-#include <libvirt/libvirt-lxc.h>
-#include <libvirt/virterror.h>
+int
+virDomainLxcEnterCGroupWrapper(virDomainPtr domain,
+                               unsigned int flags,
+                               virErrorPtr err);
 
-#include "libvirt_generated.h"
+int
+virDomainLxcEnterNamespaceWrapper(virDomainPtr domain,
+                                  unsigned int nfdlist,
+                                  int * fdlist,
+                                  unsigned int * noldfdlist,
+                                  int ** oldfdlist,
+                                  unsigned int flags,
+                                  virErrorPtr err);
 
-#include "libvirt_lxc_generated_macros.h"
-#include "libvirt_lxc_generated_enums.h"
-#include "libvirt_lxc_generated_typedefs.h"
-#include "libvirt_lxc_generated_callbacks.h"
-#include "libvirt_lxc_generated_structs.h"
-#include "libvirt_lxc_generated_variables.h"
-#include "libvirt_lxc_generated_functions.h"
+int
+virDomainLxcEnterSecurityLabelWrapper(virSecurityModelPtr model,
+                                      virSecurityLabelPtr label,
+                                      virSecurityLabelPtr oldlabel,
+                                      unsigned int flags,
+                                      virErrorPtr err);
+
+int
+virDomainLxcOpenNamespaceWrapper(virDomainPtr domain,
+                                 int ** fdlist,
+                                 unsigned int flags,
+                                 virErrorPtr err);

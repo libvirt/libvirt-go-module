@@ -29,44 +29,4 @@
 #include "libvirt_generated.h"
 #include "interface_compat.h"
 
-int
-virInterfaceCreateWrapper(virInterfacePtr iface,
-                          unsigned int flags,
-                          virErrorPtr err);
-
-int
-virInterfaceDestroyWrapper(virInterfacePtr iface,
-                           unsigned int flags,
-                           virErrorPtr err);
-
-int
-virInterfaceFreeWrapper(virInterfacePtr iface,
-                        virErrorPtr err);
-
-const char *
-virInterfaceGetMACStringWrapper(virInterfacePtr iface,
-                                virErrorPtr err);
-
-const char *
-virInterfaceGetNameWrapper(virInterfacePtr iface,
-                           virErrorPtr err);
-
-char *
-virInterfaceGetXMLDescWrapper(virInterfacePtr iface,
-                              unsigned int flags,
-                              virErrorPtr err);
-
-int
-virInterfaceIsActiveWrapper(virInterfacePtr iface,
-                            virErrorPtr err);
-
-int
-virInterfaceRefWrapper(virInterfacePtr iface,
-                       virErrorPtr err);
-
-int
-virInterfaceUndefineWrapper(virInterfacePtr iface,
-                            virErrorPtr err);
-
-
 #endif /* LIBVIRT_GO_INTERFACE_WRAPPER_H__ */

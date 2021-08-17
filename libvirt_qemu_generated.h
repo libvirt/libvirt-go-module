@@ -39,3 +39,4 @@
 #include "libvirt_qemu_generated_callbacks.h"
 #include "libvirt_qemu_generated_structs.h"
 #include "libvirt_qemu_generated_variables.h"
+#include "libvirt_qemu_generated_functions.h"

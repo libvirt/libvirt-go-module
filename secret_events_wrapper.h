@@ -30,19 +30,4 @@
 #include "libvirt_generated.h"
 #include "secret_compat.h"
 
-
-int
-virConnectSecretEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virSecretPtr secret,
-                                        int eventID,
-                                        virConnectSecretEventGenericCallback cb,
-                                        void *opaque,
-                                        virFreeCallback freecb,
-                                        virErrorPtr err);
-
-int
-virConnectSecretEventDeregisterAnyWrapper(virConnectPtr conn,
-                                          int callbackID,
-					  virErrorPtr err);
-
 #endif /* LIBVIRT_GO_SECRET_EVENTS_WRAPPER_H__ */

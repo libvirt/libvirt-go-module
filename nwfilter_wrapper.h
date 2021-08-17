@@ -29,36 +29,4 @@
 #include "libvirt_generated.h"
 #include "nwfilter_compat.h"
 
-int
-virNWFilterFreeWrapper(virNWFilterPtr nwfilter,
-                       virErrorPtr err);
-
-const char *
-virNWFilterGetNameWrapper(virNWFilterPtr nwfilter,
-                          virErrorPtr err);
-
-int
-virNWFilterGetUUIDWrapper(virNWFilterPtr nwfilter,
-                          unsigned char *uuid,
-                          virErrorPtr err);
-
-int
-virNWFilterGetUUIDStringWrapper(virNWFilterPtr nwfilter,
-                                char *buf,
-                                virErrorPtr err);
-
-char *
-virNWFilterGetXMLDescWrapper(virNWFilterPtr nwfilter,
-                             unsigned int flags,
-                             virErrorPtr err);
-
-int
-virNWFilterRefWrapper(virNWFilterPtr nwfilter,
-                      virErrorPtr err);
-
-int
-virNWFilterUndefineWrapper(virNWFilterPtr nwfilter,
-                           virErrorPtr err);
-
-
 #endif /* LIBVIRT_GO_NWFILTER_WRAPPER_H__ */

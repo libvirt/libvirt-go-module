@@ -30,38 +30,4 @@
 #include "domain_compat.h"
 #include "domain_checkpoint_compat.h"
 
-int
-virDomainCheckpointDeleteWrapper(virDomainCheckpointPtr checkpoint,
-				 unsigned int flags,
-				 virErrorPtr err);
-
-int
-virDomainCheckpointFreeWrapper(virDomainCheckpointPtr checkpoint,
-			       virErrorPtr err);
-
-const char *
-virDomainCheckpointGetNameWrapper(virDomainCheckpointPtr checkpoint,
-				  virErrorPtr err);
-
-virDomainCheckpointPtr
-virDomainCheckpointGetParentWrapper(virDomainCheckpointPtr checkpoint,
-				    unsigned int flags,
-				    virErrorPtr err);
-
-char *
-virDomainCheckpointGetXMLDescWrapper(virDomainCheckpointPtr checkpoint,
-				     unsigned int flags,
-				     virErrorPtr err);
-
-int
-virDomainCheckpointListAllChildrenWrapper(virDomainCheckpointPtr checkpoint,
-					  virDomainCheckpointPtr **snaps,
-					  unsigned int flags,
-					  virErrorPtr err);
-
-int
-virDomainCheckpointRefWrapper(virDomainCheckpointPtr checkpoint,
-			      virErrorPtr err);
-
-
 #endif /* LIBVIRT_GO_DOMAIN_CHECKPOINT_WRAPPER_H__ */

@@ -30,19 +30,4 @@
 #include "libvirt_generated.h"
 #include "domain_compat.h"
 
-int
-virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virDomainPtr dom,
-                                        int eventID,
-                                        virConnectDomainEventGenericCallback cb,
-                                        void *opaque,
-                                        virFreeCallback freecb,
-                                        virErrorPtr err);
-
-int
-virConnectDomainEventDeregisterAnyWrapper(virConnectPtr conn,
-                                          int callbackID,
-                                          virErrorPtr err);
-
-
 #endif /* LIBVIRT_GO_DOMAIN_EVENTS_WRAPPER_H__ */

@@ -30,19 +30,4 @@
 #include "libvirt_generated.h"
 #include "storage_pool_compat.h"
 
-
-int
-virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
-                                             virStoragePoolPtr pool,
-                                             int eventID,
-                                             virConnectStoragePoolEventGenericCallback cb,
-                                             void *opaque,
-                                             virFreeCallback freecb,
-                                             virErrorPtr err);
-
-int
-virConnectStoragePoolEventDeregisterAnyWrapper(virConnectPtr conn,
-                                               int callbackID,
-					       virErrorPtr err);
-
 #endif /* LIBVIRT_GO_STORAGE_POOL_EVENTS_WRAPPER_H__ */

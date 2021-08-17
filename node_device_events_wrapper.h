@@ -30,20 +30,4 @@
 #include "libvirt_generated.h"
 #include "node_device_compat.h"
 
-
-int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
-                                            virNodeDevicePtr dev,
-                                            int eventID,
-                                            virConnectNodeDeviceEventGenericCallback cb,
-                                            void *opaque,
-                                            virFreeCallback freecb,
-                                            virErrorPtr err);
-
-int
-virConnectNodeDeviceEventDeregisterAnyWrapper(virConnectPtr conn,
-                                              int callbackID,
-					      virErrorPtr err);
-
-
 #endif /* LIBVIRT_GO_NODE_DEVICE_EVENTS_WRAPPER_H__ */

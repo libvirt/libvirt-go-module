@@ -37,3 +37,4 @@
 #include "libvirt_generated_callbacks.h"
 #include "libvirt_generated_structs.h"
 #include "libvirt_generated_variables.h"
+#include "libvirt_generated_functions.h"

@@ -381,6 +381,7 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 		"generated_callbacks.h",
 		"generated_structs.h",
 		"generated_variables.h",
+		"generated_functions.h",
 	}
 
 	fnMap := template.FuncMap{
