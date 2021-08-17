@@ -1,5 +1,5 @@
-//go:build !libvirt_without_lxc
-// +build !libvirt_without_lxc
+//go:build !libvirt_without_lxc && !libvirt_dlopen
+// +build !libvirt_without_lxc,!libvirt_dlopen
 
 /*
  * This file is part of the libvirt-go-module project
@@ -22,54 +22,68 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * Copyright (c) 2013 Alex Zorin
- * Copyright (C) 2016 Red Hat, Inc.
+ * Copyright (C) 2022 Red Hat, Inc.
  *
  */
+/****************************************************************************
+ * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
+ ****************************************************************************/
 
 package libvirt
 
 /*
-#cgo pkg-config: libvirt
-// Can't rely on pkg-config for libvirt-lxc since it was not
-// installed until 2.6.0 onwards
-#cgo LDFLAGS: -lvirt-lxc
+#cgo pkg-config: libvirt-lxc
 #include <assert.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 #include "libvirt_lxc_generated.h"
+#include "error_helper.h"
+
 
 int
 virDomainLxcEnterCGroupWrapper(virDomainPtr domain,
                                unsigned int flags,
                                virErrorPtr err)
 {
-#if LIBVIR_VERSION_NUMBER < 2000000
-    assert(0); // Caller should have checked version
+    int ret = -1;
+#if !LIBVIR_CHECK_VERSION(2, 0, 0)
+    setVirError(err, "Function virDomainLxcEnterCGroup not available prior to libvirt version 2.0.0");
 #else
-    int ret = virDomainLxcEnterCGroup(domain, flags);
+    ret = virDomainLxcEnterCGroup(domain,
+                                  flags);
     if (ret < 0) {
         virCopyLastError(err);
     }
-    return ret;
 #endif
+    return ret;
 }
-
 
 int
 virDomainLxcEnterNamespaceWrapper(virDomainPtr domain,
                                   unsigned int nfdlist,
-                                  int *fdlist,
-                                  unsigned int *noldfdlist,
-                                  int **oldfdlist,
+                                  int * fdlist,
+                                  unsigned int * noldfdlist,
+                                  int ** oldfdlist,
                                   unsigned int flags,
                                   virErrorPtr err)
 {
-    int ret = virDomainLxcEnterNamespace(domain, nfdlist, fdlist, noldfdlist, oldfdlist, flags);
+    int ret = -1;
+#if !LIBVIR_CHECK_VERSION(1, 0, 2)
+    setVirError(err, "Function virDomainLxcEnterNamespace not available prior to libvirt version 1.0.2");
+#else
+    ret = virDomainLxcEnterNamespace(domain,
+                                     nfdlist,
+                                     fdlist,
+                                     noldfdlist,
+                                     oldfdlist,
+                                     flags);
     if (ret < 0) {
         virCopyLastError(err);
     }
+#endif
     return ret;
 }
-
 
 int
 virDomainLxcEnterSecurityLabelWrapper(virSecurityModelPtr model,
@@ -78,27 +92,40 @@ virDomainLxcEnterSecurityLabelWrapper(virSecurityModelPtr model,
                                       unsigned int flags,
                                       virErrorPtr err)
 {
-    int ret = virDomainLxcEnterSecurityLabel(model, label, oldlabel, flags);
+    int ret = -1;
+#if !LIBVIR_CHECK_VERSION(1, 0, 4)
+    setVirError(err, "Function virDomainLxcEnterSecurityLabel not available prior to libvirt version 1.0.4");
+#else
+    ret = virDomainLxcEnterSecurityLabel(model,
+                                         label,
+                                         oldlabel,
+                                         flags);
     if (ret < 0) {
         virCopyLastError(err);
     }
+#endif
     return ret;
 }
-
 
 int
 virDomainLxcOpenNamespaceWrapper(virDomainPtr domain,
-                                 int **fdlist,
+                                 int ** fdlist,
                                  unsigned int flags,
                                  virErrorPtr err)
 {
-    int ret = virDomainLxcOpenNamespace(domain, fdlist, flags);
+    int ret = -1;
+#if !LIBVIR_CHECK_VERSION(1, 0, 2)
+    setVirError(err, "Function virDomainLxcOpenNamespace not available prior to libvirt version 1.0.2");
+#else
+    ret = virDomainLxcOpenNamespace(domain,
+                                    fdlist,
+                                    flags);
     if (ret < 0) {
         virCopyLastError(err);
     }
+#endif
     return ret;
 }
-
 
 */
 import "C"

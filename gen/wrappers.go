@@ -317,6 +317,23 @@ func getEnumString(enum APIEnum) string {
 	}
 }
 
+func getBuildCondition(module string) string {
+	return strings.Replace(module, "-", "_without_", 1)
+}
+
+var currentModuleName string
+
+// The Wrapper template will use this function prior to generate the
+// wrapper code. We should set currentModuleName with the matching
+// file name
+func isCurrentModule(input string) bool {
+	return input == currentModuleName
+}
+
+func setCurrentModule(input string) {
+	currentModuleName = input
+}
+
 func getAPIPathPkgConfig(varname, modname string) (string, error) {
 	cmd := exec.Command("pkg-config", "--variable="+varname, modname)
 
@@ -385,19 +402,46 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 	}
 
 	fnMap := template.FuncMap{
-		"contains":        strings.Contains,
-		"indent":          indentArgs,
-		"getVersionMajor": getVersionMajor,
-		"getVersionMinor": getVersionMinor,
-		"getVersionMicro": getVersionMicro,
-		"getIncludeName":  getIncludeName,
-		"getEnumString":   getEnumString,
+		"hasSuffix":         strings.HasSuffix,
+		"contains":          strings.Contains,
+		"indent":            indentArgs,
+		"handleFile":        isCurrentModule,
+		"getVersionMajor":   getVersionMajor,
+		"getVersionMinor":   getVersionMinor,
+		"getVersionMicro":   getVersionMicro,
+		"getIncludeName":    getIncludeName,
+		"getEnumString":     getEnumString,
+		"getBuildCondition": getBuildCondition,
 	}
 
 	for _, outputSuffix := range outputFiles {
 		output := strings.Replace(api.Name, "-", "_", -1) + "_" + outputSuffix
 		input := path.Join("gen", "api_"+outputSuffix+".tmpl")
 		runTemplate(input, output, fnMap, &api)
+	}
+
+	// For the function Wrappers, we will break them down in several files
+	// based on api.Files[i].Name. The template is the same for all of them.
+	modes := []string{"static"}
+	for _, mode := range modes {
+		input := path.Join("gen", "api_generated_functions_"+mode+".go.tmpl")
+		for _, file := range api.Files {
+			output := strings.Replace(api.Name, "-", "_", -1) + "_generated_functions_" + mode
+			if api.Name == file.Name {
+				output += ".go"
+			} else {
+				if strings.HasPrefix(file.Name, "libvirt-") {
+					output += "_" + strings.ReplaceAll(file.Name[8:], "-", "_") + ".go"
+				} else {
+					output += "_" + strings.ReplaceAll(file.Name, "-", "_") + ".go"
+				}
+			}
+
+			// This way the template engine will only parse functions that have
+			// a matching file name.
+			setCurrentModule(file.Name)
+			runTemplate(input, output, fnMap, &api)
+		}
 	}
 
 	return &api, nil

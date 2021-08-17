@@ -1,0 +1,141 @@
+{{- if ne .Name "libvirt" -}}
+//go:build !{{ getBuildCondition .Name }} && !libvirt_dlopen
+// +build !{{ getBuildCondition .Name }},!libvirt_dlopen
+{{ else -}}
+//go:build !libvirt_dlopen
+// +build !libvirt_dlopen
+{{ end }}
+/*
+ * This file is part of the libvirt-go-module project
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * Copyright (C) 2022 Red Hat, Inc.
+ *
+ */
+
+{{- /* The C comment bellow is intended for the output of this template.*/}}
+/****************************************************************************
+ * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
+ ****************************************************************************/
+
+package libvirt
+
+/*
+#cgo pkg-config: {{ .Name }}
+#include <assert.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include "{{ getIncludeName .Name }}_generated.h"
+#include "error_helper.h"
+
+{{ with .Functions }}
+    {{- range . }}
+        {{- if eq .Name "virCopyLastError" }}
+            {{- /* This was hardcoded above. Generic code goes to the else block. */}}
+        {{- else if not (handleFile .File) }}
+            {{- /* This particular function should not be handled now */}}
+        {{- else }}
+            {{- /* Concat arguments for the C function prototype, the C function call /*}}
+            {{- /* and the CGO Wrapper definition. */}}
+            {{- $prototypeArgs := "void" }}
+            {{- $callArgs := "" }}
+            {{- with .Args }}
+                {{- $nargs := len . }}
+                {{- range $i, $e := . }}
+                    {{- $newArg := (printf "%s %s" $e.Type $e.Name) }}
+                    {{- if eq $i 0 }}
+                        {{- $prototypeArgs = $newArg }}
+                        {{- $callArgs = $e.Name }}
+                    {{- else }}
+                        {{- $prototypeArgs = (printf "%s,%s" $prototypeArgs $newArg) }}
+                        {{- $callArgs = (printf "%s,%s" $callArgs $e.Name) }}
+                    {{- end }}
+                {{- end }}
+            {{- end }}
+
+            {{- /* The arguments of cgo Wrapper function is the prototype plus "virErrorPtr err" if */}}
+            {{- /* return value is not void */}}
+            {{- $wrapperArgs := "void" }}
+            {{- if eq .Return.Type "void" }}
+                {{- if ne $prototypeArgs "void" }}
+                    {{- $wrapperArgs = $prototypeArgs }}
+                {{- end }}
+            {{- else }}
+                {{- if ne $prototypeArgs "void" }}
+                    {{- $wrapperArgs = (printf "%s,virErrorPtr err" $prototypeArgs) }}
+                {{- else }}
+                    {{- $wrapperArgs = "virErrorPtr err" }}
+                {{- end }}
+            {{- end }}
+
+            {{- /* Define logic based on return type of this function */}}
+            {{- $retCheck := "(ret < 0)" }}
+            {{- $retDefault := "-1" }}
+            {{- if hasSuffix .Return.Type "Ptr" }}
+                {{- $retCheck = "(!ret)" }}
+                {{- $retDefault = "NULL" }}
+            {{- else if hasSuffix .Return.Type "*" }}
+                {{- $retCheck = "(!ret)" }}
+                {{- $retDefault = "NULL" }}
+            {{- else if contains .Return.Type "unsigned" }}
+                {{- $retCheck = "(ret == 0)" }}
+                {{- $retDefault = "0" }}
+            {{- end }}
+
+            {{- /* Define some variables to make template easier to follow */}}
+            {{- $mayHaveRet := "" }}
+            {{- $mayDefineRet := "" }}
+            {{- $mayReturnRet := "return;" }}
+            {{- $mayHaveVirErr := "NULL" }}
+            {{- if ne .Return.Type "void" }}
+                {{- $mayHaveRet = "ret = " }}
+                {{- $mayDefineRet = (printf "    %s ret = %s;" .Return.Type $retDefault) }}
+                {{- $mayReturnRet = "return ret;" }}
+                {{- $mayHaveVirErr = "err" }}
+            {{- end }}
+
+            {{- /* The part below is where the variables are evaluated. */}}
+            {{- /* The indentation changes to produce a nicer output */}}
+
+            {{- $wrapperPrefix := (printf "%sWrapper(" .Name) }}
+{{ .Return.Type }}
+{{ $wrapperPrefix }}{{ indent $wrapperArgs $wrapperPrefix}})
+{
+{{ $mayDefineRet }}
+#if !LIBVIR_CHECK_VERSION({{ getVersionMajor .Version }}, {{ getVersionMinor .Version }}, {{ getVersionMicro .Version }})
+    setVirError({{ $mayHaveVirErr }}, "Function {{ .Name }} not available prior to libvirt version {{ .Version }}");
+#else
+{{ $callSymbolPrefix := (printf "    %s%s(" $mayHaveRet .Name) }}
+{{- $callSymbolPrefix }}{{ indent $callArgs $callSymbolPrefix }});
+            {{- if ne .Return.Type "void" }}
+    if {{ $retCheck }} {
+        virCopyLastError(err);
+    }
+            {{- end }}{{/* if ne .Return.Type "void" */}}
+#endif
+    {{ $mayReturnRet }}
+}
+{{ end }}{{- /* if-else */}}
+{{- end }}{{- /* range */}}
+{{- end }}{{- /* with .Functions */}}
+*/
+import "C"
+{{- /* vim: set syntax=gotexttmpl : */}}

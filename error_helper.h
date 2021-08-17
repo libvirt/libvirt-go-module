@@ -19,28 +19,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * Copyright (C) 2021 Red Hat, Inc.
+ * Copyright (c) 2013 Alex Zorin
+ * Copyright (C) 2016 Red Hat, Inc.
  *
  */
 
-package libvirt
-
-/*
-#cgo pkg-config: libvirt
-#include "libvirt_generated.h"
+#ifndef LIBVIRT_GO_ERROR_HELPER_H__
+#define LIBVIRT_GO_ERROR_HELPER_H__
 
 void
-virResetErrorWrapper(virErrorPtr err)
-{
-    virResetError(err);
-}
+setVirError(virErrorPtr err, const char *message);
 
-void
-virSetErrorFuncWrapper(void *userData,
-                       virErrorFunc handler)
-{
-    virSetErrorFunc(userData, handler);
-}
-
-*/
-import "C"
+#endif /* LIBVIRT_GO_ERROR_HELPER_H__ */

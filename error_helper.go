@@ -28,46 +28,21 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <assert.h>
+#include <string.h>
 #include "libvirt_generated.h"
 
-
-int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
-                                            virNodeDevicePtr dev,
-                                            int eventID,
-                                            virConnectNodeDeviceEventGenericCallback cb,
-                                            void *opaque,
-                                            virFreeCallback freecb,
-                                            virErrorPtr err)
+void
+setVirError(virErrorPtr err, const char *message)
 {
-#if LIBVIR_VERSION_NUMBER < 2002000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectNodeDeviceEventRegisterAny(conn, dev, eventID,
-                                                   cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
+    if (err == NULL) {
+        return;
     }
-    return ret;
-#endif
-}
+    memset(err, 0, sizeof(*err));
 
-
-int
-virConnectNodeDeviceEventDeregisterAnyWrapper(virConnectPtr conn,
-                                              int callbackID,
-                                              virErrorPtr err)
-{
-#if LIBVIR_VERSION_NUMBER < 2002000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectNodeDeviceEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    err->code = VIR_ERR_INTERNAL_ERROR;
+    err->domain = VIR_FROM_NONE;
+    err->message = strdup(message);
+    err->level = VIR_ERR_ERROR;
 }
 
 */
