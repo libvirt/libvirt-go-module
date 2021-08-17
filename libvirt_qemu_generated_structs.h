@@ -19,13 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * Copyright (c) 2013 Alex Zorin
- * Copyright (C) 2016 Red Hat, Inc.
+ * Copyright (C) 2022 Red Hat, Inc.
  *
  */
+/****************************************************************************
+ * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
+ ****************************************************************************/
 
-#ifndef LIBVIRT_GO_CONNECT_COMPAT_H__
-#define LIBVIRT_GO_CONNECT_COMPAT_H__
-
-
-#endif /* LIBVIRT_GO_CONNECT_COMPAT_H__ */
+#pragma once

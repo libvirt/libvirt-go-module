@@ -379,9 +379,11 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 		"generated_enums.h",
 		"generated_typedefs.h",
 		"generated_callbacks.h",
+		"generated_structs.h",
 	}
 
 	fnMap := template.FuncMap{
+		"contains":        strings.Contains,
 		"indent":          indentArgs,
 		"getVersionMajor": getVersionMajor,
 		"getVersionMinor": getVersionMinor,

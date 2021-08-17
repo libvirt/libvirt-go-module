@@ -26,11 +26,5 @@
 #ifndef LIBVIRT_GO_NETWORK_PORT_COMPAT_H__
 #define LIBVIRT_GO_NETWORK_PORT_COMPAT_H__
 
-/* 5.5.0 */
-
-#if LIBVIR_VERSION_NUMBER < 5005000
-typedef struct _virNetworkPort *virNetworkPortPtr;
-#endif
-
 
 #endif /* LIBVIRT_GO_NETWORK_PORT_COMPAT_H__ */

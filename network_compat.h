@@ -28,24 +28,4 @@
 #define LIBVIRT_GO_NETWORK_COMPAT_H__
 
 
-/* 1.2.5 */
-
-
-#if LIBVIR_VERSION_NUMBER < 1002006
-typedef struct _virNetworkDHCPLease virNetworkDHCPLease;
-typedef virNetworkDHCPLease *virNetworkDHCPLeasePtr;
-struct _virNetworkDHCPLease {
-    char *iface;                /* Network interface name */
-    long long expirytime;       /* Seconds since epoch */
-    int type;                   /* virIPAddrType */
-    char *mac;                  /* MAC address */
-    char *iaid;                 /* IAID */
-    char *ipaddr;               /* IP address */
-    unsigned int prefix;        /* IP address prefix */
-    char *hostname;             /* Hostname */
-    char *clientid;             /* Client ID or DUID */
-};
-#endif
-
-
 #endif /* LIBVIRT_GO_NETWORK_COMPAT_H__ */

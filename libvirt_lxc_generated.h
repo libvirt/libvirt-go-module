@@ -37,3 +37,4 @@
 #include "libvirt_lxc_generated_enums.h"
 #include "libvirt_lxc_generated_typedefs.h"
 #include "libvirt_lxc_generated_callbacks.h"
+#include "libvirt_lxc_generated_structs.h"

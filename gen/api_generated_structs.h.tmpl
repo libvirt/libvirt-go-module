@@ -22,17 +22,46 @@
  * Copyright (C) 2022 Red Hat, Inc.
  *
  */
+
+{{- /* The C comment bellow is intended for the output of this template.*/}}
 /****************************************************************************
  * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
  ****************************************************************************/
 
 #pragma once
 
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
+{{- with .Structs }}
+    {{- $lastStructType := "" }}
+    {{- range . }}
+        {{- if ne .Exported true -}}
+        {{- continue -}}
+        {{- end -}}
+        {{- /* Avoid duplicates */}}
+        {{- if ne $lastStructType .Type }}
+            {{- $lastStructType = .Type }}
 
-#include "libvirt_generated_macros.h"
-#include "libvirt_generated_enums.h"
-#include "libvirt_generated_typedefs.h"
-#include "libvirt_generated_callbacks.h"
-#include "libvirt_generated_structs.h"
+#if !LIBVIR_CHECK_VERSION({{ getVersionMajor .Version }}, {{ getVersionMinor .Version }}, {{ getVersionMicro .Version }})
+{{ .Type }} {
+            {{- range .Fields }}
+                {{- if eq .Type "union" }}
+  union {
+                    {{- range .Union.Fields }}
+                        {{- if contains .Type "[" }}
+    {{ .Type }};
+                        {{- else }}
+    {{ .Type }} {{ .Name}};
+                        {{- end }}
+                    {{- end }}
+  } {{ .Name }};
+                {{- else if contains .Type "[" }}
+  {{ .Type }};
+                {{- else }}
+  {{ .Type }} {{ .Name}};
+                {{- end }}
+            {{- end }}
+};
+#endif
+{{ end -}}
+{{ end }}
+{{- end }}
+{{- /* vim: set syntax=gotexttmpl : */}}

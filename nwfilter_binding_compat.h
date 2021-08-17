@@ -26,9 +26,5 @@
 #ifndef LIBVIRT_GO_NWFILTER_BINDING_COMPAT_H__
 #define LIBVIRT_GO_NWFILTER_BINDING_COMPAT_H__
 
-#if LIBVIR_VERSION_NUMBER < 4005000
-typedef struct _virNWFilterBinding *virNWFilterBindingPtr;
-#endif
-
 
 #endif /* LIBVIRT_GO_NWFILTER_BINDING_COMPAT_H__ */

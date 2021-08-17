@@ -26,11 +26,5 @@
 #ifndef LIBVIRT_GO_DOMAIN_CHECKPOINT_COMPAT_H__
 #define LIBVIRT_GO_DOMAIN_CHECKPOINT_COMPAT_H__
 
-/* 5.6.0 */
-
-#if LIBVIR_VERSION_NUMBER < 5006000
-typedef struct _virDomainCheckpoint *virDomainCheckpointPtr;
-#endif
-
 
 #endif /* LIBVIRT_GO_DOMAIN_CHECKPOINT_COMPAT_H__ */
