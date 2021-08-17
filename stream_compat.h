@@ -27,10 +27,5 @@
 #ifndef LIBVIRT_GO_STREAM_COMPAT_H__
 #define LIBVIRT_GO_STREAM_COMPAT_H__
 
-/* 3.4.0 */
-
-#ifndef VIR_STREAM_RECV_STOP_AT_HOLE
-#define VIR_STREAM_RECV_STOP_AT_HOLE (1 << 0)
-#endif
 
 #endif /* LIBVIRT_GO_STREAM_COMPAT_H__ */

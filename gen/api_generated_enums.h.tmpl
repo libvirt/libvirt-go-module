@@ -30,14 +30,20 @@
 
 #pragma once
 
-#include <libvirt/{{ .Name }}.h>
-#include <libvirt/virterror.h>
+{{- with .Enums }}
+    {{- $lastTypeDefined := "" }}
+    {{- range . }}
+        {{- if ne $lastTypeDefined .Type }}
+            {{- if ne $lastTypeDefined "" }}
 
-{{- if ne .Name "libvirt" }}
+            {{- end }}
+            {{- $lastTypeDefined = .Type }}
 
-#include "libvirt_generated.h"
-{{- end }}
-
-#include "{{ getIncludeName .Name }}_generated_macros.h"
-#include "{{ getIncludeName .Name }}_generated_enums.h"
+/* enum {{ .Type }} */
+        {{- end }}
+#  if !LIBVIR_CHECK_VERSION({{ getVersionMajor .Version }}, {{ getVersionMinor .Version }}, {{ getVersionMicro .Version }})
+#    define {{ .Name }} {{ getEnumString . }}
+#  endif
+    {{- end }}
+{{ end }}
 {{- /* vim: set syntax=gotexttmpl : */}}

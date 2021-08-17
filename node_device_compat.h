@@ -29,45 +29,11 @@
 
 /* 2.2.0 */
 
-#ifndef VIR_NODE_DEVICE_EVENT_ID_LIFECYCLE
-#define VIR_NODE_DEVICE_EVENT_ID_LIFECYCLE 0
-#endif
-
-#ifndef VIR_NODE_DEVICE_EVENT_ID_UPDATE
-#define VIR_NODE_DEVICE_EVENT_ID_UPDATE 1
-#endif
-
-#ifndef VIR_NODE_DEVICE_EVENT_CREATED
-#define VIR_NODE_DEVICE_EVENT_CREATED 0
-#endif
-
-#ifndef VIR_NODE_DEVICE_EVENT_DELETED
-#define VIR_NODE_DEVICE_EVENT_DELETED 1
-#endif
 
 #if LIBVIR_VERSION_NUMBER < 2002000
 typedef void (*virConnectNodeDeviceEventGenericCallback)(virConnectPtr conn,
                                                          virNodeDevicePtr dev,
                                                          void *opaque);
 #endif
-
-#ifndef VIR_NODE_DEVICE_EVENT_DEFINED
-#define VIR_NODE_DEVICE_EVENT_DEFINED 1
-#endif
-
-#ifndef VIR_NODE_DEVICE_EVENT_UNDEFINED
-#define VIR_NODE_DEVICE_EVENT_UNDEFINED 1
-#endif
-
-/* 8.10.0 */
-
-#ifndef VIR_NODE_DEVICE_CREATE_XML_VALIDATE
-#define VIR_NODE_DEVICE_CREATE_XML_VALIDATE (1 << 0)
-#endif
-
-#ifndef VIR_NODE_DEVICE_DEFINE_XML_VALIDATE
-#define VIR_NODE_DEVICE_DEFINE_XML_VALIDATE (1 << 0)
-#endif
-
 
 #endif /* LIBVIRT_GO_NODE_DEVICE_COMPAT_H__ */

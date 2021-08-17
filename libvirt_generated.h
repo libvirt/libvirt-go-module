@@ -32,3 +32,4 @@
 #include <libvirt/virterror.h>
 
 #include "libvirt_generated_macros.h"
+#include "libvirt_generated_enums.h"

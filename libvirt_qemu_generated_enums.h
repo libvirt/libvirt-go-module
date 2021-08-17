@@ -22,22 +22,42 @@
  * Copyright (C) 2022 Red Hat, Inc.
  *
  */
-
-{{- /* The C comment bellow is intended for the output of this template.*/}}
 /****************************************************************************
  * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
  ****************************************************************************/
 
 #pragma once
 
-#include <libvirt/{{ .Name }}.h>
-#include <libvirt/virterror.h>
+/* enum virConnectDomainQemuMonitorEventRegisterFlags */
+#  if !LIBVIR_CHECK_VERSION(1, 2, 3)
+#    define VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_REGEX (1 << 0)
+#  endif
+#  if !LIBVIR_CHECK_VERSION(1, 2, 3)
+#    define VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_NOCASE (1 << 1)
+#  endif
 
-{{- if ne .Name "libvirt" }}
+/* enum virDomainQemuAgentCommandTimeoutValues */
+#  if !LIBVIR_CHECK_VERSION(0, 10, 0)
+#    define VIR_DOMAIN_QEMU_AGENT_COMMAND_BLOCK VIR_DOMAIN_AGENT_RESPONSE_TIMEOUT_BLOCK
+#  endif
+#  if !LIBVIR_CHECK_VERSION(0, 10, 0)
+#    define VIR_DOMAIN_QEMU_AGENT_COMMAND_MIN VIR_DOMAIN_AGENT_RESPONSE_TIMEOUT_BLOCK
+#  endif
+#  if !LIBVIR_CHECK_VERSION(0, 10, 0)
+#    define VIR_DOMAIN_QEMU_AGENT_COMMAND_DEFAULT VIR_DOMAIN_AGENT_RESPONSE_TIMEOUT_DEFAULT
+#  endif
+#  if !LIBVIR_CHECK_VERSION(0, 10, 0)
+#    define VIR_DOMAIN_QEMU_AGENT_COMMAND_NOWAIT VIR_DOMAIN_AGENT_RESPONSE_TIMEOUT_NOWAIT
+#  endif
+#  if !LIBVIR_CHECK_VERSION(1, 2, 15)
+#    define VIR_DOMAIN_QEMU_AGENT_COMMAND_SHUTDOWN 60
+#  endif
 
-#include "libvirt_generated.h"
-{{- end }}
+/* enum virDomainQemuMonitorCommandFlags */
+#  if !LIBVIR_CHECK_VERSION(0, 8, 8)
+#    define VIR_DOMAIN_QEMU_MONITOR_COMMAND_DEFAULT 0
+#  endif
+#  if !LIBVIR_CHECK_VERSION(0, 8, 8)
+#    define VIR_DOMAIN_QEMU_MONITOR_COMMAND_HMP (1 << 0)
+#  endif
 
-#include "{{ getIncludeName .Name }}_generated_macros.h"
-#include "{{ getIncludeName .Name }}_generated_enums.h"
-{{- /* vim: set syntax=gotexttmpl : */}}

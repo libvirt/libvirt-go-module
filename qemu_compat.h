@@ -39,19 +39,5 @@ typedef void (*virConnectDomainQemuMonitorEventCallback)(virConnectPtr conn,
                                                          void *opaque);
 #endif
 
-#ifndef VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_REGEX
-#define VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_REGEX (1 << 0)
-#endif
-
-#ifndef VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_NOCASE
-#define VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_NOCASE (1 << 1)
-#endif
-
-/* 1.2.15 */
-
-#ifndef VIR_DOMAIN_QEMU_AGENT_COMMAND_SHUTDOWN
-#define VIR_DOMAIN_QEMU_AGENT_COMMAND_SHUTDOWN 60
-#endif
-
 
 #endif /* LIBVIRT_GO_QEMU_COMPAT_H__ */

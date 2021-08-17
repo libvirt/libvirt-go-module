@@ -34,3 +34,4 @@
 #include "libvirt_generated.h"
 
 #include "libvirt_qemu_generated_macros.h"
+#include "libvirt_qemu_generated_enums.h"

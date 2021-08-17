@@ -32,16 +32,5 @@
 typedef struct _virNetworkPort *virNetworkPortPtr;
 #endif
 
-#ifndef VIR_NETWORK_PORT_CREATE_RECLAIM
-#define VIR_NETWORK_PORT_CREATE_RECLAIM (1 << 0)
-#endif
-
-
-/* 7.8.0 */
-
-#ifndef VIR_NETWORK_PORT_CREATE_VALIDATE
-#define VIR_NETWORK_PORT_CREATE_VALIDATE (1 << 1)
-#endif
-
 
 #endif /* LIBVIRT_GO_NETWORK_PORT_COMPAT_H__ */

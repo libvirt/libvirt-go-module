@@ -298,6 +298,19 @@ func getIncludeName(module string) string {
 	return strings.Replace(module, "-", "_", -1)
 }
 
+func getEnumString(enum APIEnum) string {
+	if enum.ValueBitshift != "" {
+		mod := ""
+		val, err := strconv.ParseInt(enum.ValueBitshift, 10, 64)
+		if err == nil && val >= 31 {
+			mod = "U"
+		}
+		return "(1" + mod + " << " + enum.ValueBitshift + ")"
+	} else {
+		return enum.Value
+	}
+}
+
 func getAPIPathPkgConfig(varname, modname string) (string, error) {
 	cmd := exec.Command("pkg-config", "--variable="+varname, modname)
 
@@ -357,6 +370,7 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 	outputFiles := []string{
 		"generated.h",
 		"generated_macros.h",
+		"generated_enums.h",
 	}
 
 	fnMap := template.FuncMap{
@@ -364,6 +378,7 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 		"getVersionMinor": getVersionMinor,
 		"getVersionMicro": getVersionMicro,
 		"getIncludeName":  getIncludeName,
+		"getEnumString":   getEnumString,
 	}
 
 	for _, outputSuffix := range outputFiles {

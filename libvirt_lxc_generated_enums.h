@@ -22,22 +22,8 @@
  * Copyright (C) 2022 Red Hat, Inc.
  *
  */
-
-{{- /* The C comment bellow is intended for the output of this template.*/}}
 /****************************************************************************
  * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
  ****************************************************************************/
 
 #pragma once
-
-#include <libvirt/{{ .Name }}.h>
-#include <libvirt/virterror.h>
-
-{{- if ne .Name "libvirt" }}
-
-#include "libvirt_generated.h"
-{{- end }}
-
-#include "{{ getIncludeName .Name }}_generated_macros.h"
-#include "{{ getIncludeName .Name }}_generated_enums.h"
-{{- /* vim: set syntax=gotexttmpl : */}}
