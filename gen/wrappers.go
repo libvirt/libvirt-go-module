@@ -317,6 +317,16 @@ func getEnumString(enum APIEnum) string {
 	}
 }
 
+func getFunctionName(module string) string {
+	bits := strings.Split(module, "-")
+	for i, _ := range bits {
+		if i > 0 {
+			bits[i] = strings.ToUpper(bits[i][:1]) + bits[i][1:]
+		}
+	}
+	return strings.Join(bits, "")
+}
+
 func getBuildCondition(module string) string {
 	return strings.Replace(module, "-", "_without_", 1)
 }
@@ -399,6 +409,8 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 		"generated_structs.h",
 		"generated_variables.h",
 		"generated_functions.h",
+		"generated_dlopen.h",
+		"generated_dlopen.go",
 	}
 
 	fnMap := template.FuncMap{
@@ -411,6 +423,7 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 		"getVersionMicro":   getVersionMicro,
 		"getIncludeName":    getIncludeName,
 		"getEnumString":     getEnumString,
+		"getFunctionName":   getFunctionName,
 		"getBuildCondition": getBuildCondition,
 	}
 
