@@ -38,6 +38,7 @@ import (
 #cgo pkg-config: libvirt
 #include <stdlib.h>
 #include "connect_wrapper.h"
+#include "domain_wrapper.h"
 */
 import "C"
 
@@ -3364,7 +3365,10 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 	}
 
 	for i := 0; i < len(stats); i++ {
-		C.virDomainRef(stats[i].Domain.ptr)
+		ret := C.virDomainRefWrapper(stats[i].Domain.ptr, &err)
+		if ret < 0 {
+			return []DomainStats{}, makeError(&err)
+		}
 	}
 
 	return stats, nil
