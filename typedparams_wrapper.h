@@ -121,6 +121,9 @@ virTypedParamsGetStringWrapper(virTypedParameterPtr params,
 			       const char *name,
 			       const char **value,
 			       virErrorPtr err);
+void
+virTypedParamsFreeWrapper(virTypedParameterPtr params,
+			  int nparams);
 
 
 #endif /* LIBVIRT_GO_TYPEDPARAMS_WRAPPER_H__ */

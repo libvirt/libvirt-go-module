@@ -234,7 +234,7 @@ func typedParamsPackNew(infomap map[string]typedParamsFieldInfo) (*C.virTypedPar
 	var nparams C.int
 	var maxparams C.int
 
-	defer C.virTypedParamsFree(cparams, nparams)
+	defer C.virTypedParamsFreeWrapper(cparams, nparams)
 
 	for name, value := range infomap {
 		if !*value.set {

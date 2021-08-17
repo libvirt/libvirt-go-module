@@ -39,6 +39,7 @@ import (
 #include <stdlib.h>
 #include "connect_wrapper.h"
 #include "domain_wrapper.h"
+#include "typedparams_wrapper.h"
 */
 import "C"
 
@@ -592,7 +593,7 @@ func (c *Connect) SetIdentity(ident *ConnectIdentity, flags uint32) error {
 		return gerr
 	}
 
-	defer C.virTypedParamsFree(cparams, cnparams)
+	defer C.virTypedParamsFreeWrapper(cparams, cnparams)
 
 	var err C.virError
 	ret := C.virConnectSetIdentityWrapper(c.ptr, cparams, cnparams, C.uint(flags), &err)
@@ -2078,7 +2079,7 @@ func (c *Connect) GetMemoryParameters(flags uint32) (*NodeMemoryParameters, erro
 	}
 
 	cparams := typedParamsNew(cnparams)
-	defer C.virTypedParamsFree(cparams, cnparams)
+	defer C.virTypedParamsFreeWrapper(cparams, cnparams)
 	ret = C.virNodeGetMemoryParametersWrapper(c.ptr, cparams, &cnparams, C.uint(flags), &err)
 	if ret == -1 {
 		return nil, makeError(&err)
@@ -2171,7 +2172,7 @@ func (c *Connect) SetMemoryParameters(params *NodeMemoryParameters, flags uint32
 		return gerr
 	}
 
-	defer C.virTypedParamsFree(cparams, cnparams)
+	defer C.virTypedParamsFreeWrapper(cparams, cnparams)
 
 	var err C.virError
 	ret := C.virNodeSetMemoryParametersWrapper(c.ptr, cparams, cnparams, C.uint(flags), &err)
@@ -2504,7 +2505,7 @@ func (c *Connect) DomainRestoreParams(params DomainSaveRestoreParams, flags Doma
 		return gerr
 	}
 
-	defer C.virTypedParamsFree(cparams, cnparams)
+	defer C.virTypedParamsFreeWrapper(cparams, cnparams)
 
 	var err C.virError
 	if result := C.virDomainRestoreParamsWrapper(c.ptr, cparams, cnparams, C.uint(flags), &err); result == -1 {
@@ -3442,7 +3443,7 @@ func (c *Connect) GetSEVInfo(flags uint32) (*NodeSEVParameters, error) {
 		return nil, makeError(&err)
 	}
 
-	defer C.virTypedParamsFree(cparams, cnparams)
+	defer C.virTypedParamsFreeWrapper(cparams, cnparams)
 
 	_, gerr := typedParamsUnpack(cparams, cnparams, info)
 	if gerr != nil {

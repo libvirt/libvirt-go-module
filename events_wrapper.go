@@ -153,6 +153,22 @@ virEventRegisterDefaultImplWrapper(virErrorPtr err)
 }
 
 
+void
+virEventUpdateHandleWrapper(int watch,
+                            int events)
+{
+    virEventUpdateHandle(watch, events);
+}
+
+
+void
+virEventUpdateTimeoutWrapper(int timer,
+                             int timeout)
+{
+    virEventUpdateTimeout(timer, timeout);
+}
+
+
 int
 virEventRemoveHandleWrapper(int watch,
                             virErrorPtr err)

@@ -96,7 +96,7 @@ func EventAddHandle(fd int, events EventHandleType, callback EventHandleCallback
 
 // See also https://libvirt.org/html/libvirt-libvirt-event.html#virEventUpdateHandle
 func EventUpdateHandle(watch int, events EventHandleType) {
-	C.virEventUpdateHandle((C.int)(watch), (C.int)(events))
+	C.virEventUpdateHandleWrapper((C.int)(watch), (C.int)(events))
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-event.html#virEventRemoveHandle
@@ -139,7 +139,7 @@ func EventAddTimeout(freq int, callback EventTimeoutCallback) (int, error) {
 
 // See also https://libvirt.org/html/libvirt-libvirt-event.html#virEventUpdateTimeout
 func EventUpdateTimeout(timer int, freq int) {
-	C.virEventUpdateTimeout((C.int)(timer), (C.int)(freq))
+	C.virEventUpdateTimeoutWrapper((C.int)(timer), (C.int)(freq))
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-event.html#virEventRemoveTimeout

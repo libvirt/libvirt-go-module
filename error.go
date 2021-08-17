@@ -28,9 +28,7 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
-#include "error_compat.h"
+#include "error_wrapper.h"
 
 void ignoreErrorFunc(void *userData, virErrorPtr error) {
      // no-op
@@ -43,7 +41,7 @@ import (
 )
 
 func init() {
-	C.virSetErrorFunc(nil, (C.virErrorFunc)(C.ignoreErrorFunc))
+	C.virSetErrorFuncWrapper(nil, (C.virErrorFunc)(C.ignoreErrorFunc))
 }
 
 type ErrorLevel int
@@ -644,7 +642,7 @@ func makeError(err *C.virError) Error {
 		Message: C.GoString(err.message),
 		Level:   ErrorLevel(err.level),
 	}
-	C.virResetError(err)
+	C.virResetErrorWrapper(err)
 	return ret
 }
 

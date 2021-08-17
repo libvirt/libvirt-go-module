@@ -67,6 +67,14 @@ virEventAddTimeoutWrapper(int timeout,
 int
 virEventRegisterDefaultImplWrapper(virErrorPtr err);
 
+void
+virEventUpdateHandleWrapper(int watch,
+			    int events);
+
+void
+virEventUpdateTimeoutWrapper(int timer,
+			     int timeout);
+
 int
 virEventRemoveHandleWrapper(int watch,
                             virErrorPtr err);

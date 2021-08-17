@@ -233,6 +233,12 @@ virTypedParamsGetStringWrapper(virTypedParameterPtr params,
     return ret;
 }
 
+void
+virTypedParamsFreeWrapper(virTypedParameterPtr params,
+                          int nparams)
+{
+    virTypedParamsFree(params, nparams);
+}
 
 
 */
