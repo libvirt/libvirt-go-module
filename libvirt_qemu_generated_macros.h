@@ -19,29 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * Copyright (C) 2019 Red Hat, Inc.
+ * Copyright (C) 2022 Red Hat, Inc.
  *
  */
+/****************************************************************************
+ * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
+ ****************************************************************************/
 
-#ifndef LIBVIRT_GO_NETWORK_PORT_COMPAT_H__
-#define LIBVIRT_GO_NETWORK_PORT_COMPAT_H__
-
-/* 5.5.0 */
-
-#if LIBVIR_VERSION_NUMBER < 5005000
-typedef struct _virNetworkPort *virNetworkPortPtr;
-#endif
-
-#ifndef VIR_NETWORK_PORT_CREATE_RECLAIM
-#define VIR_NETWORK_PORT_CREATE_RECLAIM (1 << 0)
-#endif
-
-
-/* 7.8.0 */
-
-#ifndef VIR_NETWORK_PORT_CREATE_VALIDATE
-#define VIR_NETWORK_PORT_CREATE_VALIDATE (1 << 1)
-#endif
-
-
-#endif /* LIBVIRT_GO_NETWORK_PORT_COMPAT_H__ */
+#pragma once

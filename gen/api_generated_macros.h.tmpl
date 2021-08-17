@@ -19,29 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * Copyright (C) 2019 Red Hat, Inc.
+ * Copyright (C) 2022 Red Hat, Inc.
  *
  */
 
-#ifndef LIBVIRT_GO_NETWORK_PORT_COMPAT_H__
-#define LIBVIRT_GO_NETWORK_PORT_COMPAT_H__
+{{- /* The C comment bellow is intended for the output of this template.*/}}
+/****************************************************************************
+ * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
+ ****************************************************************************/
 
-/* 5.5.0 */
+#pragma once
 
-#if LIBVIR_VERSION_NUMBER < 5005000
-typedef struct _virNetworkPort *virNetworkPortPtr;
+{{- with .Macros }}
+    {{- range . }}
+      {{- if eq .Params "" }}
+
+#if !LIBVIR_CHECK_VERSION({{ getVersionMajor .Version }}, {{ getVersionMinor .Version }}, {{ getVersionMicro .Version }})
+          {{- if ne .String "" }}
+#  define {{ .Name }} "{{ .String }}"
+          {{- else }}
+#  define {{ .Name }} {{ .Raw }}
+          {{- end }}
 #endif
-
-#ifndef VIR_NETWORK_PORT_CREATE_RECLAIM
-#define VIR_NETWORK_PORT_CREATE_RECLAIM (1 << 0)
-#endif
-
-
-/* 7.8.0 */
-
-#ifndef VIR_NETWORK_PORT_CREATE_VALIDATE
-#define VIR_NETWORK_PORT_CREATE_VALIDATE (1 << 1)
-#endif
-
-
-#endif /* LIBVIRT_GO_NETWORK_PORT_COMPAT_H__ */
+      {{- end }}
+    {{- end }}
+{{- end }}
+{{- /* vim: set syntax=gotexttmpl : */}}

@@ -36,5 +36,7 @@
 {{- if ne .Name "libvirt" }}
 
 #include "libvirt_generated.h"
-{{- end -}}
+{{- end }}
+
+#include "{{ getIncludeName .Name }}_generated_macros.h"
 {{- /* vim: set syntax=gotexttmpl : */}}

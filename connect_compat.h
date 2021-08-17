@@ -34,13 +34,6 @@
 #endif
 
 
-/* 1.2.2 */
-
-#ifndef VIR_NODE_CPU_STATS_INTR
-#define VIR_NODE_CPU_STATS_INTR "intr"
-#endif
-
-
 /* 1.2.6 */
 
 #ifndef VIR_CONNECT_COMPARE_CPU_FAIL_INCOMPATIBLE
@@ -173,22 +166,6 @@ struct _virDomainStatsRecord {
 
 /* 4.5.0 */
 
-#ifndef VIR_NODE_SEV_CBITPOS
-#define VIR_NODE_SEV_CBITPOS "cbitpos"
-#endif
-
-#ifndef VIR_NODE_SEV_REDUCED_PHYS_BITS
-#define VIR_NODE_SEV_REDUCED_PHYS_BITS "reduced-phys-bits"
-#endif
-
-#ifndef VIR_NODE_SEV_PDH
-#define VIR_NODE_SEV_PDH "pdh"
-#endif
-
-#ifndef VIR_NODE_SEV_CERT_CHAIN
-#define VIR_NODE_SEV_CERT_CHAIN "cert-chain"
-#endif
-
 #if LIBVIR_VERSION_NUMBER < 4005000
 typedef struct _virNWFilterBinding *virNWFilterBindingPtr;
 #endif
@@ -209,45 +186,6 @@ typedef struct _virNWFilterBinding *virNWFilterBindingPtr;
 
 #ifndef VIR_CONNECT_LIST_DOMAINS_NO_CHECKPOINT
 # define VIR_CONNECT_LIST_DOMAINS_NO_CHECKPOINT (1 << 15)
-#endif
-
-
-/* 5.8.0 */
-
-#ifndef VIR_CONNECT_IDENTITY_USER_NAME
-#define VIR_CONNECT_IDENTITY_USER_NAME "user-name"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_UNIX_USER_ID
-#define VIR_CONNECT_IDENTITY_UNIX_USER_ID "unix-user-id"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_GROUP_NAME
-#define VIR_CONNECT_IDENTITY_GROUP_NAME "group-name"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_UNIX_GROUP_ID
-#define VIR_CONNECT_IDENTITY_UNIX_GROUP_ID "unix-group-id"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_PROCESS_ID
-#define VIR_CONNECT_IDENTITY_PROCESS_ID "process-id"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_PROCESS_TIME
-#define VIR_CONNECT_IDENTITY_PROCESS_TIME "process-time"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_SASL_USER_NAME
-#define VIR_CONNECT_IDENTITY_SASL_USER_NAME "sasl-user-name"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_X509_DISTINGUISHED_NAME
-#define VIR_CONNECT_IDENTITY_X509_DISTINGUISHED_NAME "x509-distinguished-name"
-#endif
-
-#ifndef VIR_CONNECT_IDENTITY_SELINUX_CONTEXT
-#define VIR_CONNECT_IDENTITY_SELINUX_CONTEXT "selinux-context"
 #endif
 
 
@@ -297,23 +235,6 @@ typedef struct _virNWFilterBinding *virNWFilterBindingPtr;
 
 #ifndef VIR_CONNECT_LIST_NODE_DEVICES_CAP_VPD
 #define VIR_CONNECT_LIST_NODE_DEVICES_CAP_VPD 1 << 21
-#endif
-
-
-/* 8.0.0 */
-
-#ifndef VIR_NODE_SEV_MAX_GUESTS
-#define VIR_NODE_SEV_MAX_GUESTS "max-guests"
-#endif
-
-#ifndef VIR_NODE_SEV_MAX_ES_GUESTS
-#define VIR_NODE_SEV_MAX_ES_GUESTS "max-es-guests"
-#endif
-
-/* 8.4.0 */
-
-#ifndef VIR_NODE_SEV_CPU0_ID
-#define VIR_NODE_SEV_CPU0_ID "cpu0-id"
 #endif
 
 

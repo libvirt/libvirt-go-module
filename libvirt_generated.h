@@ -30,3 +30,5 @@
 
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
+
+#include "libvirt_generated_macros.h"

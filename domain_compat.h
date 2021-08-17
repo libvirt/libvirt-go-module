@@ -27,25 +27,6 @@
 #ifndef LIBVIRT_GO_DOMAIN_COMPAT_H__
 #define LIBVIRT_GO_DOMAIN_COMPAT_H__
 
-/* 1.2.2 */
-
-#ifndef VIR_DOMAIN_BLKIO_DEVICE_READ_IOPS
-#define VIR_DOMAIN_BLKIO_DEVICE_READ_IOPS "device_read_iops_sec"
-#endif
-
-#ifndef VIR_DOMAIN_BLKIO_DEVICE_WRITE_IOPS
-#define VIR_DOMAIN_BLKIO_DEVICE_WRITE_IOPS "device_write_iops_sec"
-#endif
-
-#ifndef VIR_DOMAIN_BLKIO_DEVICE_READ_BPS
-#define VIR_DOMAIN_BLKIO_DEVICE_READ_BPS "device_read_bytes_sec"
-#endif
-
-#ifndef VIR_DOMAIN_BLKIO_DEVICE_WRITE_BPS
-#define VIR_DOMAIN_BLKIO_DEVICE_WRITE_BPS "device_write_bytes_sec"
-#endif
-
-
 /* 1.2.3 */
 
 #ifndef VIR_DOMAIN_CORE_DUMP_FORMAT_RAW
@@ -119,18 +100,6 @@
 #define VIR_DOMAIN_BLOCK_COPY_REUSE_EXT 1 << 1
 #endif
 
-#ifndef VIR_DOMAIN_BLOCK_COPY_BANDWIDTH
-#define VIR_DOMAIN_BLOCK_COPY_BANDWIDTH "bandwidth"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_COPY_GRANULARITY
-#define VIR_DOMAIN_BLOCK_COPY_GRANULARITY "granularity"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_COPY_BUF_SIZE
-#define VIR_DOMAIN_BLOCK_COPY_BUF_SIZE "buf-size"
-#endif
-
 #ifndef VIR_DOMAIN_STATS_STATE
 #define VIR_DOMAIN_STATS_STATE 1 << 0
 #endif
@@ -159,18 +128,6 @@
 
 #ifndef VIR_DOMAIN_BLOCK_REBASE_BANDWIDTH_BYTES
 #define VIR_DOMAIN_BLOCK_REBASE_BANDWIDTH_BYTES 1 << 6
-#endif
-
-#ifndef VIR_DOMAIN_JOB_DISK_BPS
-#define VIR_DOMAIN_JOB_DISK_BPS "disk_bps"
-#endif
-
-#ifndef VIR_DOMAIN_JOB_MEMORY_BPS
-#define VIR_DOMAIN_JOB_MEMORY_BPS "memory_bps"
-#endif
-
-#ifndef VIR_DOMAIN_JOB_SETUP_TIME
-#define VIR_DOMAIN_JOB_SETUP_TIME "setup_time"
 #endif
 
 #ifndef VIR_DOMAIN_JOB_STATS_COMPLETED
@@ -209,120 +166,11 @@
 #define VIR_DOMAIN_EVENT_ID_TUNABLE 17
 #endif
 
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_DISK
-#define VIR_DOMAIN_TUNABLE_BLKDEV_DISK "blkdeviotune.disk"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_BYTES_SEC
-#define VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_BYTES_SEC "blkdeviotune.total_bytes_sec"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_READ_BYTES_SEC
-#define VIR_DOMAIN_TUNABLE_BLKDEV_READ_BYTES_SEC "blkdeviotune.read_bytes_sec"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_BYTES_SEC
-#define VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_BYTES_SEC "blkdeviotune.write_bytes_sec"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_IOPS_SEC
-#define VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_IOPS_SEC "blkdeviotune.total_iops_sec"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_READ_IOPS_SEC
-#define VIR_DOMAIN_TUNABLE_BLKDEV_READ_IOPS_SEC "blkdeviotune.read_iops_sec"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_IOPS_SEC
-#define VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_IOPS_SEC "blkdeviotune.write_iops_sec"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_CPU_SHARES
-#define VIR_DOMAIN_TUNABLE_CPU_CPU_SHARES "cputune.cpu_shares"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_EMULATORPIN
-#define VIR_DOMAIN_TUNABLE_CPU_EMULATORPIN "cputune.emulatorpin"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_EMULATOR_PERIOD
-#define VIR_DOMAIN_TUNABLE_CPU_EMULATOR_PERIOD "cputune.emulator_period"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_EMULATOR_QUOTA
-#define VIR_DOMAIN_TUNABLE_CPU_EMULATOR_QUOTA "cputune.emulator_quota"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_VCPU_PERIOD
-#define VIR_DOMAIN_TUNABLE_CPU_VCPU_PERIOD "cputune.vcpu_period"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_VCPU_QUOTA
-#define VIR_DOMAIN_TUNABLE_CPU_VCPU_QUOTA "cputune.vcpu_quota"
-#endif
-
-
 
 /* 1.2.11 */
 
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_BYTES_SEC_MAX
-#define VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_BYTES_SEC_MAX "blkdeviotune.total_bytes_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_READ_BYTES_SEC_MAX
-#define VIR_DOMAIN_TUNABLE_BLKDEV_READ_BYTES_SEC_MAX "blkdeviotune.read_bytes_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_BYTES_SEC_MAX
-#define VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_BYTES_SEC_MAX "blkdeviotune.write_bytes_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_IOPS_SEC_MAX
-#define VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_IOPS_SEC_MAX "blkdeviotune.total_iops_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_READ_IOPS_SEC_MAX
-#define VIR_DOMAIN_TUNABLE_BLKDEV_READ_IOPS_SEC_MAX "blkdeviotune.read_iops_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_IOPS_SEC_MAX
-#define VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_IOPS_SEC_MAX "blkdeviotune.write_iops_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_SIZE_IOPS_SEC
-#define VIR_DOMAIN_TUNABLE_BLKDEV_SIZE_IOPS_SEC "blkdeviotune.size_iops_sec"
-#endif
-
 #ifndef VIR_DOMAIN_EVENT_ID_AGENT_LIFECYCLE
 #define VIR_DOMAIN_EVENT_ID_AGENT_LIFECYCLE 18
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_BYTES_SEC_MAX
-#define VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_BYTES_SEC_MAX "total_bytes_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_READ_BYTES_SEC_MAX
-#define VIR_DOMAIN_BLOCK_IOTUNE_READ_BYTES_SEC_MAX "read_bytes_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_WRITE_BYTES_SEC_MAX
-#define VIR_DOMAIN_BLOCK_IOTUNE_WRITE_BYTES_SEC_MAX "write_bytes_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_IOPS_SEC_MAX
-#define VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_IOPS_SEC_MAX "total_iops_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_READ_IOPS_SEC_MAX
-#define VIR_DOMAIN_BLOCK_IOTUNE_READ_IOPS_SEC_MAX "read_iops_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_WRITE_IOPS_SEC_MAX
-#define VIR_DOMAIN_BLOCK_IOTUNE_WRITE_IOPS_SEC_MAX "write_iops_sec_max"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_SIZE_IOPS_SEC
-#define VIR_DOMAIN_BLOCK_IOTUNE_SIZE_IOPS_SEC "size_iops_sec"
 #endif
 
 #if LIBVIR_VERSION_NUMBER < 1002011
@@ -409,14 +257,6 @@ struct _virDomainInterface {
 
 /* 1.2.15 */
 
-#ifndef VIR_DOMAIN_JOB_DOWNTIME_NET
-#define VIR_DOMAIN_JOB_DOWNTIME_NET "downtime_net"
-#endif
-
-#ifndef VIR_DOMAIN_JOB_TIME_ELAPSED_NET
-#define VIR_DOMAIN_JOB_TIME_ELAPSED_NET "time_elapsed_net"
-#endif
-
 #ifndef VIR_DOMAIN_EVENT_ID_DEVICE_ADDED
 #define VIR_DOMAIN_EVENT_ID_DEVICE_ADDED 19
 #endif
@@ -435,16 +275,7 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_EVENT_WATCHDOG_INJECTNMI 6
 #endif
 
-#ifndef VIR_MIGRATE_PARAM_MIGRATE_DISKS
-#define VIR_MIGRATE_PARAM_MIGRATE_DISKS "migrate_disks"
-#endif
-
-
 /* 1.2.19 */
-
-#ifndef VIR_DOMAIN_BANDWIDTH_IN_FLOOR
-#define VIR_DOMAIN_BANDWIDTH_IN_FLOOR "inbound.floor"
-#endif
 
 #ifndef VIR_DOMAIN_EVENT_DEFINED_RENAMED
 #define VIR_DOMAIN_EVENT_DEFINED_RENAMED 2
@@ -453,18 +284,6 @@ struct _virDomainInterface {
 #ifndef VIR_DOMAIN_EVENT_UNDEFINED_RENAMED
 #define VIR_DOMAIN_EVENT_UNDEFINED_RENAMED 1
 #endif
-
-
-/* 1.3.1 */
-
-#ifndef VIR_DOMAIN_JOB_MEMORY_DIRTY_RATE
-#define VIR_DOMAIN_JOB_MEMORY_DIRTY_RATE "memory_dirty_rate"
-#endif
-
-#ifndef VIR_DOMAIN_JOB_MEMORY_ITERATION
-#define VIR_DOMAIN_JOB_MEMORY_ITERATION "memory_iteration"
-#endif
-
 
 /* 1.3.2 */
 
@@ -503,24 +322,8 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_RUNNING_POSTCOPY 10
 #endif
 
-#ifndef VIR_DOMAIN_SCHEDULER_GLOBAL_PERIOD
-#define VIR_DOMAIN_SCHEDULER_GLOBAL_PERIOD "global_period"
-#endif
-
-#ifndef VIR_DOMAIN_SCHEDULER_GLOBAL_QUOTA
-#define VIR_DOMAIN_SCHEDULER_GLOBAL_QUOTA "global_quota"
-#endif
-
 #ifndef VIR_DOMAIN_STATS_PERF
 #define VIR_DOMAIN_STATS_PERF (1 << 6)
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_DISKS_PORT
-#define VIR_MIGRATE_PARAM_DISKS_PORT "disks_port"
-#endif
-
-#ifndef VIR_PERF_PARAM_CMT
-#define VIR_PERF_PARAM_CMT "cmt"
 #endif
 
 #ifndef VIR_MIGRATE_POSTCOPY
@@ -531,69 +334,12 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_EVENT_ID_JOB_COMPLETED 21
 #endif
 
-#ifndef VIR_DOMAIN_TUNABLE_CPU_GLOBAL_PERIOD
-#define VIR_DOMAIN_TUNABLE_CPU_GLOBAL_PERIOD "cputune.global_period"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_GLOBAL_QUOTA
-#define VIR_DOMAIN_TUNABLE_CPU_GLOBAL_QUOTA "cputune.global_quota"
-#endif
-
 /* 1.3.4 */
-
-#ifndef VIR_MIGRATE_PARAM_COMPRESSION
-#define VIR_MIGRATE_PARAM_COMPRESSION  "compression"
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_COMPRESSION_MT_THREADS
-#define VIR_MIGRATE_PARAM_COMPRESSION_MT_THREADS "compression.mt.threads"
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_COMPRESSION_MT_DTHREADS
-#define VIR_MIGRATE_PARAM_COMPRESSION_MT_DTHREADS "compression.mt.dthreads"
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_COMPRESSION_MT_LEVEL
-#define VIR_MIGRATE_PARAM_COMPRESSION_MT_LEVEL "compression.mt.level"
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_COMPRESSION_XBZRLE_CACHE
-#define VIR_MIGRATE_PARAM_COMPRESSION_XBZRLE_CACHE "compression.xbzrle.cache"
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_PERSIST_XML
-#define VIR_MIGRATE_PARAM_PERSIST_XML "persistent_xml"
-#endif
 
 #ifndef VIR_DOMAIN_EVENT_ID_DEVICE_REMOVAL_FAILED
 #define VIR_DOMAIN_EVENT_ID_DEVICE_REMOVAL_FAILED 22
 #endif
 
-
-/* 1.3.5 */
-
-#ifndef VIR_PERF_PARAM_MBML
-#define VIR_PERF_PARAM_MBML "mbml"
-#endif
-
-#ifndef VIR_PERF_PARAM_MBMT
-#define VIR_PERF_PARAM_MBMT "mbmt"
-#endif
-
-
-/* 2.0.0 */
-
-#ifndef VIR_DOMAIN_JOB_AUTO_CONVERGE_THROTTLE
-#define VIR_DOMAIN_JOB_AUTO_CONVERGE_THROTTLE "auto_converge_throttle"
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_AUTO_CONVERGE_INITIAL
-#define VIR_MIGRATE_PARAM_AUTO_CONVERGE_INITIAL "auto_converge.initial"
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_AUTO_CONVERGE_INCREMENT
-#define VIR_MIGRATE_PARAM_AUTO_CONVERGE_INCREMENT "auto_converge.increment"
-#endif
 
 /* 2.1.0 */
 
@@ -605,24 +351,6 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_MEMORY_STAT_LAST_UPDATE 9
 #endif
 
-/* 2.2.0 */
-
-#ifndef VIR_DOMAIN_SCHEDULER_IOTHREAD_PERIOD
-#define VIR_DOMAIN_SCHEDULER_IOTHREAD_PERIOD "iothread_period"
-#endif
-
-#ifndef VIR_DOMAIN_SCHEDULER_IOTHREAD_QUOTA
-#define VIR_DOMAIN_SCHEDULER_IOTHREAD_QUOTA "iothread_quota"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_IOTHREAD_PERIOD
-#define VIR_DOMAIN_TUNABLE_CPU_IOTHREAD_PERIOD "cputune.iothread_period"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_CPU_IOTHREAD_QUOTA
-# define VIR_DOMAIN_TUNABLE_CPU_IOTHREAD_QUOTA "cputune.iothread_quota"
-#endif
-
 
 /* 2.3.0 */
 
@@ -630,72 +358,8 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_UNDEFINE_KEEP_NVRAM (1 << 3)
 #endif
 
-#ifndef VIR_PERF_PARAM_CACHE_MISSES
-#define VIR_PERF_PARAM_CACHE_MISSES "cache_misses"
-#endif
-
-#ifndef VIR_PERF_PARAM_CACHE_REFERENCES
-#define VIR_PERF_PARAM_CACHE_REFERENCES "cache_references"
-#endif
-
-#ifndef VIR_PERF_PARAM_INSTRUCTIONS
-#define VIR_PERF_PARAM_INSTRUCTIONS "instructions"
-#endif
-
-#ifndef VIR_PERF_PARAM_CPU_CYCLES
-#define VIR_PERF_PARAM_CPU_CYCLES "cpu_cycles"
-#endif
-
 
 /* 2.4.0 */
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_READ_BYTES_SEC_MAX_LENGTH
-#define VIR_DOMAIN_BLOCK_IOTUNE_READ_BYTES_SEC_MAX_LENGTH "read_bytes_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_READ_IOPS_SEC_MAX_LENGTH
-#define VIR_DOMAIN_BLOCK_IOTUNE_READ_IOPS_SEC_MAX_LENGTH "read_iops_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_BYTES_SEC_MAX_LENGTH
-#define VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_BYTES_SEC_MAX_LENGTH "total_bytes_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_IOPS_SEC_MAX_LENGTH
-#define VIR_DOMAIN_BLOCK_IOTUNE_TOTAL_IOPS_SEC_MAX_LENGTH "total_iops_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_WRITE_BYTES_SEC_MAX_LENGTH
-#define VIR_DOMAIN_BLOCK_IOTUNE_WRITE_BYTES_SEC_MAX_LENGTH "write_bytes_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_WRITE_IOPS_SEC_MAX_LENGTH
-#define VIR_DOMAIN_BLOCK_IOTUNE_WRITE_IOPS_SEC_MAX_LENGTH "write_iopcs_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_BYTES_SEC_MAX_LENGTH
-#define VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_BYTES_SEC_MAX_LENGTH "blkdeviotune.total_bytes_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_READ_BYTES_SEC_MAX_LENGTH
-#define VIR_DOMAIN_TUNABLE_BLKDEV_READ_BYTES_SEC_MAX_LENGTH "blkdeviotune.read_bytes_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_BYTES_SEC_MAX_LENGTH
-#define VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_BYTES_SEC_MAX_LENGTH "blkdeviotune.write_bytes_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_IOPS_SEC_MAX_LENGTH
-#define VIR_DOMAIN_TUNABLE_BLKDEV_TOTAL_IOPS_SEC_MAX_LENGTH "blkdeviotune.total_iops_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_READ_IOPS_SEC_MAX_LENGTH
-#define VIR_DOMAIN_TUNABLE_BLKDEV_READ_IOPS_SEC_MAX_LENGTH "blkdeviotune.read_iops_sec_max_length"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_IOPS_SEC_MAX_LENGTH
-#define VIR_DOMAIN_TUNABLE_BLKDEV_WRITE_IOPS_SEC_MAX_LENGTH "blkdeviotune.write_iops_sec_max_length"
-#endif
 
 #ifndef VIR_DOMAIN_VCPU_HOTPLUGGABLE
 #define VIR_DOMAIN_VCPU_HOTPLUGGABLE (1 << 4)
@@ -703,76 +367,8 @@ struct _virDomainInterface {
 
 /* 3.0.0 */
 
-#ifndef VIR_PERF_PARAM_BRANCH_INSTRUCTIONS
-#define VIR_PERF_PARAM_BRANCH_INSTRUCTIONS "branch_instructions"
-#endif
-
-#ifndef VIR_PERF_PARAM_BRANCH_MISSES
-#define VIR_PERF_PARAM_BRANCH_MISSES "branch_misses"
-#endif
-
-#ifndef VIR_PERF_PARAM_BUS_CYCLES
-#define VIR_PERF_PARAM_BUS_CYCLES "bus_cycles"
-#endif
-
-#ifndef VIR_PERF_PARAM_STALLED_CYCLES_FRONTEND
-#define VIR_PERF_PARAM_STALLED_CYCLES_FRONTEND "stalled_cycles_frontend"
-#endif
-
-#ifndef VIR_PERF_PARAM_STALLED_CYCLES_BACKEND
-#define VIR_PERF_PARAM_STALLED_CYCLES_BACKEND "stalled_cycles_backend"
-#endif
-
-#ifndef VIR_PERF_PARAM_REF_CPU_CYCLES
-#define VIR_PERF_PARAM_REF_CPU_CYCLES "ref_cpu_cycles"
-#endif
-
-#ifndef VIR_PERF_PARAM_CPU_CLOCK
-#define VIR_PERF_PARAM_CPU_CLOCK "cpu_clock"
-#endif
-
-#ifndef VIR_PERF_PARAM_TASK_CLOCK
-#define VIR_PERF_PARAM_TASK_CLOCK "task_clock"
-#endif
-
-#ifndef VIR_PERF_PARAM_PAGE_FAULTS
-#define VIR_PERF_PARAM_PAGE_FAULTS "page_faults"
-#endif
-
-#ifndef VIR_PERF_PARAM_CONTEXT_SWITCHES
-#define VIR_PERF_PARAM_CONTEXT_SWITCHES "context_switches"
-#endif
-
-#ifndef VIR_PERF_PARAM_CPU_MIGRATIONS
-#define VIR_PERF_PARAM_CPU_MIGRATIONS "cpu_migrations"
-#endif
-
-#ifndef VIR_PERF_PARAM_PAGE_FAULTS_MIN
-#define VIR_PERF_PARAM_PAGE_FAULTS_MIN "page_faults_min"
-#endif
-
-#ifndef VIR_PERF_PARAM_PAGE_FAULTS_MAJ
-#define VIR_PERF_PARAM_PAGE_FAULTS_MAJ "page_faults_maj"
-#endif
-
-#ifndef VIR_PERF_PARAM_ALIGNMENT_FAULTS
-#define VIR_PERF_PARAM_ALIGNMENT_FAULTS "alignment_faults"
-#endif
-
-#ifndef VIR_PERF_PARAM_EMULATION_FAULTS
-#define VIR_PERF_PARAM_EMULATION_FAULTS "emulation_faults"
-#endif
-
 #ifndef VIR_DOMAIN_EVENT_ID_METADATA_CHANGE
 #define VIR_DOMAIN_EVENT_ID_METADATA_CHANGE 23
-#endif
-
-#ifndef VIR_DOMAIN_BLOCK_IOTUNE_GROUP_NAME
-#define VIR_DOMAIN_BLOCK_IOTUNE_GROUP_NAME "group_name"
-#endif
-
-#ifndef VIR_DOMAIN_TUNABLE_BLKDEV_GROUP_NAME
-#define VIR_DOMAIN_TUNABLE_BLKDEV_GROUP_NAME "blkdeviotune.group_name"
 #endif
 
 /* 3.2.0 */
@@ -786,10 +382,6 @@ struct _virDomainInterface {
 #endif
 
 /* 3.3.0 */
-
-#ifndef VIR_DOMAIN_JOB_OPERATION
-#define VIR_DOMAIN_JOB_OPERATION "operation"
-#endif
 
 #ifndef VIR_DOMAIN_JOB_OPERATION_UNKNOWN
 #define VIR_DOMAIN_JOB_OPERATION_UNKNOWN 0
@@ -848,10 +440,6 @@ struct _virDomainInterface {
 
 /* 3.9.0 */
 
-#ifndef VIR_DOMAIN_JOB_MEMORY_PAGE_SIZE
-#define VIR_DOMAIN_JOB_MEMORY_PAGE_SIZE "memory_page_size"
-#endif
-
 #ifndef VIR_DOMAIN_LIFECYCLE_POWEROFF
 #define VIR_DOMAIN_LIFECYCLE_POWEROFF 0
 #endif
@@ -898,13 +486,6 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_ARP 2
 #endif
 
-/* 4.5.0 */
-
-
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_MEASUREMENT
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_MEASUREMENT "sev-measurement"
-#endif
-
 /* 4.6.0 */
 
 #ifndef VIR_DOMAIN_MEMORY_STAT_DISK_CACHES
@@ -921,28 +502,8 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_STATS_IOTHREAD (1 << 7)
 #endif
 
-#ifndef VIR_DOMAIN_IOTHREAD_POLL_GROW
-#define VIR_DOMAIN_IOTHREAD_POLL_GROW "poll_grow"
-#endif
-
-#ifndef VIR_DOMAIN_IOTHREAD_POLL_SHRINK
-#define VIR_DOMAIN_IOTHREAD_POLL_SHRINK "poll_shrink"
-#endif
-
-#ifndef VIR_DOMAIN_IOTHREAD_POLL_MAX_NS
-#define VIR_DOMAIN_IOTHREAD_POLL_MAX_NS "poll_max_ns"
-#endif
-
-/* 5.0.0 */
-
-#ifndef VIR_DOMAIN_JOB_MEMORY_POSTCOPY_REQS
-#define VIR_DOMAIN_JOB_MEMORY_POSTCOPY_REQS "memory_postcopy_requests"
-#endif
 
 /* 5.1.0 */
-#ifndef VIR_MIGRATE_PARAM_BANDWIDTH_POSTCOPY
-#define VIR_MIGRATE_PARAM_BANDWIDTH_POSTCOPY "bandwidth.postcopy"
-#endif
 
 #ifndef VIR_DOMAIN_MIGRATE_MAX_SPEED_POSTCOPY
 #define VIR_DOMAIN_MIGRATE_MAX_SPEED_POSTCOPY (1 << 0)
@@ -960,10 +521,6 @@ struct _virDomainInterface {
 
 #ifndef VIR_MIGRATE_PARALLEL
 #define VIR_MIGRATE_PARALLEL (1 << 17)
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_PARALLEL_CONNECTIONS
-#define VIR_MIGRATE_PARAM_PARALLEL_CONNECTIONS "parallel.connections"
 #endif
 
 /* 5.4.0 */
@@ -1022,16 +579,8 @@ struct _virDomainInterface {
 
 /* 6.0.0 */
 
-#ifndef VIR_DOMAIN_JOB_SUCCESS
-#define VIR_DOMAIN_JOB_SUCCESS "success"
-#endif
-
 #ifndef VIR_DOMAIN_JOB_STATS_KEEP_COMPLETED
 #define VIR_DOMAIN_JOB_STATS_KEEP_COMPLETED (1 << 1)
-#endif
-
-#ifndef VIR_MIGRATE_PARAM_TLS_DESTINATION
-#define VIR_MIGRATE_PARAM_TLS_DESTINATION "tls.destination"
 #endif
 
 #ifndef VIR_DOMAIN_BLOCK_JOB_TYPE_BACKUP
@@ -1040,14 +589,6 @@ struct _virDomainInterface {
 
 #ifndef VIR_DOMAIN_JOB_OPERATION_BACKUP
 #define VIR_DOMAIN_JOB_OPERATION_BACKUP 9
-#endif
-
-#ifndef VIR_DOMAIN_JOB_DISK_TEMP_USED
-#define VIR_DOMAIN_JOB_DISK_TEMP_USED "disk_temp_used"
-#endif
-
-#ifndef VIR_DOMAIN_JOB_DISK_TEMP_TOTAL
-#define VIR_DOMAIN_JOB_DISK_TEMP_TOTAL "disk_temp_total"
 #endif
 
 #ifndef VIR_DOMAIN_BACKUP_BEGIN_REUSE_EXTERNAL
@@ -1070,19 +611,6 @@ struct _virDomainInterface {
 
 #ifndef VIR_DOMAIN_EVENT_CRASHED_CRASHLOADED
 #define VIR_DOMAIN_EVENT_CRASHED_CRASHLOADED 1
-#endif
-
-/* 6.3.0 */
-
-#ifndef VIR_DOMAIN_JOB_ERRMSG
-#define VIR_DOMAIN_JOB_ERRMSG "errmsg"
-#endif
-
-
-/* 6.8.0 */
-
-#ifndef VIR_MIGRATE_PARAM_DISKS_URI
-#define VIR_MIGRATE_PARAM_DISKS_URI "disks_uri"
 #endif
 
 
@@ -1210,33 +738,6 @@ struct _virDomainInterface {
 #define VIR_MIGRATE_NON_SHARED_SYNCHRONOUS_WRITES 1 << 18
 #endif
 
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_API_MAJOR
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_API_MAJOR "sev-api-major"
-#endif
-
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_API_MINOR
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_API_MINOR "sev-api-minor"
-#endif
-
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_BUILD_ID
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_BUILD_ID "sev-build-id"
-#endif
-
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_POLICY
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_POLICY "sev-policy"
-#endif
-
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET "sev-secret"
-#endif
-
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET_HEADER
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET_HEADER "sev-secret-header"
-#endif
-
-#ifndef VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET_SET_ADDRESS
-#define VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET_SET_ADDRESS "sev-secret-set-address"
-#endif
 
 /* 8.1.0 */
 
@@ -1267,16 +768,6 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_DESTROY_REMOVE_LOGS 1 << 1
 #endif
 
-/* 8.4.0 */
-
-#ifndef VIR_DOMAIN_SAVE_PARAM_FILE
-#define VIR_DOMAIN_SAVE_PARAM_FILE "file"
-#endif
-
-#ifndef VIR_DOMAIN_SAVE_PARAM_DXML
-#define VIR_DOMAIN_SAVE_PARAM_DXML "dxml"
-#endif
-
 /* 8.5.0 */
 
 #ifndef VIR_DOMAIN_ABORT_JOB_POSTCOPY
@@ -1300,13 +791,6 @@ struct _virDomainInterface {
 #define VIR_MIGRATE_ZEROCOPY 20
 #endif
 
-#ifndef VIR_DOMAIN_IOTHREAD_THREAD_POOL_MIN
-#define VIR_DOMAIN_IOTHREAD_THREAD_POOL_MIN "thread_pool_min"
-#endif
-
-#ifndef VIR_DOMAIN_IOTHREAD_THREAD_POOL_MAX
-#define VIR_DOMAIN_IOTHREAD_THREAD_POOL_MAX "thread_pool_max"
-#endif
 
 /* 8.9.0 */
 

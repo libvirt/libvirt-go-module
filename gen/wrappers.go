@@ -265,6 +265,39 @@ func (a *API) prepare(coreAPI *API) {
 	prepareStructs(a)
 }
 
+func versionToNumber(version string) (int, int, int) {
+	strv := strings.Split(version, ".")
+	if len(strv) != 3 {
+		panic(fmt.Sprintf("bad version: %v (%s)", strv, version))
+	}
+	major, err1 := strconv.Atoi(strv[0])
+	minor, err2 := strconv.Atoi(strv[1])
+	micro, err3 := strconv.Atoi(strv[2])
+	if err1 != nil || err2 != nil || err3 != nil {
+		panic(fmt.Sprintf("bad version: %v", strv))
+	}
+	return major, minor, micro
+}
+
+func getVersionMajor(version string) int {
+	major, _, _ := versionToNumber(version)
+	return major
+}
+
+func getVersionMinor(version string) int {
+	_, minor, _ := versionToNumber(version)
+	return minor
+}
+
+func getVersionMicro(version string) int {
+	_, _, micro := versionToNumber(version)
+	return micro
+}
+
+func getIncludeName(module string) string {
+	return strings.Replace(module, "-", "_", -1)
+}
+
 func getAPIPathPkgConfig(varname, modname string) (string, error) {
 	cmd := exec.Command("pkg-config", "--variable="+varname, modname)
 
@@ -323,9 +356,15 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 	// to similarly named template input file
 	outputFiles := []string{
 		"generated.h",
+		"generated_macros.h",
 	}
 
-	fnMap := template.FuncMap{}
+	fnMap := template.FuncMap{
+		"getVersionMajor": getVersionMajor,
+		"getVersionMinor": getVersionMinor,
+		"getVersionMicro": getVersionMicro,
+		"getIncludeName":  getIncludeName,
+	}
 
 	for _, outputSuffix := range outputFiles {
 		output := strings.Replace(api.Name, "-", "_", -1) + "_" + outputSuffix
