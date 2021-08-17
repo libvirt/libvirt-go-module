@@ -33,6 +33,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -157,7 +158,26 @@ type APIVariable struct {
 	Version string `xml:"version,attr"`
 }
 
-// Calculate raw values
+// Type which implements the interface for ordering the array of APIEnum
+type EnumByType []APIEnum
+
+func (a EnumByType) Len() int      { return len(a) }
+func (a EnumByType) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+func (a EnumByType) Less(i, j int) bool {
+	// First sort level is by type
+	if a[i].Type != a[j].Type {
+		return a[i].Type < a[j].Type
+	}
+	// Second sort level is hex value
+	if a[i].ValueRaw != a[j].ValueRaw {
+		return a[i].ValueRaw < a[j].ValueRaw
+	}
+	// Last is by name
+	return a[i].Name < a[j].Name
+}
+
+// Calculate raw values and sort the Enums first by Type and then by its raw value.
 func prepareEnums(a, coreAPI *API) {
 	enumValues := make(map[string]*APIEnum)
 	/* Some of the secondary API module enums are defined
@@ -188,6 +208,8 @@ func prepareEnums(a, coreAPI *API) {
 			}
 		}
 	}
+
+	sort.Sort(EnumByType(a.Enums))
 }
 
 func (a *API) prepare(coreAPI *API) {
