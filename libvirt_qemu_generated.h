@@ -28,8 +28,13 @@
 
 #pragma once
 
+#ifdef LIBVIRT_DLOPEN
+#define LIBVIR_CHECK_VERSION(a,b,c) 0
+#include <stddef.h>
+#else
 #include <libvirt/libvirt-qemu.h>
 #include <libvirt/virterror.h>
+#endif
 
 #include "libvirt_generated.h"
 

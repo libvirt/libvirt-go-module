@@ -435,7 +435,7 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 
 	// For the function Wrappers, we will break them down in several files
 	// based on api.Files[i].Name. The template is the same for all of them.
-	modes := []string{"static"}
+	modes := []string{"static", "dlopen"}
 	for _, mode := range modes {
 		input := path.Join("gen", "api_generated_functions_"+mode+".go.tmpl")
 		for _, file := range api.Files {
