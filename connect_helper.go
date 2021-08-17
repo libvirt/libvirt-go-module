@@ -71,7 +71,7 @@ virConnectOpenAuthDefaultHelper(const char *name,
                                 unsigned int flags,
                                 virErrorPtr err)
 {
-    return virConnectOpenAuthWrapper(name, virConnectAuthPtrDefault, flags, err);
+    return virConnectOpenAuthWrapper(name, *virConnectAuthPtrDefaultVar, flags, err);
 }
 
 

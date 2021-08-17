@@ -28,14 +28,5 @@
 
 #pragma once
 
-#include <libvirt/libvirt-qemu.h>
-#include <libvirt/virterror.h>
-
-#include "libvirt_generated.h"
-
-#include "libvirt_qemu_generated_macros.h"
-#include "libvirt_qemu_generated_enums.h"
-#include "libvirt_qemu_generated_typedefs.h"
-#include "libvirt_qemu_generated_callbacks.h"
-#include "libvirt_qemu_generated_structs.h"
-#include "libvirt_qemu_generated_variables.h"
+extern virConnectAuthPtr virConnectAuthPtrDefault;
+#define virConnectAuthPtrDefaultVar (&virConnectAuthPtrDefault)
