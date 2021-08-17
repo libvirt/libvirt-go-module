@@ -177,6 +177,20 @@ func (a EnumByType) Less(i, j int) bool {
 	return a[i].Name < a[j].Name
 }
 
+// Type which implements the interface for ordering the array of APIStruct
+type StructByType []APIStruct
+
+func (a StructByType) Len() int      { return len(a) }
+func (a StructByType) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a StructByType) Less(i, j int) bool {
+	// First sort level is by type
+	if a[i].Type != a[j].Type {
+		return a[i].Type < a[j].Type
+	}
+	// Last is by name
+	return a[i].Name < a[j].Name
+}
+
 // Calculate raw values and sort the Enums first by Type and then by its raw value.
 func prepareEnums(a, coreAPI *API) {
 	enumValues := make(map[string]*APIEnum)
@@ -212,11 +226,17 @@ func prepareEnums(a, coreAPI *API) {
 	sort.Sort(EnumByType(a.Enums))
 }
 
+// Removes duplicated by type
+func prepareStructs(a *API) {
+	sort.Sort(StructByType(a.Structs))
+}
+
 func (a *API) prepare(coreAPI *API) {
 	if coreAPI != nil {
 		prepareEnums(coreAPI, nil)
 	}
 	prepareEnums(a, coreAPI)
+	prepareStructs(a)
 }
 
 func getAPIPathPkgConfig(varname, modname string) (string, error) {
