@@ -19,31 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * Copyright (c) 2013 Alex Zorin
- * Copyright (C) 2016 Red Hat, Inc.
+ * Copyright (C) 2022 Red Hat, Inc.
  *
  */
+/****************************************************************************
+ * THIS CODE HAS BEEN GENERATED. DO NOT CHANGE IT DIRECTLY                  *
+ ****************************************************************************/
 
-#ifndef LIBVIRT_GO_NODE_DEVICE_EVENTS_WRAPPER_H__
-#define LIBVIRT_GO_NODE_DEVICE_EVENTS_WRAPPER_H__
+#pragma once
+
+#include <libvirt/libvirt-qemu.h>
+#include <libvirt/virterror.h>
 
 #include "libvirt_generated.h"
-#include "node_device_compat.h"
-
-
-int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
-                                            virNodeDevicePtr dev,
-                                            int eventID,
-                                            virConnectNodeDeviceEventGenericCallback cb,
-                                            void *opaque,
-                                            virFreeCallback freecb,
-                                            virErrorPtr err);
-
-int
-virConnectNodeDeviceEventDeregisterAnyWrapper(virConnectPtr conn,
-                                              int callbackID,
-					      virErrorPtr err);
-
-
-#endif /* LIBVIRT_GO_NODE_DEVICE_EVENTS_WRAPPER_H__ */

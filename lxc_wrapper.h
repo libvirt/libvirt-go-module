@@ -27,9 +27,7 @@
 #ifndef LIBVIRT_GO_LXC_COMPAT_H__
 #define LIBVIRT_GO_LXC_COMPAT_H__
 
-#include <libvirt/libvirt.h>
-#include <libvirt/libvirt-lxc.h>
-#include <libvirt/virterror.h>
+#include "libvirt_lxc_generated.h"
 
 
 int

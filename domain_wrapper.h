@@ -27,8 +27,7 @@
 #ifndef LIBVIRT_GO_DOMAIN_WRAPPER_H__
 #define LIBVIRT_GO_DOMAIN_WRAPPER_H__
 
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
+#include "libvirt_generated.h"
 #include "domain_compat.h"
 #include "domain_checkpoint_compat.h"
 

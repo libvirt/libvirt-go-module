@@ -27,8 +27,7 @@
 #ifndef LIBVIRT_GO_ERROR_WRAPPER_H__
 #define LIBVIRT_GO_ERROR_WRAPPER_H__
 
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
+#include "libvirt_generated.h"
 #include "error_compat.h"
 
 void virResetErrorWrapper(virErrorPtr err);

@@ -27,8 +27,7 @@
 #ifndef LIBVIRT_GO_STREAM_WRAPPER_H__
 #define LIBVIRT_GO_STREAM_WRAPPER_H__
 
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
+#include "libvirt_generated.h"
 #include "stream_compat.h"
 
 int

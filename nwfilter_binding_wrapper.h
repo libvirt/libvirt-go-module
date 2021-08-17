@@ -26,8 +26,7 @@
 #ifndef LIBVIRT_GO_NWFILTER_BINDING_WRAPPER_H__
 #define LIBVIRT_GO_NWFILTER_BINDING_WRAPPER_H__
 
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
+#include "libvirt_generated.h"
 #include "nwfilter_binding_compat.h"
 
 

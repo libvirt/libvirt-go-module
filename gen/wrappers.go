@@ -33,9 +33,11 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path"
 	"sort"
 	"strconv"
 	"strings"
+	"text/template"
 )
 
 type API struct {
@@ -281,6 +283,28 @@ func getAPIPathPkgConfig(varname, modname string) (string, error) {
 	return apixml, nil
 }
 
+func runTemplate(pathTemplate, pathOutput string, fnMap template.FuncMap, api *API) {
+	templateFile, err := os.ReadFile(pathTemplate)
+	if err != nil {
+		log.Fatalf("Input: %s", err)
+	}
+
+	tmpl, err := template.New(pathOutput).Funcs(fnMap).Parse(string(templateFile))
+	if err != nil {
+		log.Fatalf("Parsing: %s", err)
+	}
+
+	output, err := os.OpenFile(pathOutput, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	if err != nil {
+		log.Fatalf("Output: %s", err)
+	}
+
+	err = tmpl.Execute(output, api)
+	if err != nil {
+		log.Fatalf("Execution: %s", err)
+	}
+}
+
 func generate(apixml string, coreAPI *API) (*API, error) {
 	var api API
 	xmldata, err := ioutil.ReadFile(apixml)
@@ -294,6 +318,20 @@ func generate(apixml string, coreAPI *API) (*API, error) {
 	}
 
 	api.prepare(coreAPI)
+
+	// The suffix of the output file name, maps
+	// to similarly named template input file
+	outputFiles := []string{
+		"generated.h",
+	}
+
+	fnMap := template.FuncMap{}
+
+	for _, outputSuffix := range outputFiles {
+		output := strings.Replace(api.Name, "-", "_", -1) + "_" + outputSuffix
+		input := path.Join("gen", "api_"+outputSuffix+".tmpl")
+		runTemplate(input, output, fnMap, &api)
+	}
 
 	return &api, nil
 }
