@@ -1419,7 +1419,7 @@ func (c *Connect) NWFilterDefineXML(xmlConfig string) (*NWFilter, error) {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-nwfilter.html#virNWFilterDefineXMLFlags
-func (c *Connect) NWFilterDefineXMLFlags(xmlConfig string, flags uint) (*NWFilter, error) {
+func (c *Connect) NWFilterDefineXMLFlags(xmlConfig string, flags NWFilterDefineFlags) (*NWFilter, error) {
 	if C.LIBVIR_VERSION_NUMBER < 7007000 {
 		return nil, makeNotImplementedError("virNWFilterDefineXMLFlags")
 	}
