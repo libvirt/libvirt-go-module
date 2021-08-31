@@ -499,6 +499,12 @@ virNWFilterDefineXMLWrapper(virConnectPtr conn,
                             virErrorPtr err);
 
 virNWFilterPtr
+virNWFilterDefineXMLFlagsWrapper(virConnectPtr conn,
+                                 const char *xmlDesc,
+                                 unsigned int flags,
+                                 virErrorPtr err);
+
+virNWFilterPtr
 virNWFilterLookupByNameWrapper(virConnectPtr conn,
                                const char *name,
                                virErrorPtr err);

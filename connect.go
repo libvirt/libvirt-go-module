@@ -1403,6 +1403,21 @@ func (c *Connect) NWFilterDefineXML(xmlConfig string) (*NWFilter, error) {
 	return &NWFilter{ptr: ptr}, nil
 }
 
+// See also https://libvirt.org/html/libvirt-libvirt-nwfilter.html#virNWFilterDefineXMLFlags
+func (c *Connect) NWFilterDefineXMLFlags(xmlConfig string, flags uint) (*NWFilter, error) {
+	if C.LIBVIR_VERSION_NUMBER < 7007000 {
+		return nil, makeNotImplementedError("virNWFilterDefineXMLFlags")
+	}
+	cXml := C.CString(string(xmlConfig))
+	defer C.free(unsafe.Pointer(cXml))
+	var err C.virError
+	ptr := C.virNWFilterDefineXMLFlagsWrapper(c.ptr, cXml, C.uint(flags), &err)
+	if ptr == nil {
+		return nil, makeError(&err)
+	}
+	return &NWFilter{ptr: ptr}, nil
+}
+
 // See also https://libvirt.org/html/libvirt-libvirt-nwfilter.html#virNWFilterLookupByName
 func (c *Connect) LookupNWFilterByName(name string) (*NWFilter, error) {
 	cName := C.CString(name)
