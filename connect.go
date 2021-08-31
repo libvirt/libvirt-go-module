@@ -1170,7 +1170,7 @@ func (c *Connect) NetworkDefineXML(xmlConfig string) (*Network, error) {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkDefineXMLFlags
-func (c *Connect) NetworkDefineXMLFlags(xmlConfig string, flags uint) (*Network, error) {
+func (c *Connect) NetworkDefineXMLFlags(xmlConfig string, flags NetworkDefineFlags) (*Network, error) {
 	if C.LIBVIR_VERSION_NUMBER < 7007000 {
 		return nil, makeNotImplementedError("virNetworkDefineXMLFlags")
 	}
