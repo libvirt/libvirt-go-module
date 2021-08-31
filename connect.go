@@ -1515,7 +1515,7 @@ func (c *Connect) LookupStorageVolByPath(path string) (*StorageVol, error) {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-secret.html#virSecretDefineXML
-func (c *Connect) SecretDefineXML(xmlConfig string, flags uint32) (*Secret, error) {
+func (c *Connect) SecretDefineXML(xmlConfig string, flags SecretDefineFlags) (*Secret, error) {
 	cXml := C.CString(string(xmlConfig))
 	defer C.free(unsafe.Pointer(cXml))
 	var err C.virError
