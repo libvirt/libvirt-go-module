@@ -1326,7 +1326,7 @@ func (c *Connect) LookupInterfaceByMACString(mac string) (*Interface, error) {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-storage.html#virStoragePoolDefineXML
-func (c *Connect) StoragePoolDefineXML(xmlConfig string, flags uint32) (*StoragePool, error) {
+func (c *Connect) StoragePoolDefineXML(xmlConfig string, flags StoragePoolDefineFlags) (*StoragePool, error) {
 	cXml := C.CString(string(xmlConfig))
 	defer C.free(unsafe.Pointer(cXml))
 	var err C.virError
