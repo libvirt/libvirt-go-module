@@ -530,6 +530,12 @@ virNetworkDefineXMLWrapper(virConnectPtr conn,
                            virErrorPtr err);
 
 virNetworkPtr
+virNetworkDefineXMLFlagsWrapper(virConnectPtr conn,
+                                const char *xml,
+                                unsigned int flags,
+                                virErrorPtr err);
+
+virNetworkPtr
 virNetworkLookupByNameWrapper(virConnectPtr conn,
                               const char *name,
                               virErrorPtr err);
