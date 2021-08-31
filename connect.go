@@ -1290,7 +1290,7 @@ func (c *Connect) GetMaxVcpus(typeAttr string) (int, error) {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-interface.html#virInterfaceDefineXML
-func (c *Connect) InterfaceDefineXML(xmlConfig string, flags uint32) (*Interface, error) {
+func (c *Connect) InterfaceDefineXML(xmlConfig string, flags InterfaceDefineFlags) (*Interface, error) {
 	cXml := C.CString(string(xmlConfig))
 	defer C.free(unsafe.Pointer(cXml))
 	var err C.virError
