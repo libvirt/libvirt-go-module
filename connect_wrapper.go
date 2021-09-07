@@ -1281,6 +1281,24 @@ virNetworkCreateXMLWrapper(virConnectPtr conn,
 
 
 virNetworkPtr
+virNetworkCreateXMLFlagsWrapper(virConnectPtr conn,
+                                const char *xmlDesc,
+                                unsigned int flags,
+                                virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 7008000
+    assert(0); // Caller should have checked version
+#else
+    virNetworkPtr ret = virNetworkCreateXMLFlags(conn, xmlDesc, flags);
+    if (!ret) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+
+virNetworkPtr
 virNetworkDefineXMLWrapper(virConnectPtr conn,
                            const char *xml,
                            virErrorPtr err)

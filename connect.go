@@ -1196,6 +1196,22 @@ func (c *Connect) NetworkCreateXML(xmlConfig string) (*Network, error) {
 	return &Network{ptr: ptr}, nil
 }
 
+// See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkCreateXML
+func (c *Connect) NetworkCreateXMLFlags(xmlConfig string, flags NetworkCreateFlags) (*Network, error) {
+	if C.LIBVIR_VERSION_NUMBER < 7008000 {
+		return nil, makeNotImplementedError("virNetworkCreateXMLFlags")
+	}
+
+	cXml := C.CString(string(xmlConfig))
+	defer C.free(unsafe.Pointer(cXml))
+	var err C.virError
+	ptr := C.virNetworkCreateXMLFlagsWrapper(c.ptr, cXml, C.uint(flags), &err)
+	if ptr == nil {
+		return nil, makeError(&err)
+	}
+	return &Network{ptr: ptr}, nil
+}
+
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkLookupByName
 func (c *Connect) LookupNetworkByName(name string) (*Network, error) {
 	cName := C.CString(name)

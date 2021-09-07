@@ -53,6 +53,12 @@ const (
 	NETWORK_XML_INACTIVE = NetworkXMLFlags(C.VIR_NETWORK_XML_INACTIVE)
 )
 
+type NetworkCreateFlags uint
+
+const (
+	NETWORK_CREATE_VALIDATE = NetworkCreateFlags(C.VIR_NETWORK_CREATE_VALIDATE)
+)
+
 type NetworkDefineFlags uint
 
 const (
