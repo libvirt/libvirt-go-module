@@ -3381,7 +3381,7 @@ func (c *Connect) GetSEVInfo(flags uint32) (*NodeSEVParameters, error) {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-nwfilter.html#virNWFilterBindingCreateXML
-func (c *Connect) NWFilterBindingCreateXML(xmlConfig string, flags uint32) (*NWFilterBinding, error) {
+func (c *Connect) NWFilterBindingCreateXML(xmlConfig string, flags NWFilterBindingCreateFlags) (*NWFilterBinding, error) {
 	if C.LIBVIR_VERSION_NUMBER < 4005000 {
 		return nil, makeNotImplementedError("virNWFilterBindingCreateXML")
 	}
