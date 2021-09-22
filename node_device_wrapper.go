@@ -214,5 +214,39 @@ virNodeDeviceUndefineWrapper(virNodeDevicePtr dev,
 }
 
 
+int
+virNodeDeviceGetAutostartWrapper(virNodeDevicePtr dev,
+                                 int *autostart,
+                                 virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 7008000
+    assert(0); // Caller should have checked version
+#else
+    int ret = virNodeDeviceGetAutostart(dev, autostart);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+
+int
+virNodeDeviceSetAutostartWrapper(virNodeDevicePtr dev,
+                                 int autostart,
+                                 virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 7008000
+    assert(0); // Caller should have checked version
+#else
+    int ret = virNodeDeviceSetAutostart(dev, autostart);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+
 */
 import "C"

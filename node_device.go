@@ -218,3 +218,42 @@ func (p *NodeDevice) Undefine(flags uint32) error {
 	}
 	return nil
 }
+
+// See also https://libvirt.org/html/libvirt-libvirt-network.html#virNodeDeviceGetAutostart
+func (n *NodeDevice) GetAutostart() (bool, error) {
+	if C.LIBVIR_VERSION_NUMBER < 7008000 {
+		return false, makeNotImplementedError("virNodeDeviceGetAutostart")
+	}
+	var out C.int
+	var err C.virError
+	result := C.virNodeDeviceGetAutostartWrapper(n.ptr, (*C.int)(unsafe.Pointer(&out)), &err)
+	if result == -1 {
+		return false, makeError(&err)
+	}
+	switch out {
+	case 1:
+		return true, nil
+	default:
+		return false, nil
+	}
+}
+
+// See also https://libvirt.org/html/libvirt-libvirt-network.html#virNodeDeviceSetAutostart
+func (n *NodeDevice) SetAutostart(autostart bool) error {
+	if C.LIBVIR_VERSION_NUMBER < 7008000 {
+		return makeNotImplementedError("virNodeDeviceSetAutostart")
+	}
+	var cAutostart C.int
+	switch autostart {
+	case true:
+		cAutostart = 1
+	default:
+		cAutostart = 0
+	}
+	var err C.virError
+	result := C.virNodeDeviceSetAutostartWrapper(n.ptr, cAutostart, &err)
+	if result == -1 {
+		return makeError(&err)
+	}
+	return nil
+}
