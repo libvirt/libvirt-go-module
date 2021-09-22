@@ -257,3 +257,35 @@ func (n *NodeDevice) SetAutostart(autostart bool) error {
 	}
 	return nil
 }
+
+// See also https://libvirt.org/html/libvirt-libvirt-network.html#virNodeDeviceIsActive
+func (n *NodeDevice) IsActive() (bool, error) {
+	if C.LIBVIR_VERSION_NUMBER < 7008000 {
+		return false, makeNotImplementedError("virNodeDeviceIsActive")
+	}
+	var err C.virError
+	result := C.virNodeDeviceIsActiveWrapper(n.ptr, &err)
+	if result == -1 {
+		return false, makeError(&err)
+	}
+	if result == 1 {
+		return true, nil
+	}
+	return false, nil
+}
+
+// See also https://libvirt.org/html/libvirt-libvirt-network.html#virNodeDeviceIsPersistent
+func (n *NodeDevice) IsPersistent() (bool, error) {
+	if C.LIBVIR_VERSION_NUMBER < 7008000 {
+		return false, makeNotImplementedError("virNodeDeviceIsPersistent")
+	}
+	var err C.virError
+	result := C.virNodeDeviceIsPersistentWrapper(n.ptr, &err)
+	if result == -1 {
+		return false, makeError(&err)
+	}
+	if result == 1 {
+		return true, nil
+	}
+	return false, nil
+}

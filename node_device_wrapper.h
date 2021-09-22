@@ -104,4 +104,12 @@ virNodeDeviceSetAutostartWrapper(virNodeDevicePtr dev,
 				 int autostart,
 				 virErrorPtr err);
 
+int
+virNodeDeviceIsActiveWrapper(virNodeDevicePtr dev,
+                             virErrorPtr err);
+
+int
+virNodeDeviceIsPersistentWrapper(virNodeDevicePtr dev,
+                                 virErrorPtr err);
+
 #endif /* LIBVIRT_GO_NODE_DEVICE_WRAPPER_H__ */
