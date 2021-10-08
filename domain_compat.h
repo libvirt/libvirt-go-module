@@ -1188,4 +1188,11 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_CORE_DUMP_FORMAT_WIN_DMP 4
 #endif
 
+/* 7.9.0 */
+
+#ifndef VIR_DOMAIN_EVENT_ID_MEMORY_DEVICE_SIZE_CHANGE
+#define VIR_DOMAIN_EVENT_ID_MEMORY_DEVICE_SIZE_CHANGE 26
+#endif
+
+
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
