@@ -1863,8 +1863,8 @@ func (c *Connect) AllocPages(pageSizes map[int]int64, startCell int, cellCount u
 	}
 
 	var err C.virError
-	ret := C.virNodeAllocPagesWrapper(c.ptr, C.uint(len(pageSizes)), (*C.uint)(unsafe.Pointer(&cpages)),
-		(*C.ulonglong)(unsafe.Pointer(&ccounts)), C.int(startCell), C.uint(cellCount), C.uint(flags), &err)
+	ret := C.virNodeAllocPagesWrapper(c.ptr, C.uint(len(pageSizes)), (*C.uint)(unsafe.Pointer(&cpages[0])),
+		(*C.ulonglong)(unsafe.Pointer(&ccounts[0])), C.int(startCell), C.uint(cellCount), C.uint(flags), &err)
 	if ret == -1 {
 		return 0, makeError(&err)
 	}
