@@ -293,4 +293,12 @@ typedef struct _virNWFilterBinding *virNWFilterBindingPtr;
 #endif
 
 
+/* 7.9.0 */
+
+#ifndef VIR_CONNECT_LIST_NODE_DEVICES_CAP_VPD
+#define VIR_CONNECT_LIST_NODE_DEVICES_CAP_VPD 1 << 21
+#endif
+
+
+
 #endif /* LIBVIRT_GO_CONNECT_COMPAT_H__ */
