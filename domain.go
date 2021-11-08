@@ -908,6 +908,7 @@ const (
 	DOMAIN_GUEST_INFO_HOSTNAME   = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_HOSTNAME)
 	DOMAIN_GUEST_INFO_FILESYSTEM = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_FILESYSTEM)
 	DOMAIN_GUEST_INFO_DISKS      = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_DISKS)
+	DOMAIN_GUEST_INFO_INTERFACES = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_INTERFACES)
 )
 
 type DomainAgentSetResponseTimeoutValues int
@@ -5233,6 +5234,67 @@ func getDomainGuestInfoDiskLengthsFieldInfo(idx int, params *domainGuestInfoDisk
 	}
 }
 
+type DomainGuestInfoIPAddress struct {
+	TypeSet   bool
+	Type      string
+	AddrSet   bool
+	Addr      string
+	PrefixSet bool
+	Prefix    uint
+}
+
+func getDomainGuestInfoIPAddressFieldInfo(idx1, idx2 int, params *DomainGuestInfoIPAddress) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf("if.%d.addr.%d.type", idx1, idx2): typedParamsFieldInfo{
+			set: &params.TypeSet,
+			s:   &params.Type,
+		},
+		fmt.Sprintf("if.%d.addr.%d.addr", idx1, idx2): typedParamsFieldInfo{
+			set: &params.AddrSet,
+			s:   &params.Addr,
+		},
+		fmt.Sprintf("if.%d.addr.%d.prefix", idx1, idx2): typedParamsFieldInfo{
+			set: &params.PrefixSet,
+			ui:  &params.Prefix,
+		},
+	}
+}
+
+type DomainGuestInfoInterface struct {
+	NameSet   bool
+	Name      string
+	HwaddrSet bool
+	Hwaddr    string
+	Addrs     []DomainGuestInfoIPAddress
+}
+
+func getDomainGuestInfoInterfaceFieldInfo(idx int, params *DomainGuestInfoInterface) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf("if.%d.name", idx): typedParamsFieldInfo{
+			set: &params.NameSet,
+			s:   &params.Name,
+		},
+		fmt.Sprintf("if.%d.hwaddr", idx): typedParamsFieldInfo{
+			set: &params.HwaddrSet,
+			s:   &params.Hwaddr,
+		},
+	}
+}
+
+type domainGuestInfoInterfaceLengths struct {
+	AddrCountSet bool
+	AddrCount    uint
+}
+
+func getDomainGuestInfoInterfaceLengthsFieldInfo(idx int, params *domainGuestInfoInterfaceLengths) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf("if.%d.addr.count", idx): typedParamsFieldInfo{
+			set: &params.AddrCountSet,
+			ui:  &params.AddrCount,
+		},
+	}
+}
+
 type DomainGuestInfo struct {
 	Users       []DomainGuestInfoUser
 	OS          *DomainGuestInfoOS
@@ -5241,6 +5303,7 @@ type DomainGuestInfo struct {
 	Hostname    string
 	FileSystems []DomainGuestInfoFileSystem
 	Disks       []DomainGuestInfoDisk
+	Interfaces  []DomainGuestInfoInterface
 }
 
 func getDomainGuestInfoFieldInfo(params *DomainGuestInfo) map[string]typedParamsFieldInfo {
@@ -5259,6 +5322,8 @@ type domainGuestInfoLengths struct {
 	FileSystemCount    uint
 	DiskCountSet       bool
 	DiskCount          uint
+	InterfaceCountSet  bool
+	InterfaceCount     uint
 }
 
 func getDomainGuestInfoLengthsFieldInfo(params *domainGuestInfoLengths) map[string]typedParamsFieldInfo {
@@ -5274,6 +5339,10 @@ func getDomainGuestInfoLengthsFieldInfo(params *domainGuestInfoLengths) map[stri
 		"disk.count": typedParamsFieldInfo{
 			set: &params.DiskCountSet,
 			ui:  &params.DiskCount,
+		},
+		"if.count": typedParamsFieldInfo{
+			set: &params.InterfaceCountSet,
+			ui:  &params.InterfaceCount,
 		},
 	}
 }
@@ -5403,6 +5472,37 @@ func (d *Domain) GetGuestInfo(types DomainGuestInfoTypes, flags uint32) (*Domain
 		}
 	}
 
+	if lengths.InterfaceCountSet && lengths.InterfaceCount > 0 {
+		info.Interfaces = make([]DomainGuestInfoInterface, lengths.InterfaceCount)
+		for i := 0; i < int(lengths.InterfaceCount); i++ {
+			interfaceInfo := getDomainGuestInfoInterfaceFieldInfo(i, &info.Interfaces[i])
+
+			_, gerr = typedParamsUnpack(cparams, cnparams, interfaceInfo)
+			if gerr != nil {
+				return nil, gerr
+			}
+
+			interfaceLengths := domainGuestInfoInterfaceLengths{}
+			interfaceLengthsInfo := getDomainGuestInfoInterfaceLengthsFieldInfo(i, &interfaceLengths)
+
+			_, gerr = typedParamsUnpack(cparams, cnparams, interfaceLengthsInfo)
+			if gerr != nil {
+				return nil, gerr
+			}
+
+			if interfaceLengths.AddrCountSet && interfaceLengths.AddrCount > 0 {
+				info.Interfaces[i].Addrs = make([]DomainGuestInfoIPAddress, interfaceLengths.AddrCount)
+				for j := 0; j < int(interfaceLengths.AddrCount); j++ {
+					addrInfo := getDomainGuestInfoIPAddressFieldInfo(i, j, &info.Interfaces[i].Addrs[j])
+
+					_, gerr = typedParamsUnpack(cparams, cnparams, addrInfo)
+					if gerr != nil {
+						return nil, gerr
+					}
+				}
+			}
+		}
+	}
 	return &info, nil
 }
 

@@ -1194,5 +1194,10 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_EVENT_ID_MEMORY_DEVICE_SIZE_CHANGE 26
 #endif
 
+/* 7.10.0 */
+
+#ifndef VIR_DOMAIN_GUEST_INFO_INTERFACES
+#define VIR_DOMAIN_GUEST_INFO_INTERFACES (1 << 6)
+#endif
 
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
