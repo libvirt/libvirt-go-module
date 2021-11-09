@@ -3134,6 +3134,16 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virConnectGetAllDomainStats
+//
+// Note that each struct element in the returned 'DomainStats'
+// array will contain a pointer to a 'Domain' object which
+// holds a new reference. This pointer may or may not be the
+// same as any pointers passed into the 'doms' parameter, but
+// will at least refer to the same libvirt object.
+//
+// The caller must invoke 'Free' on the 'Domain' object in
+// each array element, in order to release the references.
+//
 func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes, flags ConnectGetAllDomainStatsFlags) ([]DomainStats, error) {
 	if C.LIBVIR_VERSION_NUMBER < 1002008 {
 		return []DomainStats{}, makeNotImplementedError("virConnectGetAllDomainStats")
