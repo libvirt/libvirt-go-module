@@ -4943,6 +4943,14 @@ func (d *Domain) SetLifecycleAction(lifecycleType DomainLifecycle, action Domain
 type DomainLaunchSecurityParameters struct {
 	SEVMeasurementSet bool
 	SEVMeasurement    string
+	SEVAPIMajorSet    bool
+	SEVAPIMajor       uint
+	SEVAPIMinorSet    bool
+	SEVAPIMinor       uint
+	SEVBuildIDSet     bool
+	SEVBuildID        uint
+	SEVPolicySet      bool
+	SEVPolicy         uint
 }
 
 func getDomainLaunchSecurityFieldInfo(params *DomainLaunchSecurityParameters) map[string]typedParamsFieldInfo {
@@ -4950,6 +4958,22 @@ func getDomainLaunchSecurityFieldInfo(params *DomainLaunchSecurityParameters) ma
 		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_MEASUREMENT: typedParamsFieldInfo{
 			set: &params.SEVMeasurementSet,
 			s:   &params.SEVMeasurement,
+		},
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_API_MAJOR: typedParamsFieldInfo{
+			set: &params.SEVAPIMajorSet,
+			ui:  &params.SEVAPIMajor,
+		},
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_API_MINOR: typedParamsFieldInfo{
+			set: &params.SEVAPIMinorSet,
+			ui:  &params.SEVAPIMinor,
+		},
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_BUILD_ID: typedParamsFieldInfo{
+			set: &params.SEVBuildIDSet,
+			ui:  &params.SEVBuildID,
+		},
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_POLICY: typedParamsFieldInfo{
+			set: &params.SEVPolicySet,
+			ui:  &params.SEVPolicy,
 		},
 	}
 }
