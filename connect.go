@@ -41,10 +41,6 @@ import (
 */
 import "C"
 
-func init() {
-	C.virInitialize()
-}
-
 const (
 	VERSION_NUMBER = uint32(C.LIBVIR_VERSION_NUMBER)
 )
