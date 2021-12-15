@@ -616,9 +616,10 @@ const (
 type DomainBlockCopyFlags uint
 
 const (
-	DOMAIN_BLOCK_COPY_SHALLOW       = DomainBlockCopyFlags(C.VIR_DOMAIN_BLOCK_COPY_SHALLOW)
-	DOMAIN_BLOCK_COPY_REUSE_EXT     = DomainBlockCopyFlags(C.VIR_DOMAIN_BLOCK_COPY_REUSE_EXT)
-	DOMAIN_BLOCK_COPY_TRANSIENT_JOB = DomainBlockCopyFlags(C.VIR_DOMAIN_BLOCK_COPY_TRANSIENT_JOB)
+	DOMAIN_BLOCK_COPY_SHALLOW            = DomainBlockCopyFlags(C.VIR_DOMAIN_BLOCK_COPY_SHALLOW)
+	DOMAIN_BLOCK_COPY_REUSE_EXT          = DomainBlockCopyFlags(C.VIR_DOMAIN_BLOCK_COPY_REUSE_EXT)
+	DOMAIN_BLOCK_COPY_TRANSIENT_JOB      = DomainBlockCopyFlags(C.VIR_DOMAIN_BLOCK_COPY_TRANSIENT_JOB)
+	DOMAIN_BLOCK_COPY_SYNCHRONOUS_WRITES = DomainBlockCopyFlags(C.VIR_DOMAIN_BLOCK_COPY_SYNCHRONOUS_WRITES)
 )
 
 type DomainBlockRebaseFlags uint
@@ -804,24 +805,25 @@ const (
 type DomainMigrateFlags uint
 
 const (
-	MIGRATE_LIVE              = DomainMigrateFlags(C.VIR_MIGRATE_LIVE)
-	MIGRATE_PEER2PEER         = DomainMigrateFlags(C.VIR_MIGRATE_PEER2PEER)
-	MIGRATE_TUNNELLED         = DomainMigrateFlags(C.VIR_MIGRATE_TUNNELLED)
-	MIGRATE_PERSIST_DEST      = DomainMigrateFlags(C.VIR_MIGRATE_PERSIST_DEST)
-	MIGRATE_UNDEFINE_SOURCE   = DomainMigrateFlags(C.VIR_MIGRATE_UNDEFINE_SOURCE)
-	MIGRATE_PAUSED            = DomainMigrateFlags(C.VIR_MIGRATE_PAUSED)
-	MIGRATE_NON_SHARED_DISK   = DomainMigrateFlags(C.VIR_MIGRATE_NON_SHARED_DISK)
-	MIGRATE_NON_SHARED_INC    = DomainMigrateFlags(C.VIR_MIGRATE_NON_SHARED_INC)
-	MIGRATE_CHANGE_PROTECTION = DomainMigrateFlags(C.VIR_MIGRATE_CHANGE_PROTECTION)
-	MIGRATE_UNSAFE            = DomainMigrateFlags(C.VIR_MIGRATE_UNSAFE)
-	MIGRATE_OFFLINE           = DomainMigrateFlags(C.VIR_MIGRATE_OFFLINE)
-	MIGRATE_COMPRESSED        = DomainMigrateFlags(C.VIR_MIGRATE_COMPRESSED)
-	MIGRATE_ABORT_ON_ERROR    = DomainMigrateFlags(C.VIR_MIGRATE_ABORT_ON_ERROR)
-	MIGRATE_AUTO_CONVERGE     = DomainMigrateFlags(C.VIR_MIGRATE_AUTO_CONVERGE)
-	MIGRATE_RDMA_PIN_ALL      = DomainMigrateFlags(C.VIR_MIGRATE_RDMA_PIN_ALL)
-	MIGRATE_POSTCOPY          = DomainMigrateFlags(C.VIR_MIGRATE_POSTCOPY)
-	MIGRATE_TLS               = DomainMigrateFlags(C.VIR_MIGRATE_TLS)
-	MIGRATE_PARALLEL          = DomainMigrateFlags(C.VIR_MIGRATE_PARALLEL)
+	MIGRATE_LIVE                          = DomainMigrateFlags(C.VIR_MIGRATE_LIVE)
+	MIGRATE_PEER2PEER                     = DomainMigrateFlags(C.VIR_MIGRATE_PEER2PEER)
+	MIGRATE_TUNNELLED                     = DomainMigrateFlags(C.VIR_MIGRATE_TUNNELLED)
+	MIGRATE_PERSIST_DEST                  = DomainMigrateFlags(C.VIR_MIGRATE_PERSIST_DEST)
+	MIGRATE_UNDEFINE_SOURCE               = DomainMigrateFlags(C.VIR_MIGRATE_UNDEFINE_SOURCE)
+	MIGRATE_PAUSED                        = DomainMigrateFlags(C.VIR_MIGRATE_PAUSED)
+	MIGRATE_NON_SHARED_DISK               = DomainMigrateFlags(C.VIR_MIGRATE_NON_SHARED_DISK)
+	MIGRATE_NON_SHARED_INC                = DomainMigrateFlags(C.VIR_MIGRATE_NON_SHARED_INC)
+	MIGRATE_CHANGE_PROTECTION             = DomainMigrateFlags(C.VIR_MIGRATE_CHANGE_PROTECTION)
+	MIGRATE_UNSAFE                        = DomainMigrateFlags(C.VIR_MIGRATE_UNSAFE)
+	MIGRATE_OFFLINE                       = DomainMigrateFlags(C.VIR_MIGRATE_OFFLINE)
+	MIGRATE_COMPRESSED                    = DomainMigrateFlags(C.VIR_MIGRATE_COMPRESSED)
+	MIGRATE_ABORT_ON_ERROR                = DomainMigrateFlags(C.VIR_MIGRATE_ABORT_ON_ERROR)
+	MIGRATE_AUTO_CONVERGE                 = DomainMigrateFlags(C.VIR_MIGRATE_AUTO_CONVERGE)
+	MIGRATE_RDMA_PIN_ALL                  = DomainMigrateFlags(C.VIR_MIGRATE_RDMA_PIN_ALL)
+	MIGRATE_POSTCOPY                      = DomainMigrateFlags(C.VIR_MIGRATE_POSTCOPY)
+	MIGRATE_TLS                           = DomainMigrateFlags(C.VIR_MIGRATE_TLS)
+	MIGRATE_PARALLEL                      = DomainMigrateFlags(C.VIR_MIGRATE_PARALLEL)
+	MIGRATE_NON_SHARED_SYNCHRONOUS_WRITES = DomainMigrateFlags(C.VIR_MIGRATE_NON_SHARED_SYNCHRONOUS_WRITES)
 )
 
 type DomainMigrateMaxSpeedFlags uint
