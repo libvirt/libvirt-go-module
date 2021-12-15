@@ -3356,6 +3356,10 @@ type NodeSEVParameters struct {
 	CBitPos            uint
 	ReducedPhysBitsSet bool
 	ReducedPhysBits    uint
+	MaxGuestsSet       bool
+	MaxGuests          uint
+	MaxEsGuestsSet     bool
+	MaxEsGuests        uint
 }
 
 func getNodeSEVFieldInfo(params *NodeSEVParameters) map[string]typedParamsFieldInfo {
@@ -3375,6 +3379,14 @@ func getNodeSEVFieldInfo(params *NodeSEVParameters) map[string]typedParamsFieldI
 		C.VIR_NODE_SEV_REDUCED_PHYS_BITS: typedParamsFieldInfo{
 			set: &params.ReducedPhysBitsSet,
 			ui:  &params.ReducedPhysBits,
+		},
+		C.VIR_NODE_SEV_MAX_GUESTS: typedParamsFieldInfo{
+			set: &params.MaxGuestsSet,
+			ui:  &params.MaxGuests,
+		},
+		C.VIR_NODE_SEV_MAX_ES_GUESTS: typedParamsFieldInfo{
+			set: &params.MaxEsGuestsSet,
+			ui:  &params.MaxEsGuests,
 		},
 	}
 }

@@ -300,5 +300,15 @@ typedef struct _virNWFilterBinding *virNWFilterBindingPtr;
 #endif
 
 
+/* 8.0.0 */
+
+#ifndef VIR_NODE_SEV_MAX_GUESTS
+#define VIR_NODE_SEV_MAX_GUESTS "max-guests"
+#endif
+
+#ifndef VIR_NODE_SEV_MAX_ES_GUESTS
+#define VIR_NODE_SEV_MAX_ES_GUESTS "max-es-guests"
+#endif
+
 
 #endif /* LIBVIRT_GO_CONNECT_COMPAT_H__ */
