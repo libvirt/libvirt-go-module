@@ -43,6 +43,9 @@ const (
 )
 
 // See also https://libvirt.org/html/libvirt-libvirt-event.html#virEventRegisterDefaultImpl
+//
+// Note that registering an event loop implementation must be
+// done before creating any Connect object instance
 func EventRegisterDefaultImpl() error {
 	var err C.virError
 	C.virInitialize()
@@ -187,6 +190,9 @@ type EventLoop interface {
 var eventLoopImpl EventLoop
 
 // See also https://libvirt.org/html/libvirt-libvirt-event.html#virEventRegisterImpl
+//
+// Note that registering an event loop implementation must be
+// done before creating any Connect object instance
 func EventRegisterImpl(impl EventLoop) {
 	eventLoopImpl = impl
 	C.virInitialize()
