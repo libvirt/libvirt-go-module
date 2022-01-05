@@ -5006,6 +5006,56 @@ func (d *Domain) GetLaunchSecurityInfo(flags uint32) (*DomainLaunchSecurityParam
 	return params, nil
 }
 
+type DomainLaunchSecurityStateParameters struct {
+	SEVSecretSet           bool
+	SEVSecret              string
+	SEVSecretHeaderSet     bool
+	SEVSecretHeader        string
+	SEVSecretSetAddressSet bool
+	SEVSecretSetAddress    uint64
+}
+
+func getDomainLaunchSecurityStateFieldInfo(params *DomainLaunchSecurityStateParameters) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET: typedParamsFieldInfo{
+			set: &params.SEVSecretSet,
+			s:   &params.SEVSecret,
+		},
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET_HEADER: typedParamsFieldInfo{
+			set: &params.SEVSecretHeaderSet,
+			s:   &params.SEVSecretHeader,
+		},
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET_SET_ADDRESS: typedParamsFieldInfo{
+			set: &params.SEVSecretSetAddressSet,
+			ul:  &params.SEVSecretSetAddress,
+		},
+	}
+}
+
+// See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainSetLaunchSecurityState
+func (d *Domain) SetLaunchSecurityState(params *DomainLaunchSecurityStateParameters, flags uint32) error {
+	if C.LIBVIR_VERSION_NUMBER < 8000000 {
+		return makeNotImplementedError("virDomainSetLaunchSecurityState")
+	}
+
+	info := getDomainLaunchSecurityStateFieldInfo(params)
+
+	cparams, cnparams, gerr := typedParamsPackNew(info)
+	if gerr != nil {
+		return gerr
+	}
+
+	defer C.virTypedParamsFree(cparams, cnparams)
+
+	var err C.virError
+	ret := C.virDomainSetLaunchSecurityStateWrapper(d.ptr, cparams, cnparams, C.uint(flags), &err)
+	if ret == -1 {
+		return makeError(&err)
+	}
+
+	return nil
+}
+
 type DomainGuestInfoUser struct {
 	NameSet      bool
 	Name         string
