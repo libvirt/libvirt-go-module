@@ -31,6 +31,9 @@
 #include <libvirt/virterror.h>
 #include "connect_compat.h"
 
+int
+virInitializeWrapper(virErrorPtr err);
+
 void
 closeCallbackHelper(virConnectPtr conn,
                     int reason,

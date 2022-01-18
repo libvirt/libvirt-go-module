@@ -33,6 +33,17 @@ package libvirt
 #include "connect_wrapper.h"
 #include "callbacks_wrapper.h"
 
+int
+virInitializeWrapper(virErrorPtr err)
+{
+    int ret = virInitialize();
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+
 extern void closeCallback(virConnectPtr, int, long);
 void closeCallbackHelper(virConnectPtr conn, int reason, void *opaque)
 {
