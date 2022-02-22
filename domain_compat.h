@@ -1238,5 +1238,14 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_LAUNCH_SECURITY_SEV_SECRET_SET_ADDRESS "sev-secret-set-address"
 #endif
 
+/* 8.1.0 */
+
+#ifndef VIR_DOMAIN_SAVE_RESET_NVRAM
+#define VIR_DOMAIN_SAVE_RESET_NVRAM 1 << 3
+#endif
+
+#ifndef VIR_DOMAIN_START_RESET_NVRAM
+#define VIR_DOMAIN_START_RESET_NVRAM 1 << 5
+#endif
 
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
