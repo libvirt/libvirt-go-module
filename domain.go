@@ -979,6 +979,14 @@ const (
 	DOMAIN_DIRTYRATE_MEASURED  = DomainDirtyRateStatus(C.VIR_DOMAIN_DIRTYRATE_MEASURED)
 )
 
+type DomainDirtyRateCalcFlags uint
+
+const (
+	DOMAIN_DIRTYRATE_MODE_PAGE_SAMPLING = DomainDirtyRateCalcFlags(C.VIR_DOMAIN_DIRTYRATE_MODE_PAGE_SAMPLING)
+	DOMAIN_DIRTYRATE_MODE_DIRTY_BITMAP  = DomainDirtyRateCalcFlags(C.VIR_DOMAIN_DIRTYRATE_MODE_DIRTY_BITMAP)
+	DOMAIN_DIRTYRATE_MODE_DIRTY_RING    = DomainDirtyRateCalcFlags(C.VIR_DOMAIN_DIRTYRATE_MODE_DIRTY_RING)
+)
+
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainFree
 func (d *Domain) Free() error {
 	var err C.virError
@@ -5724,7 +5732,7 @@ func (d *Domain) GetMessages(flags DomainMessageType) ([]string, error) {
 	return msgs, nil
 }
 
-func (d *Domain) StartDirtyRateCalc(secs int, flags uint) error {
+func (d *Domain) StartDirtyRateCalc(secs int, flags DomainDirtyRateCalcFlags) error {
 	if C.LIBVIR_VERSION_NUMBER < 7002000 {
 		return makeNotImplementedError("virDomainStartDirtyRateCalc")
 	}
