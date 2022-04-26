@@ -1261,4 +1261,10 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_DIRTYRATE_MODE_DIRTY_RING 1 << 1
 #endif
 
+/* 8.3.0 */
+
+#ifndef VIR_DOMAIN_DESTROY_REMOVE_LOGS
+#define VIR_DOMAIN_DESTROY_REMOVE_LOGS 1 << 1
+#endif
+
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
