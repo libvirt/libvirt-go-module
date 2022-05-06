@@ -876,3 +876,25 @@ func TestSetMetadata(t *testing.T) {
 	}
 
 }
+
+func TestSendKeys(t *testing.T) {
+	dom, conn := buildTestDomain()
+	defer func() {
+		dom.Free()
+		if res, _ := conn.Close(); res != 0 {
+			t.Errorf("Close() == %d, expected 0", res)
+		}
+	}()
+
+	if err := dom.Create(); err != nil {
+		t.Error("Failed to create domain")
+	}
+
+	KEY_LEFTCTRL := uint(29)
+	KEY_LEFTALT := uint(56)
+	KEY_F1 := uint(59)
+	var keys = []uint{KEY_LEFTCTRL, KEY_LEFTALT, KEY_F1}
+	dom.SendKey(uint(KEYCODE_SET_LINUX), 100, keys, 0)
+
+	dom.Destroy()
+}

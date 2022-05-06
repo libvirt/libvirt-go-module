@@ -1738,7 +1738,11 @@ func (d *Domain) Screenshot(stream *Stream, screen, flags uint32) (string, error
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainSendKey
 func (d *Domain) SendKey(codeset, holdtime uint, keycodes []uint, flags uint32) error {
 	var err C.virError
-	result := C.virDomainSendKeyWrapper(d.ptr, C.uint(codeset), C.uint(holdtime), (*C.uint)(unsafe.Pointer(&keycodes[0])), C.int(len(keycodes)), C.uint(flags), &err)
+	ckeycodes := make([]C.uint, len(keycodes))
+	for i, keycode := range keycodes {
+		ckeycodes[i] = C.uint(keycode)
+	}
+	result := C.virDomainSendKeyWrapper(d.ptr, C.uint(codeset), C.uint(holdtime), (*C.uint)(unsafe.Pointer(&ckeycodes[0])), C.int(len(keycodes)), C.uint(flags), &err)
 	if result == -1 {
 		return makeError(&err)
 	}
