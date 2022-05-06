@@ -3356,6 +3356,8 @@ type NodeSEVParameters struct {
 	MaxGuests          uint
 	MaxEsGuestsSet     bool
 	MaxEsGuests        uint
+	CPU0IDSet          bool
+	CPU0ID             string
 }
 
 func getNodeSEVFieldInfo(params *NodeSEVParameters) map[string]typedParamsFieldInfo {
@@ -3383,6 +3385,10 @@ func getNodeSEVFieldInfo(params *NodeSEVParameters) map[string]typedParamsFieldI
 		C.VIR_NODE_SEV_MAX_ES_GUESTS: typedParamsFieldInfo{
 			set: &params.MaxEsGuestsSet,
 			ui:  &params.MaxEsGuests,
+		},
+		C.VIR_NODE_SEV_CPU0_ID: typedParamsFieldInfo{
+			set: &params.CPU0IDSet,
+			s:   &params.CPU0ID,
 		},
 	}
 }
