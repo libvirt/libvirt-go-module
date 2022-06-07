@@ -433,6 +433,13 @@ virDomainRestoreFlagsWrapper(virConnectPtr conn,
                              virErrorPtr err);
 
 int
+virDomainRestoreParamsWrapper(virConnectPtr conn,
+                              virTypedParameterPtr params,
+                              int nparams,
+                              unsigned int flags,
+                              virErrorPtr err);
+
+int
 virDomainSaveImageDefineXMLWrapper(virConnectPtr conn,
                                    const char *file,
                                    const char *dxml,

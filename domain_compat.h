@@ -1267,4 +1267,14 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_DESTROY_REMOVE_LOGS 1 << 1
 #endif
 
+/* 8.4.0 */
+
+#ifndef VIR_DOMAIN_SAVE_PARAM_FILE
+#define VIR_DOMAIN_SAVE_PARAM_FILE "file"
+#endif
+
+#ifndef VIR_DOMAIN_SAVE_PARAM_DXML
+#define VIR_DOMAIN_SAVE_PARAM_DXML "dxml"
+#endif
+
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */

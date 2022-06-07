@@ -1042,6 +1042,25 @@ virDomainRestoreFlagsWrapper(virConnectPtr conn,
 
 
 int
+virDomainRestoreParamsWrapper(virConnectPtr conn,
+                              virTypedParameterPtr params,
+                              int nparams,
+                              unsigned int flags,
+                              virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 8004000
+    assert(0); // Caller should have checked version
+#else
+    int ret = virDomainRestoreParams(conn, params, nparams, flags);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+
+int
 virDomainSaveImageDefineXMLWrapper(virConnectPtr conn,
                                    const char *file,
                                    const char *dxml,

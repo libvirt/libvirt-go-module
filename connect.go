@@ -2491,6 +2491,27 @@ func (c *Connect) DomainRestoreFlags(srcFile, xmlConf string, flags DomainSaveRe
 	return nil
 }
 
+// See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainRestoreParams
+func (c *Connect) DomainRestoreParams(params DomainSaveRestoreParams, flags DomainSaveRestoreFlags) error {
+	if C.LIBVIR_VERSION_NUMBER < 8004000 {
+		return makeNotImplementedError("virDomainRestoreParams")
+	}
+
+	info := getDomainSaveRestoreParametersFieldInfo(&params)
+	cparams, cnparams, gerr := typedParamsPackNew(info)
+	if gerr != nil {
+		return gerr
+	}
+
+	defer C.virTypedParamsFree(cparams, cnparams)
+
+	var err C.virError
+	if result := C.virDomainRestoreParamsWrapper(c.ptr, cparams, cnparams, C.uint(flags), &err); result == -1 {
+		return makeError(&err)
+	}
+	return nil
+}
+
 // See also https://libvirt.org/html/libvirt-libvirt-stream.html#virStreamNew
 func (c *Connect) NewStream(flags StreamFlags) (*Stream, error) {
 	var err C.virError

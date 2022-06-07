@@ -764,6 +764,13 @@ virDomainSaveFlagsWrapper(virDomainPtr domain,
                           unsigned int flags,
                           virErrorPtr err);
 
+int
+virDomainSaveParamsWrapper(virDomainPtr domain,
+                           virTypedParameterPtr params,
+                           int nparams,
+                           unsigned int flags,
+                           virErrorPtr err);
+
 char *
 virDomainScreenshotWrapper(virDomainPtr domain,
                            virStreamPtr stream,

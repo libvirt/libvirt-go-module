@@ -4675,6 +4675,48 @@ func (d *Domain) SaveFlags(destFile string, destXml string, flags DomainSaveRest
 	return nil
 }
 
+type DomainSaveRestoreParams struct {
+	FileSet bool
+	File    string
+	DXMLSet bool
+	DXML    string
+}
+
+func getDomainSaveRestoreParametersFieldInfo(params *DomainSaveRestoreParams) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		C.VIR_DOMAIN_SAVE_PARAM_FILE: typedParamsFieldInfo{
+			set: &params.FileSet,
+			s:   &params.File,
+		},
+		C.VIR_DOMAIN_SAVE_PARAM_DXML: typedParamsFieldInfo{
+			set: &params.DXMLSet,
+			s:   &params.DXML,
+		},
+	}
+}
+
+// See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainSaveParams
+func (d *Domain) SaveParams(params DomainSaveRestoreParams, flags DomainSaveRestoreFlags) error {
+	if C.LIBVIR_VERSION_NUMBER < 8004000 {
+		return makeNotImplementedError("virDomainSaveParams")
+	}
+
+	info := getDomainSaveRestoreParametersFieldInfo(&params)
+	cparams, cnparams, gerr := typedParamsPackNew(info)
+	if gerr != nil {
+		return gerr
+	}
+
+	defer C.virTypedParamsFree(cparams, cnparams)
+
+	var err C.virError
+	result := C.virDomainSaveParamsWrapper(d.ptr, cparams, cnparams, C.uint(flags), &err)
+	if result == -1 {
+		return makeError(&err)
+	}
+	return nil
+}
+
 type DomainGuestVcpus struct {
 	VcpusSet      bool
 	Vcpus         []bool
