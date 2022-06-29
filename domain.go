@@ -4381,12 +4381,16 @@ func (d *Domain) DelIOThread(id uint, flags DomainModificationImpact) error {
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainSetIOThreadParams
 
 type DomainSetIOThreadParams struct {
-	PollMaxNsSet  bool
-	PollMaxNs     uint64
-	PollGrowSet   bool
-	PollGrow      uint
-	PollShrinkSet bool
-	PollShrink    uint
+	PollMaxNsSet     bool
+	PollMaxNs        uint64
+	PollGrowSet      bool
+	PollGrow         uint
+	PollShrinkSet    bool
+	PollShrink       uint
+	ThreadPoolMinSet bool
+	ThreadPoolMin    int
+	ThreadPoolMaxSet bool
+	ThreadPoolMax    int
 }
 
 func getSetIOThreadParamsFieldInfo(params *DomainSetIOThreadParams) map[string]typedParamsFieldInfo {
@@ -4402,6 +4406,14 @@ func getSetIOThreadParamsFieldInfo(params *DomainSetIOThreadParams) map[string]t
 		C.VIR_DOMAIN_IOTHREAD_POLL_SHRINK: typedParamsFieldInfo{
 			set: &params.PollShrinkSet,
 			ui:  &params.PollShrink,
+		},
+		C.VIR_DOMAIN_IOTHREAD_THREAD_POOL_MIN: typedParamsFieldInfo{
+			set: &params.ThreadPoolMinSet,
+			i:   &params.ThreadPoolMin,
+		},
+		C.VIR_DOMAIN_IOTHREAD_THREAD_POOL_MAX: typedParamsFieldInfo{
+			set: &params.ThreadPoolMaxSet,
+			i:   &params.ThreadPoolMax,
 		},
 	}
 }
