@@ -269,6 +269,7 @@ const (
 	DOMAIN_RUNNING_WAKEUP             = DomainRunningReason(C.VIR_DOMAIN_RUNNING_WAKEUP)             /* returned from pmsuspended due to wakeup event */
 	DOMAIN_RUNNING_CRASHED            = DomainRunningReason(C.VIR_DOMAIN_RUNNING_CRASHED)            /* resumed from crashed */
 	DOMAIN_RUNNING_POSTCOPY           = DomainRunningReason(C.VIR_DOMAIN_RUNNING_POSTCOPY)           /* running in post-copy migration mode */
+	DOMAIN_RUNNING_POSTCOPY_FAILED    = DomainRunningReason(C.VIR_DOMAIN_RUNNING_POSTCOPY_FAILED)    /* running in post-copy migration mode after failure */
 )
 
 type DomainPausedReason int
@@ -342,10 +343,11 @@ const (
 type DomainEventResumedDetailType int
 
 const (
-	DOMAIN_EVENT_RESUMED_UNPAUSED      = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_UNPAUSED)
-	DOMAIN_EVENT_RESUMED_MIGRATED      = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_MIGRATED)
-	DOMAIN_EVENT_RESUMED_FROM_SNAPSHOT = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_FROM_SNAPSHOT)
-	DOMAIN_EVENT_RESUMED_POSTCOPY      = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_POSTCOPY)
+	DOMAIN_EVENT_RESUMED_UNPAUSED        = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_UNPAUSED)
+	DOMAIN_EVENT_RESUMED_MIGRATED        = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_MIGRATED)
+	DOMAIN_EVENT_RESUMED_FROM_SNAPSHOT   = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_FROM_SNAPSHOT)
+	DOMAIN_EVENT_RESUMED_POSTCOPY        = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_POSTCOPY)
+	DOMAIN_EVENT_RESUMED_POSTCOPY_FAILED = DomainEventResumedDetailType(C.VIR_DOMAIN_EVENT_RESUMED_POSTCOPY_FAILED)
 )
 
 type DomainEventStoppedDetailType int
