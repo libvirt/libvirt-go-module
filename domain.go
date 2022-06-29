@@ -829,6 +829,8 @@ const (
 	MIGRATE_TLS                           = DomainMigrateFlags(C.VIR_MIGRATE_TLS)
 	MIGRATE_PARALLEL                      = DomainMigrateFlags(C.VIR_MIGRATE_PARALLEL)
 	MIGRATE_NON_SHARED_SYNCHRONOUS_WRITES = DomainMigrateFlags(C.VIR_MIGRATE_NON_SHARED_SYNCHRONOUS_WRITES)
+	MIGRATE_POSTCOPY_RESUME               = DomainMigrateFlags(C.VIR_MIGRATE_POSTCOPY_RESUME)
+	MIGRATE_ZEROCOPY                      = DomainMigrateFlags(C.VIR_MIGRATE_ZEROCOPY)
 )
 
 type DomainMigrateMaxSpeedFlags uint

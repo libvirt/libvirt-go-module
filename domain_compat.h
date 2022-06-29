@@ -1292,4 +1292,12 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_RUNNING_POSTCOPY_FAILED 11
 #endif
 
+#ifndef VIR_MIGRATE_POSTCOPY_RESUME
+#define VIR_MIGRATE_POSTCOPY_RESUME 19
+#endif
+
+#ifndef VIR_MIGRATE_ZEROCOPY
+#define VIR_MIGRATE_ZEROCOPY 20
+#endif
+
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
