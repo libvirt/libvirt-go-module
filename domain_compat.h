@@ -1300,4 +1300,12 @@ struct _virDomainInterface {
 #define VIR_MIGRATE_ZEROCOPY 20
 #endif
 
+#ifndef VIR_DOMAIN_IOTHREAD_THREAD_POOL_MIN
+#define VIR_DOMAIN_IOTHREAD_THREAD_POOL_MIN "thread_pool_min"
+#endif
+
+#ifndef VIR_DOMAIN_IOTHREAD_THREAD_POOL_MAX
+#define VIR_DOMAIN_IOTHREAD_THREAD_POOL_MAX "thread_pool_max"
+#endif
+
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
