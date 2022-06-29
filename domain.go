@@ -988,6 +988,12 @@ const (
 	DOMAIN_DIRTYRATE_MODE_DIRTY_RING    = DomainDirtyRateCalcFlags(C.VIR_DOMAIN_DIRTYRATE_MODE_DIRTY_RING)
 )
 
+type DomainAbortJobFlags uint
+
+const (
+	DOMAIN_ABORT_JOB_POSTCOPY = DomainAbortJobFlags(C.VIR_DOMAIN_ABORT_JOB_POSTCOPY)
+)
+
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainFree
 func (d *Domain) Free() error {
 	var err C.virError
@@ -1583,6 +1589,21 @@ func (d *Domain) Resume() error {
 func (d *Domain) AbortJob() error {
 	var err C.virError
 	result := C.virDomainAbortJobWrapper(d.ptr, &err)
+	if result == -1 {
+		return makeError(&err)
+	}
+	return nil
+}
+
+// See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainAbortJobFlags
+func (d *Domain) AbortJobFlags(flags DomainAbortJobFlags) error {
+	var err C.virError
+
+	if C.LIBVIR_VERSION_NUMBER < 8005000 {
+		return makeNotImplementedError("virDomainAbortJobFlags")
+	}
+
+	result := C.virDomainAbortJobFlagsWrapper(d.ptr, C.uint(flags), &err)
 	if result == -1 {
 		return makeError(&err)
 	}

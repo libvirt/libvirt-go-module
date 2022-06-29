@@ -44,6 +44,23 @@ virDomainAbortJobWrapper(virDomainPtr domain,
 
 
 int
+virDomainAbortJobFlagsWrapper(virDomainPtr domain,
+                              unsigned int flags,
+                              virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 8005000
+    assert(0); // Caller should have checked version
+#else
+    int ret = virDomainAbortJobFlags(domain, flags);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+
+int
 virDomainAddIOThreadWrapper(virDomainPtr domain,
                             unsigned int iothread_id,
                             unsigned int flags,

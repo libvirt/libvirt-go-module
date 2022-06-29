@@ -37,6 +37,11 @@ virDomainAbortJobWrapper(virDomainPtr domain,
                          virErrorPtr err);
 
 int
+virDomainAbortJobFlagsWrapper(virDomainPtr domain,
+                              unsigned int flags,
+                              virErrorPtr err);
+
+int
 virDomainAddIOThreadWrapper(virDomainPtr domain,
                             unsigned int iothread_id,
                             unsigned int flags,

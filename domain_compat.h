@@ -1277,4 +1277,11 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_SAVE_PARAM_DXML "dxml"
 #endif
 
+/* 8.5.0 */
+
+#ifndef VIR_DOMAIN_ABORT_JOB_POSTCOPY
+#define VIR_DOMAIN_ABORT_JOB_POSTCOPY (1 << 0)
+#endif
+
+
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
