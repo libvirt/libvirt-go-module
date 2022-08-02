@@ -3069,7 +3069,7 @@ func getDomainStatsMemoryBandwidthMonitorNodeFieldInfo(idx1, idx2 int, params *D
 
 type DomainStatsDirtyRate struct {
 	CalcStatusSet         bool
-	CalcStatus            uint
+	CalcStatus            int
 	CalcStartTimeSet      bool
 	CalcStartTime         int64
 	CalcPeriodSet         bool
@@ -3082,7 +3082,7 @@ func getDomainStatsDirtyRateFieldInfo(params *DomainStatsDirtyRate) map[string]t
 	return map[string]typedParamsFieldInfo{
 		"dirtyrate.calc_status": typedParamsFieldInfo{
 			set: &params.CalcStatusSet,
-			ui:  &params.CalcStatus,
+			i:   &params.CalcStatus,
 		},
 		"dirtyrate.calc_start_time": typedParamsFieldInfo{
 			set: &params.CalcStartTimeSet,
