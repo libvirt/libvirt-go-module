@@ -1,17 +1,17 @@
 projects:
-  - libvirt-go
+  - libvirt-go-module
   - libvirt+dist
 
 gitlab:
   namespace: libvirt
-  project: libvirt-go
+  project: libvirt-go-module
   jobs:
     go-fmt: true
 
 targets:
   almalinux-8:
     projects:
-      - libvirt-go
+      - libvirt-go-module
       - libvirt+dist
       - libvirt+minimal
 

@@ -24,7 +24,7 @@
 # should be logical inverses, such that jobs are mutually exclusive
 #
 .gitlab_native_build_job_prebuilt_env:
-  image: $CI_REGISTRY/$RUN_UPSTREAM_NAMESPACE/libvirt-go/ci-$NAME:latest
+  image: $CI_REGISTRY/$RUN_UPSTREAM_NAMESPACE/libvirt-go-module/ci-$NAME:latest
   stage: builds
   before_script:
     - cat /packages.txt
