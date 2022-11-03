@@ -3110,6 +3110,7 @@ type DomainStats struct {
 	Perf      *DomainStatsPerf
 	Memory    *DomainStatsMemory
 	DirtyRate *DomainStatsDirtyRate
+	VM        []TypedParamValue
 }
 
 type domainStatsLengths struct {
@@ -3352,6 +3353,11 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 		}
 		if count != 0 {
 			domstats.DirtyRate = dirtyrate
+		}
+
+		domstats.VM, gerr = typedParamsUnpackRaw("vm.", cdomstats.params, cdomstats.nparams)
+		if gerr != nil {
+			return []DomainStats{}, gerr
 		}
 
 		stats[i] = domstats

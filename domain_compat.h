@@ -1318,5 +1318,8 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_UNDEFINE_KEEP_TPM (1 << 6)
 #endif
 
+#ifndef VIR_DOMAIN_STATS_VM
+#define VIR_DOMAIN_STATS_VM (1 << 10)
+#endif
 
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */
