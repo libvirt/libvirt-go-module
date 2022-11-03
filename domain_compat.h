@@ -1308,4 +1308,15 @@ struct _virDomainInterface {
 #define VIR_DOMAIN_IOTHREAD_THREAD_POOL_MAX "thread_pool_max"
 #endif
 
+/* 8.9.0 */
+
+#ifndef VIR_DOMAIN_UNDEFINE_TPM
+#define VIR_DOMAIN_UNDEFINE_TPM (1 << 5)
+#endif
+
+#ifndef VIR_DOMAIN_UNDEFINE_KEEP_TPM
+#define VIR_DOMAIN_UNDEFINE_KEEP_TPM (1 << 6)
+#endif
+
+
 #endif /* LIBVIRT_GO_DOMAIN_COMPAT_H__ */

@@ -123,6 +123,8 @@ const (
 	DOMAIN_UNDEFINE_NVRAM                = DomainUndefineFlagsValues(C.VIR_DOMAIN_UNDEFINE_NVRAM)                // Also remove any nvram file
 	DOMAIN_UNDEFINE_KEEP_NVRAM           = DomainUndefineFlagsValues(C.VIR_DOMAIN_UNDEFINE_KEEP_NVRAM)           // Keep nvram file
 	DOMAIN_UNDEFINE_CHECKPOINTS_METADATA = DomainUndefineFlagsValues(C.VIR_DOMAIN_UNDEFINE_CHECKPOINTS_METADATA) // If last use of domain, then also remove any checkpoint metadata
+	DOMAIN_UNDEFINE_TPM                  = DomainUndefineFlagsValues(C.VIR_DOMAIN_UNDEFINE_TPM)                  // Also remove any TPM state
+	DOMAIN_UNDEFINE_KEEP_TPM             = DomainUndefineFlagsValues(C.VIR_DOMAIN_UNDEFINE_KEEP_TPM)             // Keep TPM state
 )
 
 type DomainDeviceModifyFlags uint
