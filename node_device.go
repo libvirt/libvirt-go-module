@@ -53,6 +53,18 @@ const (
 	NODE_DEVICE_EVENT_UNDEFINED = NodeDeviceEventLifecycleType(C.VIR_NODE_DEVICE_EVENT_UNDEFINED)
 )
 
+type NodeDeviceCreateXMLFlags int
+
+const (
+	NODE_DEVICE_CREATE_XML_VALIDATE = NodeDeviceCreateXMLFlags(C.VIR_NODE_DEVICE_CREATE_XML_VALIDATE)
+)
+
+type NodeDeviceDefineXMLFlags int
+
+const (
+	NODE_DEVICE_DEFINE_XML_VALIDATE = NodeDeviceDefineXMLFlags(C.VIR_NODE_DEVICE_DEFINE_XML_VALIDATE)
+)
+
 type NodeDevice struct {
 	ptr C.virNodeDevicePtr
 }

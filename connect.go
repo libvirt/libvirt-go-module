@@ -1608,7 +1608,7 @@ func (c *Connect) LookupDeviceSCSIHostByWWN(wwnn, wwpn string, flags uint32) (*N
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-nodedev.html#virNodeDeviceCreateXML
-func (c *Connect) DeviceCreateXML(xmlConfig string, flags uint32) (*NodeDevice, error) {
+func (c *Connect) DeviceCreateXML(xmlConfig string, flags NodeDeviceCreateXMLFlags) (*NodeDevice, error) {
 	cXml := C.CString(string(xmlConfig))
 	defer C.free(unsafe.Pointer(cXml))
 	var err C.virError
@@ -1620,7 +1620,7 @@ func (c *Connect) DeviceCreateXML(xmlConfig string, flags uint32) (*NodeDevice, 
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-nodedev.html#virNodeDeviceDefineXML
-func (c *Connect) DeviceDefineXML(xmlConfig string, flags uint32) (*NodeDevice, error) {
+func (c *Connect) DeviceDefineXML(xmlConfig string, flags NodeDeviceDefineXMLFlags) (*NodeDevice, error) {
 	if C.LIBVIR_VERSION_NUMBER < 7003000 {
 		return nil, makeNotImplementedError("virNodeDeviceDefineXML")
 	}

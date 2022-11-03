@@ -59,4 +59,15 @@ typedef void (*virConnectNodeDeviceEventGenericCallback)(virConnectPtr conn,
 #define VIR_NODE_DEVICE_EVENT_UNDEFINED 1
 #endif
 
+/* 8.10.0 */
+
+#ifndef VIR_NODE_DEVICE_CREATE_XML_VALIDATE
+#define VIR_NODE_DEVICE_CREATE_XML_VALIDATE (1 << 0)
+#endif
+
+#ifndef VIR_NODE_DEVICE_DEFINE_XML_VALIDATE
+#define VIR_NODE_DEVICE_DEFINE_XML_VALIDATE (1 << 0)
+#endif
+
+
 #endif /* LIBVIRT_GO_NODE_DEVICE_COMPAT_H__ */
