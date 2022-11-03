@@ -42,6 +42,7 @@ type StorageVolCreateFlags uint
 const (
 	STORAGE_VOL_CREATE_PREALLOC_METADATA = StorageVolCreateFlags(C.VIR_STORAGE_VOL_CREATE_PREALLOC_METADATA)
 	STORAGE_VOL_CREATE_REFLINK           = StorageVolCreateFlags(C.VIR_STORAGE_VOL_CREATE_REFLINK)
+	STORAGE_VOL_CREATE_VALIDATE          = StorageVolCreateFlags(C.VIR_STORAGE_VOL_CREATE_VALIDATE)
 )
 
 type StorageVolDeleteFlags uint
