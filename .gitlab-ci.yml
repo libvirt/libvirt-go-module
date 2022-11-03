@@ -68,8 +68,8 @@ api_coverage_prebuilt_env:
     - .gitlab_native_build_job_prebuilt_env
     - .api_coverage_job
   needs:
-    - job: x86_64-almalinux-8-container
-      optional: true
+    - job: x86_64-almalinux-8-git-prebuilt-env
+      artifacts: true
   variables:
     NAME: almalinux-8
 
@@ -77,6 +77,9 @@ api_coverage_local_env:
   extends:
     - .gitlab_native_build_job_local_env
     - .api_coverage_job
+  needs:
+    - job: x86_64-almalinux-8-git-local-env
+      artifacts: true
   variables:
     IMAGE: docker.io/library/almalinux:8
     NAME: almalinux-8
