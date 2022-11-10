@@ -41,12 +41,12 @@ void networkEventLifecycleCallbackHelper(virConnectPtr conn, virNetworkPtr net,
 }
 
 int
-virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
-                                         virNetworkPtr net,
-                                         int eventID,
-                                         virConnectNetworkEventGenericCallback cb,
-                                         long goCallbackId,
-                                         virErrorPtr err)
+virConnectNetworkEventRegisterAnyHelper(virConnectPtr conn,
+                                        virNetworkPtr net,
+                                        int eventID,
+                                        virConnectNetworkEventGenericCallback cb,
+                                        long goCallbackId,
+                                        virErrorPtr err)
 {
     void *id = (void *)goCallbackId;
 #if LIBVIR_VERSION_NUMBER < 1002001

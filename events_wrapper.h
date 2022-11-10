@@ -31,7 +31,7 @@
 #include <libvirt/virterror.h>
 
 void
-virEventRegisterImplWrapper(void);
+virEventRegisterImplHelper(void);
 
 void
 eventHandleCallbackInvoke(int watch,
@@ -54,15 +54,15 @@ eventTimeoutCallbackFree(uintptr_t callback,
                          uintptr_t opaque);
 
 int
-virEventAddHandleWrapper(int fd,
-                         int events,
-			 int callbackID,
-                         virErrorPtr err);
+virEventAddHandleHelper(int fd,
+                        int events,
+                        int callbackID,
+                        virErrorPtr err);
 
 int
-virEventAddTimeoutWrapper(int timeout,
-			  int callbackID,
-                          virErrorPtr err);
+virEventAddTimeoutHelper(int timeout,
+                         int callbackID,
+                         virErrorPtr err);
 
 int
 virEventRegisterDefaultImplWrapper(virErrorPtr err);

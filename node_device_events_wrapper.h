@@ -44,12 +44,12 @@ nodeDeviceEventGenericCallbackHelper(virConnectPtr conn,
                                      void *data);
 
 int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
-                                            virNodeDevicePtr dev,
-                                            int eventID,
-                                            virConnectNodeDeviceEventGenericCallback cb,
-                                            long goCallbackId,
-					    virErrorPtr err);
+virConnectNodeDeviceEventRegisterAnyHelper(virConnectPtr conn,
+                                           virNodeDevicePtr dev,
+                                           int eventID,
+                                           virConnectNodeDeviceEventGenericCallback cb,
+                                           long goCallbackId,
+                                           virErrorPtr err);
 
 int
 virConnectNodeDeviceEventDeregisterAnyWrapper(virConnectPtr conn,

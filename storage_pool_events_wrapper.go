@@ -49,12 +49,12 @@ void storagePoolEventGenericCallbackHelper(virConnectPtr conn, virStoragePoolPtr
 
 
 int
-virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
-                                             virStoragePoolPtr pool,
-                                             int eventID,
-                                             virConnectStoragePoolEventGenericCallback cb,
-                                             long goCallbackId,
-                                             virErrorPtr err)
+virConnectStoragePoolEventRegisterAnyHelper(virConnectPtr conn,
+                                            virStoragePoolPtr pool,
+                                            int eventID,
+                                            virConnectStoragePoolEventGenericCallback cb,
+                                            long goCallbackId,
+                                            virErrorPtr err)
 {
 #if LIBVIR_VERSION_NUMBER < 2000000
     assert(0); // Caller should have checked version

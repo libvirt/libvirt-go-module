@@ -409,7 +409,7 @@ func NewConnectWithAuth(uri string, auth *ConnectAuth, flags ConnectFlags) (*Con
 	callbackID := registerCallbackId(auth.Callback)
 
 	var err C.virError
-	ptr := C.virConnectOpenAuthWrapper(cUri, &ccredtype[0], C.uint(len(auth.CredType)), C.int(callbackID), C.uint(flags), &err)
+	ptr := C.virConnectOpenAuthHelper(cUri, &ccredtype[0], C.uint(len(auth.CredType)), C.int(callbackID), C.uint(flags), &err)
 	freeCallbackId(callbackID)
 	if ptr == nil {
 		return nil, makeError(&err)
@@ -427,7 +427,7 @@ func NewConnectWithAuthDefault(uri string, flags ConnectFlags) (*Connect, error)
 	}
 
 	var err C.virError
-	ptr := C.virConnectOpenAuthDefaultWrapper(cUri, C.uint(flags), &err)
+	ptr := C.virConnectOpenAuthDefaultHelper(cUri, C.uint(flags), &err)
 	if ptr == nil {
 		return nil, makeError(&err)
 	}
@@ -484,7 +484,7 @@ func (c *Connect) RegisterCloseCallback(callback CloseCallback) error {
 	c.UnregisterCloseCallback()
 	goCallbackId := registerCallbackId(callback)
 	var err C.virError
-	res := C.virConnectRegisterCloseCallbackWrapper(c.ptr, C.long(goCallbackId), &err)
+	res := C.virConnectRegisterCloseCallbackHelper(c.ptr, C.long(goCallbackId), &err)
 	if res != 0 {
 		freeCallbackId(goCallbackId)
 		return makeError(&err)
@@ -501,7 +501,7 @@ func (c *Connect) UnregisterCloseCallback() error {
 		return nil
 	}
 	var err C.virError
-	res := C.virConnectUnregisterCloseCallbackWrapper(c.ptr, &err)
+	res := C.virConnectUnregisterCloseCallbackHelper(c.ptr, &err)
 	if res != 0 {
 		return makeError(&err)
 	}

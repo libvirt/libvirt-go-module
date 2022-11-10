@@ -44,12 +44,12 @@ storagePoolEventGenericCallbackHelper(virConnectPtr conn,
                                       void *data);
 
 int
-virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
-                                             virStoragePoolPtr pool,
-                                             int eventID,
-                                             virConnectStoragePoolEventGenericCallback cb,
-                                             long goCallbackId,
-					     virErrorPtr err);
+virConnectStoragePoolEventRegisterAnyHelper(virConnectPtr conn,
+                                            virStoragePoolPtr pool,
+                                            int eventID,
+                                            virConnectStoragePoolEventGenericCallback cb,
+                                            long goCallbackId,
+					    virErrorPtr err);
 
 int
 virConnectStoragePoolEventDeregisterAnyWrapper(virConnectPtr conn,

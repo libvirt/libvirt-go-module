@@ -95,7 +95,7 @@ func (c *Connect) NodeDeviceEventLifecycleRegister(device *NodeDevice, callback 
 		cdevice = device.ptr
 	}
 	var err C.virError
-	ret := C.virConnectNodeDeviceEventRegisterAnyWrapper(c.ptr, cdevice,
+	ret := C.virConnectNodeDeviceEventRegisterAnyHelper(c.ptr, cdevice,
 		C.VIR_NODE_DEVICE_EVENT_ID_LIFECYCLE,
 		C.virConnectNodeDeviceEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
@@ -115,7 +115,7 @@ func (c *Connect) NodeDeviceEventUpdateRegister(device *NodeDevice, callback Nod
 		cdevice = device.ptr
 	}
 	var err C.virError
-	ret := C.virConnectNodeDeviceEventRegisterAnyWrapper(c.ptr, cdevice,
+	ret := C.virConnectNodeDeviceEventRegisterAnyHelper(c.ptr, cdevice,
 		C.VIR_NODE_DEVICE_EVENT_ID_UPDATE,
 		C.virConnectNodeDeviceEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)

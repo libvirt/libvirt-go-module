@@ -67,12 +67,12 @@ virConnectDomainQemuMonitorEventDeregisterWrapper(virConnectPtr conn,
 
 
 int
-virConnectDomainQemuMonitorEventRegisterWrapper(virConnectPtr conn,
-                                                virDomainPtr dom,
-                                                const char *event,
-                                                long goCallbackId,
-                                                unsigned int flags,
-                                                virErrorPtr err)
+virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
+                                               virDomainPtr dom,
+                                               const char *event,
+                                               long goCallbackId,
+                                               unsigned int flags,
+                                               virErrorPtr err)
 {
 #if LIBVIR_VERSION_NUMBER < 1002003
     assert(0); // Caller should have checked version

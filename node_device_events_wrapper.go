@@ -48,12 +48,12 @@ void nodeDeviceEventGenericCallbackHelper(virConnectPtr conn, virNodeDevicePtr d
 
 
 int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
-                                            virNodeDevicePtr dev,
-                                            int eventID,
-                                            virConnectNodeDeviceEventGenericCallback cb,
-                                            long goCallbackId,
-                                            virErrorPtr err)
+virConnectNodeDeviceEventRegisterAnyHelper(virConnectPtr conn,
+                                           virNodeDevicePtr dev,
+                                           int eventID,
+                                           virConnectNodeDeviceEventGenericCallback cb,
+                                           long goCallbackId,
+                                           virErrorPtr err)
 {
 #if LIBVIR_VERSION_NUMBER < 2002000
     assert(0); // Caller should have checked version

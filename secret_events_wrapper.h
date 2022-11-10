@@ -43,12 +43,12 @@ void secretEventGenericCallbackHelper(virConnectPtr conn,
                                       void *data);
 
 int
-virConnectSecretEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virSecretPtr secret,
-                                        int eventID,
-                                        virConnectSecretEventGenericCallback cb,
-                                        long goCallbackId,
-					virErrorPtr err);
+virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
+                                       virSecretPtr secret,
+                                       int eventID,
+                                       virConnectSecretEventGenericCallback cb,
+                                       long goCallbackId,
+                                       virErrorPtr err);
 
 int
 virConnectSecretEventDeregisterAnyWrapper(virConnectPtr conn,

@@ -49,12 +49,12 @@ void secretEventGenericCallbackHelper(virConnectPtr conn, virSecretPtr secret,
 
 
 int
-virConnectSecretEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virSecretPtr secret,
-                                        int eventID,
-                                        virConnectSecretEventGenericCallback cb,
-                                        long goCallbackId,
-                                        virErrorPtr err)
+virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
+                                       virSecretPtr secret,
+                                       int eventID,
+                                       virConnectSecretEventGenericCallback cb,
+                                       long goCallbackId,
+                                       virErrorPtr err)
 {
 #if LIBVIR_VERSION_NUMBER < 3000000
     assert(0); // Caller should have checked version

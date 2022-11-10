@@ -102,10 +102,10 @@ streamEventCallbackHelper(virStreamPtr st, int events, void *opaque)
 }
 
 int
-virStreamEventAddCallbackWrapper(virStreamPtr stream,
-                                 int events,
-                                 int callbackID,
-                                 virErrorPtr err)
+virStreamEventAddCallbackHelper(virStreamPtr stream,
+                                int events,
+                                int callbackID,
+                                virErrorPtr err)
 {
     int ret = virStreamEventAddCallback(stream, events, streamEventCallbackHelper, (void *)(intptr_t)callbackID, NULL);
     if (ret < 0) {
@@ -179,9 +179,9 @@ virStreamRecvWrapper(virStreamPtr stream,
 
 
 int
-virStreamRecvAllWrapper(virStreamPtr stream,
-                        int callbackID,
-                        virErrorPtr err)
+virStreamRecvAllHelper(virStreamPtr stream,
+                       int callbackID,
+                       virErrorPtr err)
 {
     struct CallbackData cbdata = { .callbackID = callbackID };
     int ret = virStreamRecvAll(stream, streamSinkCallbackHelper, &cbdata);
@@ -256,9 +256,9 @@ virStreamSendWrapper(virStreamPtr stream,
 
 
 int
-virStreamSendAllWrapper(virStreamPtr stream,
-                        int callbackID,
-                        virErrorPtr err)
+virStreamSendAllHelper(virStreamPtr stream,
+                       int callbackID,
+                       virErrorPtr err)
 {
     struct CallbackData cbdata = { .callbackID = callbackID };
     int ret = virStreamSendAll(stream, streamSourceCallbackHelper, &cbdata);
@@ -288,10 +288,10 @@ virStreamSendHoleWrapper(virStreamPtr stream,
 
 
 int
-virStreamSparseRecvAllWrapper(virStreamPtr stream,
-                              int callbackID,
-                              int holeCallbackID,
-                              virErrorPtr err)
+virStreamSparseRecvAllHelper(virStreamPtr stream,
+                             int callbackID,
+                             int holeCallbackID,
+                             virErrorPtr err)
 {
     struct CallbackData cbdata = { .callbackID = callbackID, .holeCallbackID = holeCallbackID };
 #if LIBVIR_VERSION_NUMBER < 3004000
@@ -307,11 +307,11 @@ virStreamSparseRecvAllWrapper(virStreamPtr stream,
 
 
 int
-virStreamSparseSendAllWrapper(virStreamPtr stream,
-                              int callbackID,
-                              int holeCallbackID,
-                              int skipCallbackID,
-                              virErrorPtr err)
+virStreamSparseSendAllHelper(virStreamPtr stream,
+                             int callbackID,
+                             int holeCallbackID,
+                             int skipCallbackID,
+                             virErrorPtr err)
 {
     struct CallbackData cbdata = { .callbackID = callbackID, .holeCallbackID = holeCallbackID, .skipCallbackID = skipCallbackID };
 #if LIBVIR_VERSION_NUMBER < 3004000

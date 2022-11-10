@@ -86,7 +86,7 @@ func EventAddHandle(fd int, events EventHandleType, callback EventHandleCallback
 	callbackID := registerCallbackId(callback)
 
 	var err C.virError
-	ret := C.virEventAddHandleWrapper((C.int)(fd), (C.int)(events), (C.int)(callbackID), &err)
+	ret := C.virEventAddHandleHelper((C.int)(fd), (C.int)(events), (C.int)(callbackID), &err)
 	if ret == -1 {
 		return 0, makeError(&err)
 	}
@@ -129,7 +129,7 @@ func EventAddTimeout(freq int, callback EventTimeoutCallback) (int, error) {
 	callbackID := registerCallbackId(callback)
 
 	var err C.virError
-	ret := C.virEventAddTimeoutWrapper((C.int)(freq), (C.int)(callbackID), &err)
+	ret := C.virEventAddTimeoutHelper((C.int)(freq), (C.int)(callbackID), &err)
 	if ret == -1 {
 		return 0, makeError(&err)
 	}
@@ -202,7 +202,7 @@ func EventRegisterImpl(impl EventLoop) error {
 	if C.virInitializeWrapper(&err) < 0 {
 		return makeError(&err)
 	}
-	C.virEventRegisterImplWrapper()
+	C.virEventRegisterImplHelper()
 	return nil
 }
 

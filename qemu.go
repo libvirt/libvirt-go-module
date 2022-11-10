@@ -208,7 +208,7 @@ func (c *Connect) DomainQemuMonitorEventRegister(dom *Domain, event string, call
 		cdom = dom.ptr
 	}
 	var err C.virError
-	ret := C.virConnectDomainQemuMonitorEventRegisterWrapper(c.ptr, cdom,
+	ret := C.virConnectDomainQemuMonitorEventRegisterHelper(c.ptr, cdom,
 		cEvent,
 		C.long(goCallBackId),
 		C.uint(flags), &err)

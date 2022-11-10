@@ -36,10 +36,10 @@ virStreamAbortWrapper(virStreamPtr stream,
                       virErrorPtr err);
 
 int
-virStreamEventAddCallbackWrapper(virStreamPtr st,
-                                 int events,
-                                 int callbackID,
-                                 virErrorPtr err);
+virStreamEventAddCallbackHelper(virStreamPtr st,
+                                int events,
+                                int callbackID,
+                                virErrorPtr err);
 
 int
 virStreamEventRemoveCallbackWrapper(virStreamPtr stream,
@@ -65,9 +65,9 @@ virStreamRecvWrapper(virStreamPtr stream,
                      virErrorPtr err);
 
 int
-virStreamRecvAllWrapper(virStreamPtr st,
-                        int callbackID,
-                        virErrorPtr err);
+virStreamRecvAllHelper(virStreamPtr st,
+                       int callbackID,
+                       virErrorPtr err);
 
 int
 virStreamRecvFlagsWrapper(virStreamPtr st,
@@ -93,9 +93,9 @@ virStreamSendWrapper(virStreamPtr stream,
                      virErrorPtr err);
 
 int
-virStreamSendAllWrapper(virStreamPtr st,
-                        int callbackID,
-                        virErrorPtr err);
+virStreamSendAllHelper(virStreamPtr st,
+                       int callbackID,
+                       virErrorPtr err);
 
 int
 virStreamSendHoleWrapper(virStreamPtr st,
@@ -104,17 +104,17 @@ virStreamSendHoleWrapper(virStreamPtr st,
                          virErrorPtr err);
 
 int
-virStreamSparseRecvAllWrapper(virStreamPtr st,
-                              int callbackID,
-                              int holeCallbackID,
-                              virErrorPtr err);
+virStreamSparseRecvAllHelper(virStreamPtr st,
+                             int callbackID,
+                             int holeCallbackID,
+                             virErrorPtr err);
 
 int
-virStreamSparseSendAllWrapper(virStreamPtr st,
-                              int callbackID,
-                              int holeCallbackID,
-                              int skipCallbackID,
-                              virErrorPtr err);
+virStreamSparseSendAllHelper(virStreamPtr st,
+                             int callbackID,
+                             int holeCallbackID,
+                             int skipCallbackID,
+                             virErrorPtr err);
 
 
 #endif /* LIBVIRT_GO_STREAM_WRAPPER_H__ */

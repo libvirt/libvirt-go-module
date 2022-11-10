@@ -83,7 +83,7 @@ int eventRemoveTimeoutFuncHelper(int timer)
 }
 
 
-void virEventRegisterImplWrapper(void)
+void virEventRegisterImplHelper(void)
 {
     virEventRegisterImpl(eventAddHandleFuncHelper,
                          eventUpdateHandleFuncHelper,
@@ -116,10 +116,10 @@ void eventTimeoutCallbackFree(uintptr_t callback, uintptr_t opaque)
 
 
 int
-virEventAddHandleWrapper(int fd,
-                         int events,
-                         int callbackID,
-                         virErrorPtr err)
+virEventAddHandleHelper(int fd,
+                        int events,
+                        int callbackID,
+                        virErrorPtr err)
 {
     int ret = virEventAddHandle(fd, events, eventAddHandleHelper, (void *)(intptr_t)callbackID, NULL);
     if (ret < 0) {
@@ -130,9 +130,9 @@ virEventAddHandleWrapper(int fd,
 
 
 int
-virEventAddTimeoutWrapper(int timeout,
-                          int callbackID,
-                          virErrorPtr err)
+virEventAddTimeoutHelper(int timeout,
+                         int callbackID,
+                         virErrorPtr err)
 {
     int ret = virEventAddTimeout(timeout, eventAddTimeoutHelper, (void *)(intptr_t)callbackID, NULL);
     if (ret < 0) {

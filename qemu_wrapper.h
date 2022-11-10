@@ -47,12 +47,12 @@ virConnectDomainQemuMonitorEventDeregisterWrapper(virConnectPtr conn,
                                                   virErrorPtr err);
 
 int
-virConnectDomainQemuMonitorEventRegisterWrapper(virConnectPtr conn,
-                                                virDomainPtr dom,
-                                                const char *event,
-                                                long goCallbackId,
-                                                unsigned int flags,
-                                                virErrorPtr err);
+virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
+                                               virDomainPtr dom,
+                                               const char *event,
+                                               long goCallbackId,
+                                               unsigned int flags,
+                                               virErrorPtr err);
 
 char *
 virDomainQemuAgentCommandWrapper(virDomainPtr domain,

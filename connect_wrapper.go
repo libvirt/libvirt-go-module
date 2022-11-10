@@ -769,12 +769,12 @@ virConnectOpenWrapper(const char *name,
 
 
 virConnectPtr
-virConnectOpenAuthWrapper(const char *name,
-                          int *credtype,
-                          unsigned int ncredtype,
-                          int callbackID,
-                          unsigned int flags,
-                          virErrorPtr err)
+virConnectOpenAuthHelper(const char *name,
+                         int *credtype,
+                         unsigned int ncredtype,
+                         int callbackID,
+                         unsigned int flags,
+                         virErrorPtr err)
 {
     virConnectAuth auth = {
        .credtype = credtype,
@@ -791,9 +791,9 @@ virConnectOpenAuthWrapper(const char *name,
 }
 
 virConnectPtr
-virConnectOpenAuthDefaultWrapper(const char *name,
-                                 unsigned int flags,
-                                 virErrorPtr err)
+virConnectOpenAuthDefaultHelper(const char *name,
+                                unsigned int flags,
+                                virErrorPtr err)
 {
     virConnectPtr ret = virConnectOpenAuth(name, virConnectAuthPtrDefault, flags);
     if (!ret) {
@@ -827,9 +827,9 @@ virConnectRefWrapper(virConnectPtr conn,
 
 
 int
-virConnectRegisterCloseCallbackWrapper(virConnectPtr conn,
-                                       long goCallbackId,
-                                       virErrorPtr err)
+virConnectRegisterCloseCallbackHelper(virConnectPtr conn,
+                                      long goCallbackId,
+                                      virErrorPtr err)
 {
     void *id = (void *)goCallbackId;
     int ret = virConnectRegisterCloseCallback(conn, closeCallbackHelper, id, freeGoCallbackHelper);
@@ -855,8 +855,8 @@ virConnectSetKeepAliveWrapper(virConnectPtr conn,
 
 
 int
-virConnectUnregisterCloseCallbackWrapper(virConnectPtr conn,
-                                         virErrorPtr err)
+virConnectUnregisterCloseCallbackHelper(virConnectPtr conn,
+                                        virErrorPtr err)
 {
     int ret = virConnectUnregisterCloseCallback(conn, closeCallbackHelper);
     if (ret < 0) {

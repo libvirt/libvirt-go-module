@@ -78,7 +78,7 @@ func (c *Connect) NetworkEventLifecycleRegister(net *Network, callback NetworkEv
 		cnet = net.ptr
 	}
 	var err C.virError
-	ret := C.virConnectNetworkEventRegisterAnyWrapper(c.ptr, cnet,
+	ret := C.virConnectNetworkEventRegisterAnyHelper(c.ptr, cnet,
 		C.VIR_NETWORK_EVENT_ID_LIFECYCLE,
 		C.virConnectNetworkEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
