@@ -56,10 +56,10 @@ virConnectSecretEventRegisterAnyWrapper(virConnectPtr conn,
                                         long goCallbackId,
                                         virErrorPtr err)
 {
-    void *id = (void *)goCallbackId;
 #if LIBVIR_VERSION_NUMBER < 3000000
     assert(0); // Caller should have checked version
 #else
+    void *id = (void *)goCallbackId;
     int ret = virConnectSecretEventRegisterAny(conn, secret, eventID, cb, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);
