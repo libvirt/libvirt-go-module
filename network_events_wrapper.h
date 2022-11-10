@@ -32,15 +32,15 @@
 #include "network_compat.h"
 
 void
-networkEventLifecycleCallbackHelper(virConnectPtr c,
-                                    virNetworkPtr d,
+networkEventLifecycleCallbackHelper(virConnectPtr conn,
+                                    virNetworkPtr net,
                                     int event,
                                     int detail,
                                     void *data);
 
 int
-virConnectNetworkEventRegisterAnyWrapper(virConnectPtr c,
-                                         virNetworkPtr d,
+virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
+                                         virNetworkPtr net,
                                          int eventID,
                                          virConnectNetworkEventGenericCallback cb,
                                          long goCallbackId,

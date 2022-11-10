@@ -32,20 +32,20 @@
 #include "storage_pool_compat.h"
 
 void
-storagePoolEventLifecycleCallbackHelper(virConnectPtr c,
-                                        virStoragePoolPtr d,
+storagePoolEventLifecycleCallbackHelper(virConnectPtr conn,
+                                        virStoragePoolPtr pool,
                                         int event,
                                         int detail,
                                         void *data);
 
 void
-storagePoolEventGenericCallbackHelper(virConnectPtr c,
-                                      virStoragePoolPtr d,
+storagePoolEventGenericCallbackHelper(virConnectPtr conn,
+                                      virStoragePoolPtr pool,
                                       void *data);
 
 int
-virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr c,
-                                             virStoragePoolPtr d,
+virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
+                                             virStoragePoolPtr pool,
                                              int eventID,
                                              virConnectStoragePoolEventGenericCallback cb,
                                              long goCallbackId,

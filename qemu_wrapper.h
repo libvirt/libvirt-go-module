@@ -33,8 +33,8 @@
 #include "qemu_compat.h"
 
 void
-domainQemuMonitorEventCallbackHelper(virConnectPtr c,
-                                     virDomainPtr d,
+domainQemuMonitorEventCallbackHelper(virConnectPtr conn,
+                                     virDomainPtr dom,
                                      const char *event,
                                      long long secs,
                                      unsigned int micros,

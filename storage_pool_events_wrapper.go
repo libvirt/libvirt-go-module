@@ -34,23 +34,23 @@ package libvirt
 #include <stdint.h>
 
 extern void storagePoolEventLifecycleCallback(virConnectPtr, virStoragePoolPtr, int, int, int);
-void storagePoolEventLifecycleCallbackHelper(virConnectPtr c, virStoragePoolPtr d,
+void storagePoolEventLifecycleCallbackHelper(virConnectPtr conn, virStoragePoolPtr pool,
                                            int event, int detail, void *data)
 {
-    storagePoolEventLifecycleCallback(c, d, event, detail, (int)(intptr_t)data);
+    storagePoolEventLifecycleCallback(conn, pool, event, detail, (int)(intptr_t)data);
 }
 
 extern void storagePoolEventGenericCallback(virConnectPtr, virStoragePoolPtr, int);
-void storagePoolEventGenericCallbackHelper(virConnectPtr c, virStoragePoolPtr d,
+void storagePoolEventGenericCallbackHelper(virConnectPtr conn, virStoragePoolPtr pool,
                                          void *data)
 {
-    storagePoolEventGenericCallback(c, d, (int)(intptr_t)data);
+    storagePoolEventGenericCallback(conn, pool, (int)(intptr_t)data);
 }
 
 
 int
-virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr c,
-                                             virStoragePoolPtr d,
+virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
+                                             virStoragePoolPtr pool,
                                              int eventID,
                                              virConnectStoragePoolEventGenericCallback cb,
                                              long goCallbackId,
@@ -60,7 +60,7 @@ virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr c,
     assert(0); // Caller should have checked version
 #else
     void *id = (void *)goCallbackId;
-    int ret = virConnectStoragePoolEventRegisterAny(c, d, eventID, cb, id, freeGoCallbackHelper);
+    int ret = virConnectStoragePoolEventRegisterAny(conn, pool, eventID, cb, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);
     }

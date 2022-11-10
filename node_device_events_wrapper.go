@@ -34,22 +34,22 @@ package libvirt
 #include "callbacks_wrapper.h"
 
 extern void nodeDeviceEventLifecycleCallback(virConnectPtr, virNodeDevicePtr, int, int, int);
-void nodeDeviceEventLifecycleCallbackHelper(virConnectPtr c, virNodeDevicePtr d,
+void nodeDeviceEventLifecycleCallbackHelper(virConnectPtr conn, virNodeDevicePtr dev,
                                            int event, int detail, void *data)
 {
-    nodeDeviceEventLifecycleCallback(c, d, event, detail, (int)(intptr_t)data);
+    nodeDeviceEventLifecycleCallback(conn, dev, event, detail, (int)(intptr_t)data);
 }
 
 extern void nodeDeviceEventGenericCallback(virConnectPtr, virNodeDevicePtr, int);
-void nodeDeviceEventGenericCallbackHelper(virConnectPtr c, virNodeDevicePtr d, void *data)
+void nodeDeviceEventGenericCallbackHelper(virConnectPtr conn, virNodeDevicePtr dev, void *data)
 {
-    nodeDeviceEventGenericCallback(c, d, (int)(intptr_t)data);
+    nodeDeviceEventGenericCallback(conn, dev, (int)(intptr_t)data);
 }
 
 
 int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr c,
-                                            virNodeDevicePtr d,
+virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
+                                            virNodeDevicePtr dev,
                                             int eventID,
                                             virConnectNodeDeviceEventGenericCallback cb,
                                             long goCallbackId,
@@ -59,7 +59,7 @@ virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr c,
 #if LIBVIR_VERSION_NUMBER < 2002000
     assert(0); // Caller should have checked version
 #else
-    int ret = virConnectNodeDeviceEventRegisterAny(c, d, eventID, cb, id, freeGoCallbackHelper);
+    int ret = virConnectNodeDeviceEventRegisterAny(conn, dev, eventID, cb, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);
     }

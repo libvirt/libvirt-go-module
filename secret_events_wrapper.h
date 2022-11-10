@@ -32,19 +32,19 @@
 #include "secret_compat.h"
 
 void
-secretEventLifecycleCallbackHelper(virConnectPtr c,
-                                   virSecretPtr d,
+secretEventLifecycleCallbackHelper(virConnectPtr conn,
+                                   virSecretPtr secret,
                                    int event,
                                    int detail,
                                    void *data);
 
-void secretEventGenericCallbackHelper(virConnectPtr c,
-                                      virSecretPtr d,
+void secretEventGenericCallbackHelper(virConnectPtr conn,
+                                      virSecretPtr secret,
                                       void *data);
 
 int
-virConnectSecretEventRegisterAnyWrapper(virConnectPtr c,
-                                        virSecretPtr d,
+virConnectSecretEventRegisterAnyWrapper(virConnectPtr conn,
+                                        virSecretPtr secret,
                                         int eventID,
                                         virConnectSecretEventGenericCallback cb,
                                         long goCallbackId,

@@ -33,117 +33,117 @@ package libvirt
 #include <stdint.h>
 
 extern void domainEventLifecycleCallback(virConnectPtr, virDomainPtr, int, int, int);
-void domainEventLifecycleCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventLifecycleCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                      int event, int detail, void *data)
 {
-    domainEventLifecycleCallback(c, d, event, detail, (int)(intptr_t)data);
+    domainEventLifecycleCallback(conn, dom, event, detail, (int)(intptr_t)data);
 }
 
 extern void domainEventGenericCallback(virConnectPtr, virDomainPtr, int);
-void domainEventGenericCallbackHelper(virConnectPtr c, virDomainPtr d, void *data)
+void domainEventGenericCallbackHelper(virConnectPtr conn, virDomainPtr dom, void *data)
 {
-    domainEventGenericCallback(c, d, (int)(intptr_t)data);
+    domainEventGenericCallback(conn, dom, (int)(intptr_t)data);
 }
 
 extern void domainEventRTCChangeCallback(virConnectPtr, virDomainPtr, long long, int);
-void domainEventRTCChangeCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventRTCChangeCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                      long long utcoffset, void *data)
 {
-    domainEventRTCChangeCallback(c, d, utcoffset, (int)(intptr_t)data);
+    domainEventRTCChangeCallback(conn, dom, utcoffset, (int)(intptr_t)data);
 }
 
 extern void domainEventWatchdogCallback(virConnectPtr, virDomainPtr, int, int);
-void domainEventWatchdogCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventWatchdogCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                     int action, void *data)
 {
-    domainEventWatchdogCallback(c, d, action, (int)(intptr_t)data);
+    domainEventWatchdogCallback(conn, dom, action, (int)(intptr_t)data);
 }
 
 extern void domainEventIOErrorCallback(virConnectPtr, virDomainPtr, const char *, const char *, int, int);
-void domainEventIOErrorCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventIOErrorCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                    const char *srcPath, const char *devAlias,
                                    int action, void *data)
 {
-    domainEventIOErrorCallback(c, d, srcPath, devAlias, action, (int)(intptr_t)data);
+    domainEventIOErrorCallback(conn, dom, srcPath, devAlias, action, (int)(intptr_t)data);
 }
 
 extern void domainEventGraphicsCallback(virConnectPtr, virDomainPtr, int, const virDomainEventGraphicsAddress *,
                                         const virDomainEventGraphicsAddress *, const char *,
                                         const virDomainEventGraphicsSubject *, int);
-void domainEventGraphicsCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventGraphicsCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                     int phase, const virDomainEventGraphicsAddress *local,
                                     const virDomainEventGraphicsAddress *remote,
                                     const char *authScheme,
                                     const virDomainEventGraphicsSubject *subject, void *data)
 {
-    domainEventGraphicsCallback(c, d, phase, local, remote, authScheme, subject, (int)(intptr_t)data);
+    domainEventGraphicsCallback(conn, dom, phase, local, remote, authScheme, subject, (int)(intptr_t)data);
 }
 
 extern void domainEventIOErrorReasonCallback(virConnectPtr, virDomainPtr, const char *, const char *,
                                              int, const char *, int);
-void domainEventIOErrorReasonCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventIOErrorReasonCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                          const char *srcPath, const char *devAlias,
                                          int action, const char *reason, void *data)
 {
-    domainEventIOErrorReasonCallback(c, d, srcPath, devAlias, action, reason, (int)(intptr_t)data);
+    domainEventIOErrorReasonCallback(conn, dom, srcPath, devAlias, action, reason, (int)(intptr_t)data);
 }
 
 extern void domainEventBlockJobCallback(virConnectPtr, virDomainPtr, const char *, int, int, int);
-void domainEventBlockJobCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventBlockJobCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                     const char *disk, int type, int status, void *data)
 {
-    domainEventBlockJobCallback(c, d, disk, type, status, (int)(intptr_t)data);
+    domainEventBlockJobCallback(conn, dom, disk, type, status, (int)(intptr_t)data);
 }
 
 extern void domainEventDiskChangeCallback(virConnectPtr, virDomainPtr, const char *, const char *,
                                           const char *, int, int);
-void domainEventDiskChangeCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventDiskChangeCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                       const char *oldSrcPath, const char *newSrcPath,
                                       const char *devAlias, int reason, void *data)
 {
-    domainEventDiskChangeCallback(c, d, oldSrcPath, newSrcPath, devAlias, reason, (int)(intptr_t)data);
+    domainEventDiskChangeCallback(conn, dom, oldSrcPath, newSrcPath, devAlias, reason, (int)(intptr_t)data);
 }
 
 extern void domainEventTrayChangeCallback(virConnectPtr, virDomainPtr, const char *, int, int);
-void domainEventTrayChangeCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventTrayChangeCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                       const char *devAlias, int reason, void *data)
 {
-    domainEventTrayChangeCallback(c, d, devAlias, reason, (int)(intptr_t)data);
+    domainEventTrayChangeCallback(conn, dom, devAlias, reason, (int)(intptr_t)data);
 }
 
 extern void domainEventPMSuspendCallback(virConnectPtr, virDomainPtr, int, int);
-void domainEventPMSuspendCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventPMSuspendCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                   int reason, void *data)
 {
-    domainEventPMSuspendCallback(c, d, reason, (int)(intptr_t)data);
+    domainEventPMSuspendCallback(conn, dom, reason, (int)(intptr_t)data);
 }
 
 extern void domainEventPMWakeupCallback(virConnectPtr, virDomainPtr, int, int);
-void domainEventPMWakeupCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventPMWakeupCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                      int reason, void *data)
 {
-    domainEventPMWakeupCallback(c, d, reason, (int)(intptr_t)data);
+    domainEventPMWakeupCallback(conn, dom, reason, (int)(intptr_t)data);
 }
 
 extern void domainEventPMSuspendDiskCallback(virConnectPtr, virDomainPtr, int, int);
-void domainEventPMSuspendDiskCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventPMSuspendDiskCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                           int reason, void *data)
 {
-    domainEventPMSuspendDiskCallback(c, d, reason, (int)(intptr_t)data);
+    domainEventPMSuspendDiskCallback(conn, dom, reason, (int)(intptr_t)data);
 }
 
 extern void domainEventBalloonChangeCallback(virConnectPtr, virDomainPtr, unsigned long long, int);
-void domainEventBalloonChangeCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventBalloonChangeCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                          unsigned long long actual, void *data)
 {
-    domainEventBalloonChangeCallback(c, d, actual, (int)(intptr_t)data);
+    domainEventBalloonChangeCallback(conn, dom, actual, (int)(intptr_t)data);
 }
 
 extern void domainEventDeviceRemovedCallback(virConnectPtr, virDomainPtr, const char *, int);
-void domainEventDeviceRemovedCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainEventDeviceRemovedCallbackHelper(virConnectPtr conn, virDomainPtr dom,
                                          const char *devAlias, void *data)
 {
-    domainEventDeviceRemovedCallback(c, d, devAlias, (int)(intptr_t)data);
+    domainEventDeviceRemovedCallback(conn, dom, devAlias, (int)(intptr_t)data);
 }
 
 extern void domainEventTunableCallback(virConnectPtr, virDomainPtr, virTypedParameterPtr, int, int);
@@ -247,15 +247,15 @@ void domainEventMemoryDeviceSizeChangeCallbackHelper(virConnectPtr conn,
 }
 
 int
-virConnectDomainEventRegisterAnyWrapper(virConnectPtr c,
-                                        virDomainPtr d,
+virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
+                                        virDomainPtr dom,
                                         int eventID,
                                         virConnectDomainEventGenericCallback cb,
                                         long goCallbackId,
                                         virErrorPtr err)
 {
     void *id = (void *)goCallbackId;
-    int ret = virConnectDomainEventRegisterAny(c, d, eventID, cb, id, freeGoCallbackHelper);
+    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);
     }

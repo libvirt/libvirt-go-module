@@ -32,20 +32,20 @@
 #include "node_device_compat.h"
 
 void
-nodeDeviceEventLifecycleCallbackHelper(virConnectPtr c,
-                                       virNodeDevicePtr d,
+nodeDeviceEventLifecycleCallbackHelper(virConnectPtr conn,
+                                       virNodeDevicePtr dev,
                                        int event,
                                        int detail,
                                        void *data);
 
 void
-nodeDeviceEventGenericCallbackHelper(virConnectPtr c,
-                                     virNodeDevicePtr d,
+nodeDeviceEventGenericCallbackHelper(virConnectPtr conn,
+                                     virNodeDevicePtr dev,
                                      void *data);
 
 int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr c,
-                                            virNodeDevicePtr d,
+virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
+                                            virNodeDevicePtr dev,
                                             int eventID,
                                             virConnectNodeDeviceEventGenericCallback cb,
                                             long goCallbackId,

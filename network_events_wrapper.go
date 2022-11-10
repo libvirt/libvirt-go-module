@@ -34,15 +34,15 @@ package libvirt
 #include "callbacks_wrapper.h"
 
 extern void networkEventLifecycleCallback(virConnectPtr, virNetworkPtr, int, int, int);
-void networkEventLifecycleCallbackHelper(virConnectPtr c, virNetworkPtr d,
+void networkEventLifecycleCallbackHelper(virConnectPtr conn, virNetworkPtr net,
                                      int event, int detail, void *data)
 {
-    networkEventLifecycleCallback(c, d, event, detail, (int)(intptr_t)data);
+    networkEventLifecycleCallback(conn, net, event, detail, (int)(intptr_t)data);
 }
 
 int
-virConnectNetworkEventRegisterAnyWrapper(virConnectPtr c,
-                                         virNetworkPtr d,
+virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
+                                         virNetworkPtr net,
                                          int eventID,
                                          virConnectNetworkEventGenericCallback cb,
                                          long goCallbackId,
@@ -52,7 +52,7 @@ virConnectNetworkEventRegisterAnyWrapper(virConnectPtr c,
 #if LIBVIR_VERSION_NUMBER < 1002001
     assert(0); // Caller should have checked version
 #else
-    int ret = virConnectNetworkEventRegisterAny(c, d, eventID, cb, id, freeGoCallbackHelper);
+    int ret = virConnectNetworkEventRegisterAny(conn, net, eventID, cb, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);
     }

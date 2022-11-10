@@ -41,11 +41,11 @@ package libvirt
 
 
 extern void domainQemuMonitorEventCallback(virConnectPtr, virDomainPtr, const char *, long long, unsigned int, const char *, int);
-void domainQemuMonitorEventCallbackHelper(virConnectPtr c, virDomainPtr d,
+void domainQemuMonitorEventCallbackHelper(virConnectPtr conn, virDomainPtr dom,
 					const char *event, long long secs,
 					unsigned int micros, const char *details, void *data)
 {
-    domainQemuMonitorEventCallback(c, d, event, secs, micros, details, (int)(intptr_t)data);
+    domainQemuMonitorEventCallback(conn, dom, event, secs, micros, details, (int)(intptr_t)data);
 }
 
 
