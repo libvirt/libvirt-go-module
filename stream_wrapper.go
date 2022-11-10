@@ -29,7 +29,6 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <stdint.h>
-#include <stdlib.h>
 #include <assert.h>
 #include "stream_wrapper.h"
 

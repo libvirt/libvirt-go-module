@@ -29,7 +29,6 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include <stdio.h>
 #include "connect_wrapper.h"
 #include "callbacks_wrapper.h"
 
