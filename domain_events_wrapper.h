@@ -207,6 +207,15 @@ domainEventMemoryDeviceSizeChangeCallbackHelper(virConnectPtr conn,
 						void *opaque);
 
 int
+virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
+                                        virDomainPtr dom,
+                                        int eventID,
+                                        virConnectDomainEventGenericCallback cb,
+                                        void *opaque,
+                                        virFreeCallback freecb,
+                                        virErrorPtr err);
+
+int
 virConnectDomainEventRegisterAnyHelper(virConnectPtr conn,
                                        virDomainPtr dom,
                                        int eventID,

@@ -769,6 +769,19 @@ virConnectOpenWrapper(const char *name,
 
 
 virConnectPtr
+virConnectOpenAuthWrapper(const char *name,
+			  virConnectAuthPtr auth,
+                          unsigned int flags,
+                          virErrorPtr err)
+{
+    virConnectPtr ret = virConnectOpenAuth(name, auth, flags);
+    if (!ret) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+virConnectPtr
 virConnectOpenAuthHelper(const char *name,
                          int *credtype,
                          unsigned int ncredtype,
@@ -783,11 +796,7 @@ virConnectOpenAuthHelper(const char *name,
        .cbdata = &callbackID,
     };
 
-    virConnectPtr ret = virConnectOpenAuth(name, &auth, flags);
-    if (!ret) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virConnectOpenAuthWrapper(name, &auth, flags, err);
 }
 
 virConnectPtr
@@ -795,11 +804,7 @@ virConnectOpenAuthDefaultHelper(const char *name,
                                 unsigned int flags,
                                 virErrorPtr err)
 {
-    virConnectPtr ret = virConnectOpenAuth(name, virConnectAuthPtrDefault, flags);
-    if (!ret) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virConnectOpenAuthWrapper(name, virConnectAuthPtrDefault, flags, err);
 }
 
 virConnectPtr
@@ -827,16 +832,28 @@ virConnectRefWrapper(virConnectPtr conn,
 
 
 int
+virConnectRegisterCloseCallbackWrapper(virConnectPtr conn,
+                                       virConnectCloseFunc cb,
+                                       void *opaque,
+                                       virFreeCallback freecb,
+				       virErrorPtr err)
+{
+    int ret = virConnectRegisterCloseCallback(conn, cb, opaque, freecb);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+
+int
 virConnectRegisterCloseCallbackHelper(virConnectPtr conn,
                                       long goCallbackId,
                                       virErrorPtr err)
 {
     void *id = (void *)goCallbackId;
-    int ret = virConnectRegisterCloseCallback(conn, closeCallbackHelper, id, freeGoCallbackHelper);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virConnectRegisterCloseCallbackWrapper(conn, closeCallbackHelper, id,
+                                                  freeGoCallbackHelper, err);
 }
 
 
@@ -855,14 +872,22 @@ virConnectSetKeepAliveWrapper(virConnectPtr conn,
 
 
 int
-virConnectUnregisterCloseCallbackHelper(virConnectPtr conn,
-                                        virErrorPtr err)
+virConnectUnregisterCloseCallbackWrapper(virConnectPtr conn,
+                                         virConnectCloseFunc cb,
+					 virErrorPtr err)
 {
-    int ret = virConnectUnregisterCloseCallback(conn, closeCallbackHelper);
+    int ret = virConnectUnregisterCloseCallback(conn, cb);
     if (ret < 0) {
         virCopyLastError(err);
     }
     return ret;
+}
+
+int
+virConnectUnregisterCloseCallbackHelper(virConnectPtr conn,
+                                        virErrorPtr err)
+{
+    return virConnectUnregisterCloseCallbackWrapper(conn, closeCallbackHelper, err);
 }
 
 

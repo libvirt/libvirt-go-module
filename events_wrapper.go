@@ -83,14 +83,31 @@ int eventRemoveTimeoutFuncHelper(int timer)
 }
 
 
+void
+virEventRegisterImplWrapper(virEventAddHandleFunc addHandle,
+                            virEventUpdateHandleFunc updateHandle,
+                            virEventRemoveHandleFunc removeHandle,
+                            virEventAddTimeoutFunc addTimeout,
+                            virEventUpdateTimeoutFunc updateTimeout,
+                            virEventRemoveTimeoutFunc removeTimeout)
+{
+    virEventRegisterImpl(addHandle,
+                         updateHandle,
+                         removeHandle,
+                         addTimeout,
+                         updateTimeout,
+                         removeTimeout);
+}
+
+
 void virEventRegisterImplHelper(void)
 {
-    virEventRegisterImpl(eventAddHandleFuncHelper,
-                         eventUpdateHandleFuncHelper,
-                         eventRemoveHandleFuncHelper,
-                         eventAddTimeoutFuncHelper,
-                         eventUpdateTimeoutFuncHelper,
-                         eventRemoveTimeoutFuncHelper);
+    virEventRegisterImplWrapper(eventAddHandleFuncHelper,
+                                eventUpdateHandleFuncHelper,
+                                eventRemoveHandleFuncHelper,
+                                eventAddTimeoutFuncHelper,
+                                eventUpdateTimeoutFuncHelper,
+                                eventRemoveTimeoutFuncHelper);
 }
 
 void eventHandleCallbackInvoke(int watch, int fd, int events, uintptr_t callback, uintptr_t opaque)
@@ -116,12 +133,40 @@ void eventTimeoutCallbackFree(uintptr_t callback, uintptr_t opaque)
 
 
 int
+virEventAddHandleWrapper(int fd,
+                         int events,
+                         virEventHandleCallback cb,
+                         void *opaque,
+                         virFreeCallback ff,
+                         virErrorPtr err)
+{
+    int ret = virEventAddHandle(fd, events, cb, opaque, ff);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+
+int
 virEventAddHandleHelper(int fd,
                         int events,
                         int callbackID,
                         virErrorPtr err)
 {
-    int ret = virEventAddHandle(fd, events, eventAddHandleHelper, (void *)(intptr_t)callbackID, NULL);
+    return virEventAddHandleWrapper(fd, events, eventAddHandleHelper,
+                                    (void *)(intptr_t)callbackID, NULL, err);
+}
+
+
+int
+virEventAddTimeoutWrapper(int timeout,
+                          virEventTimeoutCallback cb,
+                          void *opaque,
+                          virFreeCallback ff,
+                          virErrorPtr err)
+{
+    int ret =  virEventAddTimeout(timeout, cb, opaque, ff);
     if (ret < 0) {
         virCopyLastError(err);
     }
@@ -134,11 +179,8 @@ virEventAddTimeoutHelper(int timeout,
                          int callbackID,
                          virErrorPtr err)
 {
-    int ret = virEventAddTimeout(timeout, eventAddTimeoutHelper, (void *)(intptr_t)callbackID, NULL);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virEventAddTimeoutWrapper(timeout, eventAddTimeoutHelper,
+                                     (void *)(intptr_t)callbackID, NULL, err);
 }
 
 

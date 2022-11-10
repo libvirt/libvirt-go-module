@@ -102,16 +102,29 @@ streamEventCallbackHelper(virStreamPtr st, int events, void *opaque)
 }
 
 int
+virStreamEventAddCallbackWrapper(virStreamPtr stream,
+                                 int events,
+                                 virStreamEventCallback cb,
+                                 void *opaque,
+                                 virFreeCallback ff,
+                                 virErrorPtr err)
+{
+    int ret = virStreamEventAddCallback(stream, events, cb, opaque, ff);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+
+int
 virStreamEventAddCallbackHelper(virStreamPtr stream,
                                 int events,
                                 int callbackID,
                                 virErrorPtr err)
 {
-    int ret = virStreamEventAddCallback(stream, events, streamEventCallbackHelper, (void *)(intptr_t)callbackID, NULL);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virStreamEventAddCallbackWrapper(stream, events, streamEventCallbackHelper,
+                                            (void *)(intptr_t)callbackID, NULL, err);
 }
 
 
@@ -179,16 +192,26 @@ virStreamRecvWrapper(virStreamPtr stream,
 
 
 int
+virStreamRecvAllWrapper(virStreamPtr stream,
+                        virStreamSinkFunc handler,
+                        void *opaque,
+                        virErrorPtr err)
+{
+    int ret = virStreamRecvAll(stream, handler, opaque);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+
+int
 virStreamRecvAllHelper(virStreamPtr stream,
                        int callbackID,
                        virErrorPtr err)
 {
     struct CallbackData cbdata = { .callbackID = callbackID };
-    int ret = virStreamRecvAll(stream, streamSinkCallbackHelper, &cbdata);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virStreamRecvAllWrapper(stream, streamSinkCallbackHelper, &cbdata, err);
 }
 
 
@@ -256,16 +279,26 @@ virStreamSendWrapper(virStreamPtr stream,
 
 
 int
+virStreamSendAllWrapper(virStreamPtr stream,
+                        virStreamSourceFunc handler,
+                        void *opaque,
+                        virErrorPtr err)
+{
+    int ret = virStreamSendAll(stream, handler, opaque);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+
+int
 virStreamSendAllHelper(virStreamPtr stream,
                        int callbackID,
                        virErrorPtr err)
 {
     struct CallbackData cbdata = { .callbackID = callbackID };
-    int ret = virStreamSendAll(stream, streamSourceCallbackHelper, &cbdata);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virStreamSendAllWrapper(stream, streamSourceCallbackHelper, &cbdata, err);
 }
 
 
@@ -288,16 +321,50 @@ virStreamSendHoleWrapper(virStreamPtr stream,
 
 
 int
+virStreamSparseRecvAllWrapper(virStreamPtr stream,
+                              virStreamSinkFunc handler,
+                              virStreamSinkHoleFunc holeHandler,
+                              void *opaque,
+                              virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 3004000
+    assert(0); // Caller should have checked version
+#else
+    int ret = virStreamSparseRecvAll(stream, handler, holeHandler, opaque);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+
+int
 virStreamSparseRecvAllHelper(virStreamPtr stream,
                              int callbackID,
                              int holeCallbackID,
                              virErrorPtr err)
 {
-    struct CallbackData cbdata = { .callbackID = callbackID, .holeCallbackID = holeCallbackID };
+    struct CallbackData cbdata = { .callbackID = callbackID,
+                                   .holeCallbackID = holeCallbackID };
+    return virStreamSparseRecvAllWrapper(stream, streamSinkCallbackHelper,
+                                         streamSinkHoleCallbackHelper,
+                                         &cbdata, err);
+}
+
+
+int
+virStreamSparseSendAllWrapper(virStreamPtr stream,
+                              virStreamSourceFunc handler,
+                              virStreamSourceHoleFunc holeHandler,
+                              virStreamSourceSkipFunc skipHandler,
+                              void *opaque,
+                              virErrorPtr err)
+{
 #if LIBVIR_VERSION_NUMBER < 3004000
     assert(0); // Caller should have checked version
 #else
-    int ret = virStreamSparseRecvAll(stream, streamSinkCallbackHelper, streamSinkHoleCallbackHelper, &cbdata);
+    int ret = virStreamSparseSendAll(stream, handler, holeHandler, skipHandler, opaque);
     if (ret < 0) {
         virCopyLastError(err);
     }
@@ -313,16 +380,13 @@ virStreamSparseSendAllHelper(virStreamPtr stream,
                              int skipCallbackID,
                              virErrorPtr err)
 {
-    struct CallbackData cbdata = { .callbackID = callbackID, .holeCallbackID = holeCallbackID, .skipCallbackID = skipCallbackID };
-#if LIBVIR_VERSION_NUMBER < 3004000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virStreamSparseSendAll(stream, streamSourceCallbackHelper, streamSourceHoleCallbackHelper, streamSourceSkipCallbackHelper, &cbdata);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    struct CallbackData cbdata = { .callbackID = callbackID,
+                                   .holeCallbackID = holeCallbackID,
+                                   .skipCallbackID = skipCallbackID };
+    return virStreamSparseSendAllWrapper(stream, streamSourceCallbackHelper,
+                                         streamSourceHoleCallbackHelper,
+                                         streamSourceSkipCallbackHelper,
+                                         &cbdata, err);
 }
 
 

@@ -39,6 +39,15 @@ networkEventLifecycleCallbackHelper(virConnectPtr conn,
                                     void *data);
 
 int
+virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
+                                         virNetworkPtr net,
+                                         int eventID,
+                                         virConnectNetworkEventGenericCallback cb,
+                                         void *opaque,
+                                         virFreeCallback freecb,
+                                         virErrorPtr err);
+
+int
 virConnectNetworkEventRegisterAnyHelper(virConnectPtr conn,
                                         virNetworkPtr net,
                                         int eventID,

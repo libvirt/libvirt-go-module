@@ -41,6 +41,31 @@ void networkEventLifecycleCallbackHelper(virConnectPtr conn, virNetworkPtr net,
 }
 
 int
+virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
+                                         virNetworkPtr net,
+                                         int eventID,
+                                         virConnectNetworkEventGenericCallback cb,
+                                         void *opaque,
+                                         virFreeCallback freecb,
+                                         virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 1002001
+    assert(0); // Caller should have checked version
+#else
+    int ret = virConnectNetworkEventRegisterAny(conn,
+                                                net,
+                                                eventID,
+                                                cb,
+                                                opaque,
+                                                freecb);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+int
 virConnectNetworkEventRegisterAnyHelper(virConnectPtr conn,
                                         virNetworkPtr net,
                                         int eventID,
@@ -49,15 +74,8 @@ virConnectNetworkEventRegisterAnyHelper(virConnectPtr conn,
                                         virErrorPtr err)
 {
     void *id = (void *)goCallbackId;
-#if LIBVIR_VERSION_NUMBER < 1002001
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectNetworkEventRegisterAny(conn, net, eventID, cb, id, freeGoCallbackHelper);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    return virConnectNetworkEventRegisterAnyWrapper(conn, net, eventID, cb, id,
+                                                    freeGoCallbackHelper, err);
 }
 
 int virConnectNetworkEventDeregisterAnyWrapper(virConnectPtr conn,

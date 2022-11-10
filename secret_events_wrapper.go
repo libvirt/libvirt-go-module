@@ -49,6 +49,26 @@ void secretEventGenericCallbackHelper(virConnectPtr conn, virSecretPtr secret,
 
 
 int
+virConnectSecretEventRegisterAnyWrapper(virConnectPtr conn,
+                                        virSecretPtr secret,
+                                        int eventID,
+                                        virConnectSecretEventGenericCallback cb,
+                                        void *opaque,
+                                        virFreeCallback freecb,
+                                        virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 3000000
+    assert(0); // Caller should have checked version
+#else
+    int ret = virConnectSecretEventRegisterAny(conn, secret, eventID, cb, opaque, freecb);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+int
 virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
                                        virSecretPtr secret,
                                        int eventID,
@@ -56,16 +76,9 @@ virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
                                        long goCallbackId,
                                        virErrorPtr err)
 {
-#if LIBVIR_VERSION_NUMBER < 3000000
-    assert(0); // Caller should have checked version
-#else
     void *id = (void *)goCallbackId;
-    int ret = virConnectSecretEventRegisterAny(conn, secret, eventID, cb, id, freeGoCallbackHelper);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    return virConnectSecretEventRegisterAnyWrapper(conn, secret, eventID, cb, id,
+                                                   freeGoCallbackHelper, err);
 }
 
 int virConnectSecretEventDeregisterAnyWrapper(virConnectPtr conn,

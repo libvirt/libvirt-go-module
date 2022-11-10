@@ -322,6 +322,12 @@ virConnectOpenWrapper(const char *name,
                       virErrorPtr err);
 
 virConnectPtr
+virConnectOpenAuthWrapper(const char *name,
+			  virConnectAuthPtr auth,
+                          unsigned int flags,
+                          virErrorPtr err);
+
+virConnectPtr
 virConnectOpenAuthHelper(const char *name,
                          int *credtype,
                          unsigned int ncredtype,
@@ -343,6 +349,13 @@ virConnectRefWrapper(virConnectPtr conn,
                      virErrorPtr err);
 
 int
+virConnectRegisterCloseCallbackWrapper(virConnectPtr conn,
+                                       virConnectCloseFunc cb,
+                                       void *opaque,
+                                       virFreeCallback freecb,
+				       virErrorPtr err);
+
+int
 virConnectRegisterCloseCallbackHelper(virConnectPtr conn,
                                       long goCallbackId,
                                       virErrorPtr err);
@@ -352,6 +365,11 @@ virConnectSetKeepAliveWrapper(virConnectPtr conn,
                               int interval,
                               unsigned int count,
                               virErrorPtr err);
+
+int
+virConnectUnregisterCloseCallbackWrapper(virConnectPtr conn,
+                                         virConnectCloseFunc cb,
+					 virErrorPtr err);
 
 int
 virConnectUnregisterCloseCallbackHelper(virConnectPtr conn,

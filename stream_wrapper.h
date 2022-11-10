@@ -36,6 +36,14 @@ virStreamAbortWrapper(virStreamPtr stream,
                       virErrorPtr err);
 
 int
+virStreamEventAddCallbackWrapper(virStreamPtr stream,
+                                 int events,
+                                 virStreamEventCallback cb,
+                                 void *opaque,
+                                 virFreeCallback ff,
+                                 virErrorPtr err);
+
+int
 virStreamEventAddCallbackHelper(virStreamPtr st,
                                 int events,
                                 int callbackID,
@@ -63,6 +71,12 @@ virStreamRecvWrapper(virStreamPtr stream,
                      char *data,
                      size_t nbytes,
                      virErrorPtr err);
+
+int
+virStreamRecvAllWrapper(virStreamPtr stream,
+                        virStreamSinkFunc handler,
+                        void *opaque,
+                        virErrorPtr err);
 
 int
 virStreamRecvAllHelper(virStreamPtr st,
@@ -93,6 +107,12 @@ virStreamSendWrapper(virStreamPtr stream,
                      virErrorPtr err);
 
 int
+virStreamSendAllWrapper(virStreamPtr stream,
+                        virStreamSourceFunc handler,
+                        void *opaque,
+                        virErrorPtr err);
+
+int
 virStreamSendAllHelper(virStreamPtr st,
                        int callbackID,
                        virErrorPtr err);
@@ -104,10 +124,25 @@ virStreamSendHoleWrapper(virStreamPtr st,
                          virErrorPtr err);
 
 int
+virStreamSparseRecvAllWrapper(virStreamPtr stream,
+                              virStreamSinkFunc handler,
+                              virStreamSinkHoleFunc holeHandler,
+                              void *opaque,
+                              virErrorPtr err);
+
+int
 virStreamSparseRecvAllHelper(virStreamPtr st,
                              int callbackID,
                              int holeCallbackID,
                              virErrorPtr err);
+
+int
+virStreamSparseSendAllWrapper(virStreamPtr stream,
+                              virStreamSourceFunc handler,
+                              virStreamSourceHoleFunc holeHandler,
+                              virStreamSourceSkipFunc skipHandler,
+                              void *opaque,
+                              virErrorPtr err);
 
 int
 virStreamSparseSendAllHelper(virStreamPtr st,

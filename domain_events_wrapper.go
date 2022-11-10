@@ -247,6 +247,23 @@ void domainEventMemoryDeviceSizeChangeCallbackHelper(virConnectPtr conn,
 }
 
 int
+virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
+                                        virDomainPtr dom,
+                                        int eventID,
+                                        virConnectDomainEventGenericCallback cb,
+                                        void *opaque,
+                                        virFreeCallback freecb,
+                                        virErrorPtr err)
+{
+    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, opaque, freecb);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+}
+
+
+int
 virConnectDomainEventRegisterAnyHelper(virConnectPtr conn,
                                        virDomainPtr dom,
                                        int eventID,
@@ -255,11 +272,8 @@ virConnectDomainEventRegisterAnyHelper(virConnectPtr conn,
                                        virErrorPtr err)
 {
     void *id = (void *)goCallbackId;
-    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, id, freeGoCallbackHelper);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
+    return virConnectDomainEventRegisterAnyWrapper(conn, dom, eventID, cb, id,
+                                                   freeGoCallbackHelper, err);
 }
 
 

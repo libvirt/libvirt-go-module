@@ -46,6 +46,17 @@ virConnectDomainQemuMonitorEventDeregisterWrapper(virConnectPtr conn,
                                                   int callbackID,
                                                   virErrorPtr err);
 
+
+int
+virConnectDomainQemuMonitorEventRegisterWrapper(virConnectPtr conn,
+                                                virDomainPtr dom,
+                                                const char *event,
+                                                virConnectDomainQemuMonitorEventCallback cb,
+                                                void * opaque,
+                                                virFreeCallback freecb,
+                                                unsigned int flags,
+                                                virErrorPtr err);
+
 int
 virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
                                                virDomainPtr dom,

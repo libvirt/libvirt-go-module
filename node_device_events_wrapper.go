@@ -48,6 +48,28 @@ void nodeDeviceEventGenericCallbackHelper(virConnectPtr conn, virNodeDevicePtr d
 
 
 int
+virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
+                                            virNodeDevicePtr dev,
+                                            int eventID,
+                                            virConnectNodeDeviceEventGenericCallback cb,
+                                            void *opaque,
+                                            virFreeCallback freecb,
+                                            virErrorPtr err)
+{
+#if LIBVIR_VERSION_NUMBER < 2002000
+    assert(0); // Caller should have checked version
+#else
+    int ret = virConnectNodeDeviceEventRegisterAny(conn, dev, eventID,
+                                                   cb, opaque, freecb);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+    return ret;
+#endif
+}
+
+
+int
 virConnectNodeDeviceEventRegisterAnyHelper(virConnectPtr conn,
                                            virNodeDevicePtr dev,
                                            int eventID,
@@ -55,16 +77,9 @@ virConnectNodeDeviceEventRegisterAnyHelper(virConnectPtr conn,
                                            long goCallbackId,
                                            virErrorPtr err)
 {
-#if LIBVIR_VERSION_NUMBER < 2002000
-    assert(0); // Caller should have checked version
-#else
     void *id = (void *)goCallbackId;
-    int ret = virConnectNodeDeviceEventRegisterAny(conn, dev, eventID, cb, id, freeGoCallbackHelper);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    return virConnectNodeDeviceEventRegisterAnyWrapper(conn, dev, eventID, cb, id,
+                                                       freeGoCallbackHelper, err);
 }
 
 
