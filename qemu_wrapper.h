@@ -24,8 +24,8 @@
  *
  */
 
-#ifndef LIBVIRT_GO_DOMAIN_EVENTS_WRAPPER_H__
-#define LIBVIRT_GO_DOMAIN_EVENTS_WRAPPER_H__
+#ifndef LIBVIRT_GO_QEMU_WRAPPER_H__
+#define LIBVIRT_GO_QEMU_WRAPPER_H__
 
 #include <libvirt/libvirt.h>
 #include <libvirt/libvirt-qemu.h>
@@ -86,4 +86,4 @@ virDomainQemuMonitorCommandWithFilesWrapper(virDomainPtr domain,
 					    virErrorPtr err);
 
 
-#endif /* LIBVIRT_GO_DOMAIN_EVENTS_WRAPPER_H__ */
+#endif /* LIBVIRT_GO_QEMU_WRAPPER_H__ */
