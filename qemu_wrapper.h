@@ -32,15 +32,6 @@
 #include <libvirt/virterror.h>
 #include "qemu_compat.h"
 
-void
-domainQemuMonitorEventCallbackHelper(virConnectPtr conn,
-                                     virDomainPtr dom,
-                                     const char *event,
-                                     long long secs,
-                                     unsigned int micros,
-                                     const char *details,
-                                     void *data);
-
 int
 virConnectDomainQemuMonitorEventDeregisterWrapper(virConnectPtr conn,
                                                   int callbackID,
@@ -56,14 +47,6 @@ virConnectDomainQemuMonitorEventRegisterWrapper(virConnectPtr conn,
                                                 virFreeCallback freecb,
                                                 unsigned int flags,
                                                 virErrorPtr err);
-
-int
-virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
-                                               virDomainPtr dom,
-                                               const char *event,
-                                               long goCallbackId,
-                                               unsigned int flags,
-                                               virErrorPtr err);
 
 char *
 virDomainQemuAgentCommandWrapper(virDomainPtr domain,

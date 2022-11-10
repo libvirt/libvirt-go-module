@@ -30,7 +30,6 @@ package libvirt
 #cgo pkg-config: libvirt
 #include <assert.h>
 #include "connect_wrapper.h"
-#include "callbacks_wrapper.h"
 
 int
 virInitializeWrapper(virErrorPtr err)
@@ -41,22 +40,6 @@ virInitializeWrapper(virErrorPtr err)
     }
     return ret;
 }
-
-
-extern void closeCallback(virConnectPtr, int, long);
-void closeCallbackHelper(virConnectPtr conn, int reason, void *opaque)
-{
-    closeCallback(conn, reason, (long)opaque);
-}
-
-extern int connectAuthCallback(virConnectCredentialPtr, unsigned int, int);
-int connectAuthCallbackHelper(virConnectCredentialPtr cred, unsigned int ncred, void *cbdata)
-{
-    int *callbackID = cbdata;
-
-    return connectAuthCallback(cred, ncred, *callbackID);
-}
-
 
 char *
 virConnectBaselineCPUWrapper(virConnectPtr conn,
@@ -782,32 +765,6 @@ virConnectOpenAuthWrapper(const char *name,
 }
 
 virConnectPtr
-virConnectOpenAuthHelper(const char *name,
-                         int *credtype,
-                         unsigned int ncredtype,
-                         int callbackID,
-                         unsigned int flags,
-                         virErrorPtr err)
-{
-    virConnectAuth auth = {
-       .credtype = credtype,
-       .ncredtype = ncredtype,
-       .cb = connectAuthCallbackHelper,
-       .cbdata = &callbackID,
-    };
-
-    return virConnectOpenAuthWrapper(name, &auth, flags, err);
-}
-
-virConnectPtr
-virConnectOpenAuthDefaultHelper(const char *name,
-                                unsigned int flags,
-                                virErrorPtr err)
-{
-    return virConnectOpenAuthWrapper(name, virConnectAuthPtrDefault, flags, err);
-}
-
-virConnectPtr
 virConnectOpenReadOnlyWrapper(const char *name,
                               virErrorPtr err)
 {
@@ -847,17 +804,6 @@ virConnectRegisterCloseCallbackWrapper(virConnectPtr conn,
 
 
 int
-virConnectRegisterCloseCallbackHelper(virConnectPtr conn,
-                                      long goCallbackId,
-                                      virErrorPtr err)
-{
-    void *id = (void *)goCallbackId;
-    return virConnectRegisterCloseCallbackWrapper(conn, closeCallbackHelper, id,
-                                                  freeGoCallbackHelper, err);
-}
-
-
-int
 virConnectSetKeepAliveWrapper(virConnectPtr conn,
                               int interval,
                               unsigned int count,
@@ -881,13 +827,6 @@ virConnectUnregisterCloseCallbackWrapper(virConnectPtr conn,
         virCopyLastError(err);
     }
     return ret;
-}
-
-int
-virConnectUnregisterCloseCallbackHelper(virConnectPtr conn,
-                                        virErrorPtr err)
-{
-    return virConnectUnregisterCloseCallbackWrapper(conn, closeCallbackHelper, err);
 }
 
 

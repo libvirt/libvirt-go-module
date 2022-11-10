@@ -38,29 +38,6 @@ virEventRegisterImplWrapper(virEventAddHandleFunc addHandle,
                             virEventUpdateTimeoutFunc updateTimeout,
                             virEventRemoveTimeoutFunc removeTimeout);
 
-void
-virEventRegisterImplHelper(void);
-
-void
-eventHandleCallbackInvoke(int watch,
-                          int fd,
-                          int events,
-                          uintptr_t callback,
-                          uintptr_t opaque);
-
-void
-eventTimeoutCallbackInvoke(int timer,
-                           uintptr_t callback,
-                           uintptr_t opaque);
-
-void
-eventHandleCallbackFree(uintptr_t callback,
-                        uintptr_t opaque);
-
-void
-eventTimeoutCallbackFree(uintptr_t callback,
-                         uintptr_t opaque);
-
 int
 virEventAddHandleWrapper(int fd,
                          int events,
@@ -70,22 +47,11 @@ virEventAddHandleWrapper(int fd,
                          virErrorPtr err);
 
 int
-virEventAddHandleHelper(int fd,
-                        int events,
-                        int callbackID,
-                        virErrorPtr err);
-
-int
 virEventAddTimeoutWrapper(int timeout,
                           virEventTimeoutCallback cb,
                           void *opaque,
                           virFreeCallback ff,
                           virErrorPtr err);
-
-int
-virEventAddTimeoutHelper(int timeout,
-                         int callbackID,
-                         virErrorPtr err);
 
 int
 virEventRegisterDefaultImplWrapper(virErrorPtr err);

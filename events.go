@@ -29,6 +29,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <stdint.h>
+#include "events_helper.h"
 #include "events_wrapper.h"
 #include "connect_wrapper.h"
 */

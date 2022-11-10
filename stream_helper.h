@@ -24,9 +24,38 @@
  *
  */
 
-#ifndef LIBVIRT_GO_CALLBACKS_WRAPPER_H__
-#define LIBVIRT_GO_CALLBACKS_WRAPPER_H__
+#ifndef LIBVIRT_GO_STREAM_HELPER_H__
+#define LIBVIRT_GO_STREAM_HELPER_H__
 
-void freeGoCallbackHelper(void *goCallbackId);
+#include "stream_wrapper.h"
 
-#endif /* LIBVIRT_GO_CALLBACKS_WRAPPER_H__ */
+int
+virStreamEventAddCallbackHelper(virStreamPtr st,
+                                int events,
+                                int callbackID,
+                                virErrorPtr err);
+int
+virStreamRecvAllHelper(virStreamPtr st,
+                       int callbackID,
+                       virErrorPtr err);
+
+int
+virStreamSendAllHelper(virStreamPtr st,
+                       int callbackID,
+                       virErrorPtr err);
+
+int
+virStreamSparseRecvAllHelper(virStreamPtr st,
+                             int callbackID,
+                             int holeCallbackID,
+                             virErrorPtr err);
+
+int
+virStreamSparseSendAllHelper(virStreamPtr st,
+                             int callbackID,
+                             int holeCallbackID,
+                             int skipCallbackID,
+                             virErrorPtr err);
+
+
+#endif /* LIBVIRT_GO_STREAM_HELPER_H__ */

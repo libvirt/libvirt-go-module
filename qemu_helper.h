@@ -1,4 +1,4 @@
-/*
+ /*
  * This file is part of the libvirt-go-module project
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,16 +24,29 @@
  *
  */
 
-package libvirt
+#ifndef LIBVIRT_GO_QEMU_HELPER_H__
+#define LIBVIRT_GO_QEMU_HELPER_H__
 
-/*
-#cgo pkg-config: libvirt
-#include "callbacks_wrapper.h"
+#include "qemu_wrapper.h"
 
-extern void freeCallbackId(long);
-void freeGoCallbackHelper(void *goCallbackId) {
-   freeCallbackId((long)goCallbackId);
-}
 
-*/
-import "C"
+void
+domainQemuMonitorEventCallbackHelper(virConnectPtr conn,
+                                     virDomainPtr dom,
+                                     const char *event,
+                                     long long secs,
+                                     unsigned int micros,
+                                     const char *details,
+                                     void *data);
+
+
+int
+virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
+                                               virDomainPtr dom,
+                                               const char *event,
+                                               long goCallbackId,
+                                               unsigned int flags,
+                                               virErrorPtr err);
+
+
+#endif /* LIBVIRT_GO_QEMU_HELPER_H__ */

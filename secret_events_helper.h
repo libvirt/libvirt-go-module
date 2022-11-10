@@ -24,41 +24,33 @@
  *
  */
 
-package libvirt
+#ifndef LIBVIRT_GO_SECRET_EVENTS_HELPER_H__
+#define LIBVIRT_GO_SECRET_EVENTS_HELPER_H__
 
-/*
-#cgo pkg-config: libvirt
-#include "domain_events_wrapper.h"
+#include "secret_events_wrapper.h"
+
+
+void
+secretEventLifecycleCallbackHelper(virConnectPtr conn,
+                                   virSecretPtr secret,
+                                   int event,
+                                   int detail,
+                                   void *data);
+
+
+void
+secretEventGenericCallbackHelper(virConnectPtr conn,
+				 virSecretPtr secret,
+				 void *data);
 
 
 int
-virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virDomainPtr dom,
-                                        int eventID,
-                                        virConnectDomainEventGenericCallback cb,
-                                        void *opaque,
-                                        virFreeCallback freecb,
-                                        virErrorPtr err)
-{
-    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
-
-int
-virConnectDomainEventDeregisterAnyWrapper(virConnectPtr conn,
-                                          int callbackID,
-                                          virErrorPtr err)
-{
-    int ret = virConnectDomainEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
+virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
+                                       virSecretPtr secret,
+                                       int eventID,
+                                       virConnectSecretEventGenericCallback cb,
+                                       long goCallbackId,
+                                       virErrorPtr err);
 
 
-*/
-import "C"
+#endif /* LIBVIRT_GO_SECRET_EVENTS_HELPER_H__ */

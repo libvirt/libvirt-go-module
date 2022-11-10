@@ -28,47 +28,31 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <assert.h>
-#include "node_device_events_wrapper.h"
+#include <stdint.h>
+#include "network_events_helper.h"
+#include "callbacks_helper.h"
 
-
-int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
-                                            virNodeDevicePtr dev,
-                                            int eventID,
-                                            virConnectNodeDeviceEventGenericCallback cb,
-                                            void *opaque,
-                                            virFreeCallback freecb,
-                                            virErrorPtr err)
+extern void networkEventLifecycleCallback(virConnectPtr, virNetworkPtr, int, int, int);
+void networkEventLifecycleCallbackHelper(virConnectPtr conn, virNetworkPtr net,
+                                     int event, int detail, void *data)
 {
-#if LIBVIR_VERSION_NUMBER < 2002000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectNodeDeviceEventRegisterAny(conn, dev, eventID,
-                                                   cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    networkEventLifecycleCallback(conn, net, event, detail, (int)(intptr_t)data);
 }
 
 
 int
-virConnectNodeDeviceEventDeregisterAnyWrapper(virConnectPtr conn,
-                                              int callbackID,
-                                              virErrorPtr err)
+virConnectNetworkEventRegisterAnyHelper(virConnectPtr conn,
+                                        virNetworkPtr net,
+                                        int eventID,
+                                        virConnectNetworkEventGenericCallback cb,
+                                        long goCallbackId,
+                                        virErrorPtr err)
 {
-#if LIBVIR_VERSION_NUMBER < 2002000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectNodeDeviceEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    void *id = (void *)goCallbackId;
+    return virConnectNetworkEventRegisterAnyWrapper(conn, net, eventID, cb, id,
+                                                    freeGoCallbackHelper, err);
 }
+
 
 */
 import "C"

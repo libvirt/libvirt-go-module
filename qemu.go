@@ -35,6 +35,7 @@ package libvirt
 // installed until 2.6.0 onwards
 #cgo LDFLAGS: -lvirt-qemu
 #include <stdlib.h>
+#include "qemu_helper.h"
 #include "qemu_wrapper.h"
 */
 import "C"

@@ -37,6 +37,7 @@ import (
 /*
 #cgo pkg-config: libvirt
 #include <stdlib.h>
+#include "connect_helper.h"
 #include "connect_wrapper.h"
 #include "domain_wrapper.h"
 #include "typedparams_wrapper.h"

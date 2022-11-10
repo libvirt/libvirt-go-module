@@ -29,16 +29,8 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include <stdint.h>
 #include "network_events_wrapper.h"
-#include "callbacks_wrapper.h"
 
-extern void networkEventLifecycleCallback(virConnectPtr, virNetworkPtr, int, int, int);
-void networkEventLifecycleCallbackHelper(virConnectPtr conn, virNetworkPtr net,
-                                     int event, int detail, void *data)
-{
-    networkEventLifecycleCallback(conn, net, event, detail, (int)(intptr_t)data);
-}
 
 int
 virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
@@ -63,19 +55,6 @@ virConnectNetworkEventRegisterAnyWrapper(virConnectPtr conn,
     }
     return ret;
 #endif
-}
-
-int
-virConnectNetworkEventRegisterAnyHelper(virConnectPtr conn,
-                                        virNetworkPtr net,
-                                        int eventID,
-                                        virConnectNetworkEventGenericCallback cb,
-                                        long goCallbackId,
-                                        virErrorPtr err)
-{
-    void *id = (void *)goCallbackId;
-    return virConnectNetworkEventRegisterAnyWrapper(conn, net, eventID, cb, id,
-                                                    freeGoCallbackHelper, err);
 }
 
 int virConnectNetworkEventDeregisterAnyWrapper(virConnectPtr conn,

@@ -24,41 +24,51 @@
  *
  */
 
-package libvirt
+#ifndef LIBVIRT_GO_EVENTS_HELPER_H__
+#define LIBVIRT_GO_EVENTS_HELPER_H__
 
-/*
-#cgo pkg-config: libvirt
-#include "domain_events_wrapper.h"
+#include "events_wrapper.h"
+
+
+void
+virEventRegisterImplHelper(void);
+
+
+void
+eventHandleCallbackInvoke(int watch,
+                          int fd,
+                          int events,
+                          uintptr_t callback,
+                          uintptr_t opaque);
+
+
+void
+eventTimeoutCallbackInvoke(int timer,
+                           uintptr_t callback,
+                           uintptr_t opaque);
+
+
+void
+eventHandleCallbackFree(uintptr_t callback,
+                        uintptr_t opaque);
+
+
+void
+eventTimeoutCallbackFree(uintptr_t callback,
+                         uintptr_t opaque);
 
 
 int
-virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virDomainPtr dom,
-                                        int eventID,
-                                        virConnectDomainEventGenericCallback cb,
-                                        void *opaque,
-                                        virFreeCallback freecb,
-                                        virErrorPtr err)
-{
-    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
+virEventAddHandleHelper(int fd,
+                        int events,
+                        int callbackID,
+                        virErrorPtr err);
+
 
 int
-virConnectDomainEventDeregisterAnyWrapper(virConnectPtr conn,
-                                          int callbackID,
-                                          virErrorPtr err)
-{
-    int ret = virConnectDomainEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
+virEventAddTimeoutHelper(int timeout,
+                         int callbackID,
+                         virErrorPtr err);
 
 
-*/
-import "C"
+#endif /* LIBVIRT_GO_EVENTS_HELPER_H__ */

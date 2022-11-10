@@ -31,17 +31,6 @@
 #include <libvirt/virterror.h>
 #include "storage_pool_compat.h"
 
-void
-storagePoolEventLifecycleCallbackHelper(virConnectPtr conn,
-                                        virStoragePoolPtr pool,
-                                        int event,
-                                        int detail,
-                                        void *data);
-
-void
-storagePoolEventGenericCallbackHelper(virConnectPtr conn,
-                                      virStoragePoolPtr pool,
-                                      void *data);
 
 int
 virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
@@ -51,14 +40,6 @@ virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
                                              void *opaque,
                                              virFreeCallback freecb,
                                              virErrorPtr err);
-
-int
-virConnectStoragePoolEventRegisterAnyHelper(virConnectPtr conn,
-                                            virStoragePoolPtr pool,
-                                            int eventID,
-                                            virConnectStoragePoolEventGenericCallback cb,
-                                            long goCallbackId,
-					    virErrorPtr err);
 
 int
 virConnectStoragePoolEventDeregisterAnyWrapper(virConnectPtr conn,

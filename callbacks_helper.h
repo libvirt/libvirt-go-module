@@ -24,41 +24,9 @@
  *
  */
 
-package libvirt
+#ifndef LIBVIRT_GO_CALLBACKS_HELPER_H__
+#define LIBVIRT_GO_CALLBACKS_HELPER_H__
 
-/*
-#cgo pkg-config: libvirt
-#include "domain_events_wrapper.h"
+void freeGoCallbackHelper(void *goCallbackId);
 
-
-int
-virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virDomainPtr dom,
-                                        int eventID,
-                                        virConnectDomainEventGenericCallback cb,
-                                        void *opaque,
-                                        virFreeCallback freecb,
-                                        virErrorPtr err)
-{
-    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
-
-int
-virConnectDomainEventDeregisterAnyWrapper(virConnectPtr conn,
-                                          int callbackID,
-                                          virErrorPtr err)
-{
-    int ret = virConnectDomainEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
-
-
-*/
-import "C"
+#endif /* LIBVIRT_GO_CALLBACKS_HELPER_H__ */

@@ -24,41 +24,29 @@
  *
  */
 
-package libvirt
+#ifndef LIBVIRT_GO_STORAGE_POOL_EVENTS_HELPER_H__
+#define LIBVIRT_GO_STORAGE_POOL_EVENTS_HELPER_H__
 
-/*
-#cgo pkg-config: libvirt
-#include "domain_events_wrapper.h"
+#include "storage_pool_events_wrapper.h"
 
+void
+storagePoolEventLifecycleCallbackHelper(virConnectPtr conn,
+                                        virStoragePoolPtr pool,
+                                        int event,
+                                        int detail,
+                                        void *data);
 
-int
-virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virDomainPtr dom,
-                                        int eventID,
-                                        virConnectDomainEventGenericCallback cb,
-                                        void *opaque,
-                                        virFreeCallback freecb,
-                                        virErrorPtr err)
-{
-    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
+void
+storagePoolEventGenericCallbackHelper(virConnectPtr conn,
+                                      virStoragePoolPtr pool,
+                                      void *data);
 
 int
-virConnectDomainEventDeregisterAnyWrapper(virConnectPtr conn,
-                                          int callbackID,
-                                          virErrorPtr err)
-{
-    int ret = virConnectDomainEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
+virConnectStoragePoolEventRegisterAnyHelper(virConnectPtr conn,
+                                            virStoragePoolPtr pool,
+                                            int eventID,
+                                            virConnectStoragePoolEventGenericCallback cb,
+                                            long goCallbackId,
+					    virErrorPtr err);
 
-
-*/
-import "C"
+#endif /* LIBVIRT_GO_STORAGE_POOL_EVENTS_HELPER_H__ */

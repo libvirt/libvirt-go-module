@@ -28,47 +28,40 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <assert.h>
-#include "node_device_events_wrapper.h"
+#include <stdint.h>
+#include "secret_events_helper.h"
+#include "callbacks_helper.h"
 
 
-int
-virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
-                                            virNodeDevicePtr dev,
-                                            int eventID,
-                                            virConnectNodeDeviceEventGenericCallback cb,
-                                            void *opaque,
-                                            virFreeCallback freecb,
-                                            virErrorPtr err)
+extern void secretEventLifecycleCallback(virConnectPtr, virSecretPtr, int, int, int);
+void secretEventLifecycleCallbackHelper(virConnectPtr conn, virSecretPtr secret,
+                                     int event, int detail, void *data)
 {
-#if LIBVIR_VERSION_NUMBER < 2002000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectNodeDeviceEventRegisterAny(conn, dev, eventID,
-                                                   cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    secretEventLifecycleCallback(conn, secret, event, detail, (int)(intptr_t)data);
+}
+
+
+extern void secretEventGenericCallback(virConnectPtr, virSecretPtr, int);
+void secretEventGenericCallbackHelper(virConnectPtr conn, virSecretPtr secret,
+                                    void *data)
+{
+    secretEventGenericCallback(conn, secret, (int)(intptr_t)data);
 }
 
 
 int
-virConnectNodeDeviceEventDeregisterAnyWrapper(virConnectPtr conn,
-                                              int callbackID,
-                                              virErrorPtr err)
+virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
+                                       virSecretPtr secret,
+                                       int eventID,
+                                       virConnectSecretEventGenericCallback cb,
+                                       long goCallbackId,
+                                       virErrorPtr err)
 {
-#if LIBVIR_VERSION_NUMBER < 2002000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectNodeDeviceEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    void *id = (void *)goCallbackId;
+    return virConnectSecretEventRegisterAnyWrapper(conn, secret, eventID, cb, id,
+                                                   freeGoCallbackHelper, err);
 }
+
 
 */
 import "C"

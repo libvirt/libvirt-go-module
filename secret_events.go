@@ -33,6 +33,7 @@ import (
 
 /*
 #cgo pkg-config: libvirt
+#include "secret_events_helper.h"
 #include "secret_events_wrapper.h"
 */
 import "C"

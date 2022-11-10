@@ -28,59 +28,7 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <stdint.h>
 #include "events_wrapper.h"
-
-void eventHandleCallback(int watch, int fd, int events, int callbackID);
-
-static void eventAddHandleHelper(int watch, int fd, int events, void *opaque)
-{
-    eventHandleCallback(watch, fd, events, (int)(intptr_t)opaque);
-}
-
-void eventTimeoutCallback(int timer, int callbackID);
-
-static void eventAddTimeoutHelper(int timer, void *opaque)
-{
-    eventTimeoutCallback(timer, (int)(intptr_t)opaque);
-}
-
-int eventAddHandleFunc(int fd, int event, uintptr_t callback, uintptr_t opaque, uintptr_t freecb);
-void eventUpdateHandleFunc(int watch, int event);
-int eventRemoveHandleFunc(int watch);
-int eventAddTimeoutFunc(int freq, uintptr_t callback, uintptr_t opaque, uintptr_t freecb);
-void eventUpdateTimeoutFunc(int timer, int freq);
-int eventRemoveTimeoutFunc(int timer);
-
-int eventAddHandleFuncHelper(int fd, int event, virEventHandleCallback callback, void *opaque, virFreeCallback freecb)
-{
-    return eventAddHandleFunc(fd, event, (uintptr_t)callback, (uintptr_t)opaque, (uintptr_t)freecb);
-}
-
-void eventUpdateHandleFuncHelper(int watch, int event)
-{
-    eventUpdateHandleFunc(watch, event);
-}
-
-int eventRemoveHandleFuncHelper(int watch)
-{
-    return eventRemoveHandleFunc(watch);
-}
-
-int eventAddTimeoutFuncHelper(int freq, virEventTimeoutCallback callback, void *opaque, virFreeCallback freecb)
-{
-    return eventAddTimeoutFunc(freq, (uintptr_t)callback, (uintptr_t)opaque, (uintptr_t)freecb);
-}
-
-void eventUpdateTimeoutFuncHelper(int timer, int freq)
-{
-    eventUpdateTimeoutFunc(timer, freq);
-}
-
-int eventRemoveTimeoutFuncHelper(int timer)
-{
-    return eventRemoveTimeoutFunc(timer);
-}
 
 
 void
@@ -97,38 +45,6 @@ virEventRegisterImplWrapper(virEventAddHandleFunc addHandle,
                          addTimeout,
                          updateTimeout,
                          removeTimeout);
-}
-
-
-void virEventRegisterImplHelper(void)
-{
-    virEventRegisterImplWrapper(eventAddHandleFuncHelper,
-                                eventUpdateHandleFuncHelper,
-                                eventRemoveHandleFuncHelper,
-                                eventAddTimeoutFuncHelper,
-                                eventUpdateTimeoutFuncHelper,
-                                eventRemoveTimeoutFuncHelper);
-}
-
-void eventHandleCallbackInvoke(int watch, int fd, int events, uintptr_t callback, uintptr_t opaque)
-{
-    ((virEventHandleCallback)callback)(watch, fd, events, (void *)opaque);
-}
-
-void eventTimeoutCallbackInvoke(int timer, uintptr_t callback, uintptr_t opaque)
-{
-    ((virEventTimeoutCallback)callback)(timer, (void *)opaque);
-}
-
-
-void eventHandleCallbackFree(uintptr_t callback, uintptr_t opaque)
-{
-    ((virFreeCallback)callback)((void *)opaque);
-}
-
-void eventTimeoutCallbackFree(uintptr_t callback, uintptr_t opaque)
-{
-    ((virFreeCallback)callback)((void *)opaque);
 }
 
 
@@ -149,17 +65,6 @@ virEventAddHandleWrapper(int fd,
 
 
 int
-virEventAddHandleHelper(int fd,
-                        int events,
-                        int callbackID,
-                        virErrorPtr err)
-{
-    return virEventAddHandleWrapper(fd, events, eventAddHandleHelper,
-                                    (void *)(intptr_t)callbackID, NULL, err);
-}
-
-
-int
 virEventAddTimeoutWrapper(int timeout,
                           virEventTimeoutCallback cb,
                           void *opaque,
@@ -171,16 +76,6 @@ virEventAddTimeoutWrapper(int timeout,
         virCopyLastError(err);
     }
     return ret;
-}
-
-
-int
-virEventAddTimeoutHelper(int timeout,
-                         int callbackID,
-                         virErrorPtr err)
-{
-    return virEventAddTimeoutWrapper(timeout, eventAddTimeoutHelper,
-                                     (void *)(intptr_t)callbackID, NULL, err);
 }
 
 

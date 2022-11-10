@@ -29,23 +29,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include <stdint.h>
 #include "secret_events_wrapper.h"
-#include "callbacks_wrapper.h"
-
-extern void secretEventLifecycleCallback(virConnectPtr, virSecretPtr, int, int, int);
-void secretEventLifecycleCallbackHelper(virConnectPtr conn, virSecretPtr secret,
-                                     int event, int detail, void *data)
-{
-    secretEventLifecycleCallback(conn, secret, event, detail, (int)(intptr_t)data);
-}
-
-extern void secretEventGenericCallback(virConnectPtr, virSecretPtr, int);
-void secretEventGenericCallbackHelper(virConnectPtr conn, virSecretPtr secret,
-                                    void *data)
-{
-    secretEventGenericCallback(conn, secret, (int)(intptr_t)data);
-}
 
 
 int
@@ -66,19 +50,6 @@ virConnectSecretEventRegisterAnyWrapper(virConnectPtr conn,
     }
     return ret;
 #endif
-}
-
-int
-virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
-                                       virSecretPtr secret,
-                                       int eventID,
-                                       virConnectSecretEventGenericCallback cb,
-                                       long goCallbackId,
-                                       virErrorPtr err)
-{
-    void *id = (void *)goCallbackId;
-    return virConnectSecretEventRegisterAnyWrapper(conn, secret, eventID, cb, id,
-                                                   freeGoCallbackHelper, err);
 }
 
 int virConnectSecretEventDeregisterAnyWrapper(virConnectPtr conn,

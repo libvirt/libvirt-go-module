@@ -34,11 +34,6 @@
 int
 virInitializeWrapper(virErrorPtr err);
 
-void
-closeCallbackHelper(virConnectPtr conn,
-                    int reason,
-                    void *opaque);
-
 char *
 virConnectBaselineCPUWrapper(virConnectPtr conn,
                              const char **xmlCPUs,
@@ -328,19 +323,6 @@ virConnectOpenAuthWrapper(const char *name,
                           virErrorPtr err);
 
 virConnectPtr
-virConnectOpenAuthHelper(const char *name,
-                         int *credtype,
-                         unsigned int ncredtype,
-                         int callbackID,
-                         unsigned int flags,
-                         virErrorPtr err);
-
-virConnectPtr
-virConnectOpenAuthDefaultHelper(const char *name,
-                                unsigned int flags,
-                                virErrorPtr err);
-
-virConnectPtr
 virConnectOpenReadOnlyWrapper(const char *name,
                               virErrorPtr err);
 
@@ -356,11 +338,6 @@ virConnectRegisterCloseCallbackWrapper(virConnectPtr conn,
 				       virErrorPtr err);
 
 int
-virConnectRegisterCloseCallbackHelper(virConnectPtr conn,
-                                      long goCallbackId,
-                                      virErrorPtr err);
-
-int
 virConnectSetKeepAliveWrapper(virConnectPtr conn,
                               int interval,
                               unsigned int count,
@@ -370,10 +347,6 @@ int
 virConnectUnregisterCloseCallbackWrapper(virConnectPtr conn,
                                          virConnectCloseFunc cb,
 					 virErrorPtr err);
-
-int
-virConnectUnregisterCloseCallbackHelper(virConnectPtr conn,
-                                        virErrorPtr err);
 
 virDomainPtr
 virDomainCreateLinuxWrapper(virConnectPtr conn,

@@ -24,41 +24,42 @@
  *
  */
 
-package libvirt
+#ifndef LIBVIRT_GO_CONNECT_HELPER_H__
+#define LIBVIRT_GO_CONNECT_HELPER_H__
 
-/*
-#cgo pkg-config: libvirt
-#include "domain_events_wrapper.h"
+#include "connect_wrapper.h"
+
+
+void
+closeCallbackHelper(virConnectPtr conn,
+                    int reason,
+                    void *opaque);
+
+
+virConnectPtr
+virConnectOpenAuthHelper(const char *name,
+                         int *credtype,
+                         unsigned int ncredtype,
+                         int callbackID,
+                         unsigned int flags,
+                         virErrorPtr err);
+
+
+virConnectPtr
+virConnectOpenAuthDefaultHelper(const char *name,
+                                unsigned int flags,
+                                virErrorPtr err);
 
 
 int
-virConnectDomainEventRegisterAnyWrapper(virConnectPtr conn,
-                                        virDomainPtr dom,
-                                        int eventID,
-                                        virConnectDomainEventGenericCallback cb,
-                                        void *opaque,
-                                        virFreeCallback freecb,
-                                        virErrorPtr err)
-{
-    int ret = virConnectDomainEventRegisterAny(conn, dom, eventID, cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
+virConnectRegisterCloseCallbackHelper(virConnectPtr conn,
+                                      long goCallbackId,
+                                      virErrorPtr err);
+
 
 int
-virConnectDomainEventDeregisterAnyWrapper(virConnectPtr conn,
-                                          int callbackID,
-                                          virErrorPtr err)
-{
-    int ret = virConnectDomainEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-}
+virConnectUnregisterCloseCallbackHelper(virConnectPtr conn,
+                                        virErrorPtr err);
 
 
-*/
-import "C"
+#endif /* LIBVIRT_GO_CONNECT_HELPER_H__ */

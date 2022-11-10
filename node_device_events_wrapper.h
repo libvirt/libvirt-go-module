@@ -31,17 +31,6 @@
 #include <libvirt/virterror.h>
 #include "node_device_compat.h"
 
-void
-nodeDeviceEventLifecycleCallbackHelper(virConnectPtr conn,
-                                       virNodeDevicePtr dev,
-                                       int event,
-                                       int detail,
-                                       void *data);
-
-void
-nodeDeviceEventGenericCallbackHelper(virConnectPtr conn,
-                                     virNodeDevicePtr dev,
-                                     void *data);
 
 int
 virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
@@ -51,14 +40,6 @@ virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr conn,
                                             void *opaque,
                                             virFreeCallback freecb,
                                             virErrorPtr err);
-
-int
-virConnectNodeDeviceEventRegisterAnyHelper(virConnectPtr conn,
-                                           virNodeDevicePtr dev,
-                                           int eventID,
-                                           virConnectNodeDeviceEventGenericCallback cb,
-                                           long goCallbackId,
-                                           virErrorPtr err);
 
 int
 virConnectNodeDeviceEventDeregisterAnyWrapper(virConnectPtr conn,

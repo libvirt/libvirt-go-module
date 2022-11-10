@@ -1,3 +1,6 @@
+//go:build !libvirt_without_qemu
+// +build !libvirt_without_qemu
+
 /*
  * This file is part of the libvirt-go-module project
  *
@@ -28,46 +31,37 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <assert.h>
-#include "storage_pool_events_wrapper.h"
+// Can't rely on pkg-config for libvirt-qemu since it was not
+// installed until 2.6.0 onwards
+#cgo LDFLAGS: -lvirt-qemu
+#include <stdint.h>
+#include "qemu_helper.h"
+#include "callbacks_helper.h"
 
 
-int
-virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr conn,
-                                             virStoragePoolPtr pool,
-                                             int eventID,
-                                             virConnectStoragePoolEventGenericCallback cb,
-                                             void *opaque,
-                                             virFreeCallback freecb,
-                                             virErrorPtr err)
+extern void domainQemuMonitorEventCallback(virConnectPtr, virDomainPtr, const char *, long long, unsigned int, const char *, int);
+void domainQemuMonitorEventCallbackHelper(virConnectPtr conn, virDomainPtr dom,
+					const char *event, long long secs,
+					unsigned int micros, const char *details, void *data)
 {
-#if LIBVIR_VERSION_NUMBER < 2000000
-    assert(0); // Caller should have checked version
-#else
-    int ret = virConnectStoragePoolEventRegisterAny(conn, pool, eventID, cb, opaque, freecb);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    domainQemuMonitorEventCallback(conn, dom, event, secs, micros, details, (int)(intptr_t)data);
 }
 
 
 int
-virConnectStoragePoolEventDeregisterAnyWrapper(virConnectPtr conn,
-                                               int callbackID,
+virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
+                                               virDomainPtr dom,
+                                               const char *event,
+                                               long goCallbackId,
+                                               unsigned int flags,
                                                virErrorPtr err)
 {
-#if LIBVIR_VERSION_NUMBER < 2000000
-    assert(0); // Caller shouuld have checked version
-#else
-    int ret = virConnectStoragePoolEventDeregisterAny(conn, callbackID);
-    if (ret < 0) {
-        virCopyLastError(err);
-    }
-    return ret;
-#endif
+    void *id = (void *)goCallbackId;
+    return virConnectDomainQemuMonitorEventRegisterWrapper(conn, dom, event,
+                                                           domainQemuMonitorEventCallbackHelper,
+                                                           id, freeGoCallbackHelper, flags, err);
 }
+
 
 */
 import "C"

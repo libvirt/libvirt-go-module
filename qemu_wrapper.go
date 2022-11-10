@@ -35,18 +35,7 @@ package libvirt
 // installed until 2.6.0 onwards
 #cgo LDFLAGS: -lvirt-qemu
 #include <assert.h>
-#include <stdint.h>
 #include "qemu_wrapper.h"
-#include "callbacks_wrapper.h"
-
-
-extern void domainQemuMonitorEventCallback(virConnectPtr, virDomainPtr, const char *, long long, unsigned int, const char *, int);
-void domainQemuMonitorEventCallbackHelper(virConnectPtr conn, virDomainPtr dom,
-					const char *event, long long secs,
-					unsigned int micros, const char *details, void *data)
-{
-    domainQemuMonitorEventCallback(conn, dom, event, secs, micros, details, (int)(intptr_t)data);
-}
 
 
 int
@@ -86,21 +75,6 @@ virConnectDomainQemuMonitorEventRegisterWrapper(virConnectPtr conn,
     }
     return ret;
 #endif
-}
-
-
-int
-virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
-                                               virDomainPtr dom,
-                                               const char *event,
-                                               long goCallbackId,
-                                               unsigned int flags,
-                                               virErrorPtr err)
-{
-    void *id = (void *)goCallbackId;
-    return virConnectDomainQemuMonitorEventRegisterWrapper(conn, dom, event,
-                                                           domainQemuMonitorEventCallbackHelper,
-                                                           id, freeGoCallbackHelper, flags, err);
 }
 
 
