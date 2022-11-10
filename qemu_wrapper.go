@@ -77,7 +77,7 @@ virConnectDomainQemuMonitorEventRegisterWrapper(virConnectPtr conn,
 #if LIBVIR_VERSION_NUMBER < 1002003
     assert(0); // Caller should have checked version
 #else
-    void *id = (void*)goCallbackId;
+    void *id = (void *)goCallbackId;
     int ret = virConnectDomainQemuMonitorEventRegister(conn, dom, event, domainQemuMonitorEventCallbackHelper,
                                                        id, freeGoCallbackHelper, flags);
     if (ret < 0) {

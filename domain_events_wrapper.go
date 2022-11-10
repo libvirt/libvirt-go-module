@@ -254,7 +254,7 @@ virConnectDomainEventRegisterAnyWrapper(virConnectPtr c,
                                         long goCallbackId,
                                         virErrorPtr err)
 {
-    void *id = (void*)goCallbackId;
+    void *id = (void *)goCallbackId;
     int ret = virConnectDomainEventRegisterAny(c, d, eventID, cb, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);

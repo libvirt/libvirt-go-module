@@ -59,7 +59,7 @@ virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr c,
 #if LIBVIR_VERSION_NUMBER < 2000000
     assert(0); // Caller should have checked version
 #else
-    void* id = (void*)goCallbackId;
+    void *id = (void *)goCallbackId;
     int ret = virConnectStoragePoolEventRegisterAny(c, d, eventID, cb, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);

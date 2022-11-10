@@ -36,12 +36,12 @@ storagePoolEventLifecycleCallbackHelper(virConnectPtr c,
                                         virStoragePoolPtr d,
                                         int event,
                                         int detail,
-                                        void* data);
+                                        void *data);
 
 void
 storagePoolEventGenericCallbackHelper(virConnectPtr c,
                                       virStoragePoolPtr d,
-                                      void* data);
+                                      void *data);
 
 int
 virConnectStoragePoolEventRegisterAnyWrapper(virConnectPtr c,

@@ -48,7 +48,7 @@ virConnectNetworkEventRegisterAnyWrapper(virConnectPtr c,
                                          long goCallbackId,
                                          virErrorPtr err)
 {
-    void* id = (void*)goCallbackId;
+    void *id = (void *)goCallbackId;
 #if LIBVIR_VERSION_NUMBER < 1002001
     assert(0); // Caller should have checked version
 #else

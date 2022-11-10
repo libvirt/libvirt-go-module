@@ -36,12 +36,12 @@ nodeDeviceEventLifecycleCallbackHelper(virConnectPtr c,
                                        virNodeDevicePtr d,
                                        int event,
                                        int detail,
-                                       void* data);
+                                       void *data);
 
 void
 nodeDeviceEventGenericCallbackHelper(virConnectPtr c,
                                      virNodeDevicePtr d,
-                                     void* data);
+                                     void *data);
 
 int
 virConnectNodeDeviceEventRegisterAnyWrapper(virConnectPtr c,

@@ -36,11 +36,11 @@ secretEventLifecycleCallbackHelper(virConnectPtr c,
                                    virSecretPtr d,
                                    int event,
                                    int detail,
-                                   void* data);
+                                   void *data);
 
 void secretEventGenericCallbackHelper(virConnectPtr c,
                                       virSecretPtr d,
-                                      void* data);
+                                      void *data);
 
 int
 virConnectSecretEventRegisterAnyWrapper(virConnectPtr c,

@@ -832,7 +832,7 @@ virConnectRegisterCloseCallbackWrapper(virConnectPtr conn,
                                        long goCallbackId,
                                        virErrorPtr err)
 {
-    void *id = (void*)goCallbackId;
+    void *id = (void *)goCallbackId;
     int ret = virConnectRegisterCloseCallback(conn, closeCallbackHelper, id, freeGoCallbackHelper);
     if (ret < 0) {
         virCopyLastError(err);
