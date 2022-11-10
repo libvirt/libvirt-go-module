@@ -27,7 +27,6 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <assert.h>
 #include "secret_wrapper.h"
 
 

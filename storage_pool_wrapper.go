@@ -27,7 +27,6 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <assert.h>
 #include "storage_pool_wrapper.h"
 
 int

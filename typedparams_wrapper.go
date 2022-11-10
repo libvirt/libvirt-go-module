@@ -27,7 +27,6 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <assert.h>
 #include "typedparams_wrapper.h"
 
 int
