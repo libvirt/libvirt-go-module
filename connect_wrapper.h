@@ -39,11 +39,6 @@ closeCallbackHelper(virConnectPtr conn,
                     int reason,
                     void *opaque);
 
-int
-virConnectRegisterCloseCallbackHelper(virConnectPtr c,
-                                      virConnectCloseFunc cb,
-                                      long goCallbackId);
-
 char *
 virConnectBaselineCPUWrapper(virConnectPtr conn,
                              const char **xmlCPUs,
