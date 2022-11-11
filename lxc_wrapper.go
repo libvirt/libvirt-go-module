@@ -35,7 +35,7 @@ package libvirt
 // installed until 2.6.0 onwards
 #cgo LDFLAGS: -lvirt-lxc
 #include <assert.h>
-#include "lxc_wrapper.h"
+#include "libvirt_lxc_generated.h"
 
 int
 virDomainLxcEnterCGroupWrapper(virDomainPtr domain,

@@ -27,7 +27,7 @@
 #ifndef LIBVIRT_GO_QEMU_HELPER_H__
 #define LIBVIRT_GO_QEMU_HELPER_H__
 
-#include "qemu_wrapper.h"
+#include "libvirt_qemu_generated.h"
 
 
 void

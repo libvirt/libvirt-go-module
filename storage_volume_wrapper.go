@@ -29,7 +29,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include "storage_volume_wrapper.h"
+#include "libvirt_generated.h"
 
 virStoragePoolPtr
 virStoragePoolLookupByVolumeWrapper(virStorageVolPtr vol,

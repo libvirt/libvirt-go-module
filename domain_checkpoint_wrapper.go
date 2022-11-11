@@ -28,7 +28,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include "domain_checkpoint_wrapper.h"
+#include "libvirt_generated.h"
 
 
 int

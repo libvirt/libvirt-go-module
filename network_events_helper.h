@@ -27,7 +27,7 @@
 #ifndef LIBVIRT_GO_NETWORK_EVENTS_HELPER_H__
 #define LIBVIRT_GO_NETWORK_EVENTS_HELPER_H__
 
-#include "network_events_wrapper.h"
+#include "libvirt_generated.h"
 
 
 void

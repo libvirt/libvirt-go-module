@@ -28,7 +28,7 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include "error_wrapper.h"
+#include "libvirt_generated.h"
 
 void ignoreErrorFunc(void *userData, virErrorPtr error) {
      // no-op

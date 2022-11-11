@@ -27,7 +27,7 @@
 #ifndef LIBVIRT_GO_SECRET_EVENTS_HELPER_H__
 #define LIBVIRT_GO_SECRET_EVENTS_HELPER_H__
 
-#include "secret_events_wrapper.h"
+#include "libvirt_generated.h"
 
 
 void

@@ -27,7 +27,7 @@
 #ifndef LIBVIRT_GO_NODE_DEVICE_EVENTS_HELPER_H__
 #define LIBVIRT_GO_NODE_DEVICE_EVENTS_HELPER_H__
 
-#include "node_device_events_wrapper.h"
+#include "libvirt_generated.h"
 
 
 void

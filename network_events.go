@@ -34,7 +34,6 @@ import (
 /*
 #cgo pkg-config: libvirt
 #include "network_events_helper.h"
-#include "network_events_wrapper.h"
 */
 import "C"
 

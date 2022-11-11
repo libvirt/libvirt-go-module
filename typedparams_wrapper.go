@@ -27,7 +27,7 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include "typedparams_wrapper.h"
+#include "libvirt_generated.h"
 
 int
 virTypedParamsAddIntWrapper(virTypedParameterPtr *params,

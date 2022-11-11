@@ -27,7 +27,7 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include "error_wrapper.h"
+#include "libvirt_generated.h"
 
 void
 virResetErrorWrapper(virErrorPtr err)

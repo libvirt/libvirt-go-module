@@ -28,11 +28,9 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
 #include <stdlib.h>
 #include <string.h>
-#include "typedparams_wrapper.h"
+#include "libvirt_generated.h"
 */
 import "C"
 

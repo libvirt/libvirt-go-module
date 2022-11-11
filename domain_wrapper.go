@@ -29,7 +29,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include "domain_wrapper.h"
+#include "libvirt_generated.h"
 
 int
 virDomainAbortJobWrapper(virDomainPtr domain,

@@ -36,7 +36,7 @@ package libvirt
 #cgo LDFLAGS: -lvirt-lxc
 #include <stdlib.h>
 #include <string.h>
-#include "lxc_wrapper.h"
+#include "libvirt_lxc_generated.h"
 */
 import "C"
 

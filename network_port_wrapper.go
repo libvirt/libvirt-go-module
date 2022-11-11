@@ -28,7 +28,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include "network_port_wrapper.h"
+#include "libvirt_generated.h"
 
 virNetworkPtr
 virNetworkPortGetNetworkWrapper(virNetworkPortPtr port,

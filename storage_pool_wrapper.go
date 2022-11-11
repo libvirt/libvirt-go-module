@@ -27,7 +27,7 @@ package libvirt
 
 /*
 #cgo pkg-config: libvirt
-#include "storage_pool_wrapper.h"
+#include "libvirt_generated.h"
 
 int
 virStoragePoolBuildWrapper(virStoragePoolPtr pool,

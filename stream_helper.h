@@ -27,7 +27,7 @@
 #ifndef LIBVIRT_GO_STREAM_HELPER_H__
 #define LIBVIRT_GO_STREAM_HELPER_H__
 
-#include "stream_wrapper.h"
+#include "libvirt_generated.h"
 
 int
 virStreamEventAddCallbackHelper(virStreamPtr st,

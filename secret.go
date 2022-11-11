@@ -29,7 +29,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <stdlib.h>
-#include "secret_wrapper.h"
+#include "libvirt_generated.h"
 */
 import "C"
 

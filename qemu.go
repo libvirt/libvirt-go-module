@@ -36,7 +36,6 @@ package libvirt
 #cgo LDFLAGS: -lvirt-qemu
 #include <stdlib.h>
 #include "qemu_helper.h"
-#include "qemu_wrapper.h"
 */
 import "C"
 

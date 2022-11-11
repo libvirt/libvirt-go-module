@@ -29,7 +29,7 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include <assert.h>
-#include "node_device_events_wrapper.h"
+#include "libvirt_generated.h"
 
 
 int

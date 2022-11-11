@@ -27,7 +27,7 @@
 #ifndef LIBVIRT_GO_CONNECT_HELPER_H__
 #define LIBVIRT_GO_CONNECT_HELPER_H__
 
-#include "connect_wrapper.h"
+#include "libvirt_generated.h"
 
 
 void

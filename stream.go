@@ -29,7 +29,6 @@ package libvirt
 /*
 #cgo pkg-config: libvirt
 #include "stream_helper.h"
-#include "stream_wrapper.h"
 */
 import "C"
 import (
