@@ -46,6 +46,8 @@ static bool once;
 static void *
 libvirtQemuLoad(virErrorPtr err)
 {
+    char *errMsg;
+
     if (once) {
         if (handle == NULL) {
             setVirError(err, "Failed to open libvirt-qemu.so.0");

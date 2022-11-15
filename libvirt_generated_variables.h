@@ -27,6 +27,9 @@
  ****************************************************************************/
 
 #pragma once
-
+#if LIBVIRT_DLOPEN
+extern virConnectAuthPtr *virConnectAuthPtrDefaultVar;
+#else
 extern virConnectAuthPtr virConnectAuthPtrDefault;
 #define virConnectAuthPtrDefaultVar (&virConnectAuthPtrDefault)
+#endif

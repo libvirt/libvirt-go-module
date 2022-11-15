@@ -49,6 +49,13 @@ package libvirt
 static void *handle;
 static bool once;
 
+{{- with .Variables }}
+    {{- range . }}
+
+{{ .Type }} *{{ .Name }}Var;
+    {{- end }}
+{{- end }}
+
 {{- /* Arguments for libvirtSymbol functions */}}
 {{- $loadName := (printf "%sLoad" (getFunctionName .Name)) }}
 {{- $symbolName := (printf "%sSymbol" (getFunctionName .Name)) }}
@@ -57,6 +64,8 @@ static bool once;
 static void *
 {{ $loadName }}(virErrorPtr err)
 {
+    char *errMsg;
+
     if (once) {
         if (handle == NULL) {
             setVirError(err, "Failed to open {{ .Name }}.so.0");
@@ -69,6 +78,16 @@ static void *
         setVirError(err, dlerror());
         return handle;
     }
+{{- with .Variables }}
+    {{- range . }}
+    {{ .Name }}Var = dlsym(handle, "{{ .Name }}");
+    if ((errMsg = dlerror()) != NULL) {
+        setVirError(err, errMsg);
+        dlclose(handle);
+        return NULL;
+    }
+    {{- end }}
+{{- end }}
     return handle;
 }
 

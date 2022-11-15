@@ -43,9 +43,13 @@ package libvirt
 static void *handle;
 static bool once;
 
+virConnectAuthPtr *virConnectAuthPtrDefaultVar;
+
 static void *
 libvirtLoad(virErrorPtr err)
 {
+    char *errMsg;
+
     if (once) {
         if (handle == NULL) {
             setVirError(err, "Failed to open libvirt.so.0");
@@ -57,6 +61,12 @@ libvirtLoad(virErrorPtr err)
     if (handle == NULL) {
         setVirError(err, dlerror());
         return handle;
+    }
+    virConnectAuthPtrDefaultVar = dlsym(handle, "virConnectAuthPtrDefault");
+    if ((errMsg = dlerror()) != NULL) {
+        setVirError(err, errMsg);
+        dlclose(handle);
+        return NULL;
     }
     return handle;
 }

@@ -46,6 +46,8 @@ static bool once;
 static void *
 libvirtLxcLoad(virErrorPtr err)
 {
+    char *errMsg;
+
     if (once) {
         if (handle == NULL) {
             setVirError(err, "Failed to open libvirt-lxc.so.0");

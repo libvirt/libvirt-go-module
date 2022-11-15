@@ -32,9 +32,12 @@
 
 {{- with .Variables }}
     {{- range . }}
-
+#if LIBVIRT_DLOPEN
+extern {{ .Type }} *{{ .Name }}Var;
+#else
 extern {{ .Type }} {{ .Name }};
 #define {{ .Name }}Var (&{{ .Name }})
+#endif
 {{- end }}
 {{- end }}
 {{- /* vim: set syntax=gotexttmpl : */}}
