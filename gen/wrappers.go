@@ -98,7 +98,8 @@ type APIStruct struct {
 	Type    string `xml:"type,attr"`
 	Version string `xml:"version,attr"`
 
-	Fields []APIStructField `xml:"field"`
+	Fields   []APIStructField `xml:"field"`
+	Exported bool
 }
 
 type APIStructField struct {
@@ -229,6 +230,29 @@ func prepareEnums(a, coreAPI *API) {
 // Removes duplicated by type
 func prepareStructs(a *API) {
 	sort.Sort(StructByType(a.Structs))
+
+	exported := make(map[string]bool)
+	for _, f := range a.Files {
+		for _, e := range f.Exports {
+			if e.Type == "struct" {
+				exported[e.Symbol] = true
+			}
+		}
+	}
+
+	for idx, _ := range a.Structs {
+		str := &a.Structs[idx]
+
+		if !strings.HasPrefix(str.Type, "struct ") {
+			log.Fatalf("Struct name %s", str.Type)
+		}
+		typ := str.Type[7:]
+
+		_, ok := exported[typ]
+		if ok {
+			str.Exported = true
+		}
+	}
 }
 
 func (a *API) prepare(coreAPI *API) {
