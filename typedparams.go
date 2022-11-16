@@ -246,13 +246,7 @@ func typedParamsPackNew(infomap map[string]typedParamsFieldInfo) (*C.virTypedPar
 		if value.sl != nil {
 			/* We're not actually using virTypedParamsAddStringList, as it is
 			 * easier to avoid creating a 'char **' in Go to hold all the strings.
-			 * We none the less do a version check, because earlier libvirts
-			 * would not expect to see multiple string values in a typed params
-			 * list with the same field name
 			 */
-			if C.LIBVIR_VERSION_NUMBER < 1002017 {
-				return nil, 0, makeNotImplementedError("virTypedParamsAddStringList")
-			}
 			for i := 0; i < len(*value.sl); i++ {
 				cvalue := C.CString((*value.sl)[i])
 				defer C.free(unsafe.Pointer(cvalue))

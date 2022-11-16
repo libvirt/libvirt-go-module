@@ -143,10 +143,6 @@ func DomainLxcEnterSecurityLabel(model *NodeSecurityModel, label *SecurityLabel,
 }
 
 func (d *Domain) DomainLxcEnterCGroup(flags uint32) error {
-	if C.LIBVIR_VERSION_NUMBER < 2000000 {
-		return makeNotImplementedError("virDomainLxcEnterCGroup")
-	}
-
 	var err C.virError
 	ret := C.virDomainLxcEnterCGroupWrapper(d.ptr, C.uint(flags), &err)
 

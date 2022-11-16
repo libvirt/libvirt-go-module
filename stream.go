@@ -121,10 +121,6 @@ func (v *Stream) Recv(p []byte) (int, error) {
 
 // See also https://libvirt.org/html/libvirt-libvirt-stream.html#virStreamRecvFlags
 func (v *Stream) RecvFlags(p []byte, flags StreamRecvFlagsValues) (int, error) {
-	if C.LIBVIR_VERSION_NUMBER < 3004000 {
-		return 0, makeNotImplementedError("virStreamRecvFlags")
-	}
-
 	var err C.virError
 	n := C.virStreamRecvFlagsWrapper(v.ptr, (*C.char)(unsafe.Pointer(&p[0])), C.size_t(len(p)), C.uint(flags), &err)
 	if n < 0 {
@@ -139,10 +135,6 @@ func (v *Stream) RecvFlags(p []byte, flags StreamRecvFlagsValues) (int, error) {
 
 // See also https://libvirt.org/html/libvirt-libvirt-stream.html#virStreamRecvHole
 func (v *Stream) RecvHole(flags uint32) (int64, error) {
-	if C.LIBVIR_VERSION_NUMBER < 3004000 {
-		return 0, makeNotImplementedError("virStreamSparseRecvHole")
-	}
-
 	var len C.longlong
 	var err C.virError
 	ret := C.virStreamRecvHoleWrapper(v.ptr, &len, C.uint(flags), &err)
@@ -169,10 +161,6 @@ func (v *Stream) Send(p []byte) (int, error) {
 
 // See also https://libvirt.org/html/libvirt-libvirt-stream.html#virStreamSendHole
 func (v *Stream) SendHole(len int64, flags uint32) error {
-	if C.LIBVIR_VERSION_NUMBER < 3004000 {
-		return makeNotImplementedError("virStreamSendHole")
-	}
-
 	var err C.virError
 	ret := C.virStreamSendHoleWrapper(v.ptr, C.longlong(len), C.uint(flags), &err)
 	if ret < 0 {
@@ -242,10 +230,6 @@ func (v *Stream) RecvAll(handler StreamSinkFunc) error {
 
 // See also https://libvirt.org/html/libvirt-libvirt-stream.html#virStreamSparseRecvAll
 func (v *Stream) SparseRecvAll(handler StreamSinkFunc, holeHandler StreamSinkHoleFunc) error {
-	if C.LIBVIR_VERSION_NUMBER < 3004000 {
-		return makeNotImplementedError("virStreamSparseSendAll")
-	}
-
 	callbackID := registerCallbackId(handler)
 	holeCallbackID := registerCallbackId(holeHandler)
 
@@ -349,10 +333,6 @@ func (v *Stream) SendAll(handler StreamSourceFunc) error {
 
 // See also https://libvirt.org/html/libvirt-libvirt-stream.html#virStreamSparseSendAll
 func (v *Stream) SparseSendAll(handler StreamSourceFunc, holeHandler StreamSourceHoleFunc, skipHandler StreamSourceSkipFunc) error {
-	if C.LIBVIR_VERSION_NUMBER < 3004000 {
-		return makeNotImplementedError("virStreamSparseSendAll")
-	}
-
 	callbackID := registerCallbackId(handler)
 	holeCallbackID := registerCallbackId(holeHandler)
 	skipCallbackID := registerCallbackId(skipHandler)

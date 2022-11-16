@@ -51,10 +51,6 @@ type NetworkPort struct {
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortFree
 func (n *NetworkPort) Free() error {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return makeNotImplementedError("virNetworkPortFree")
-	}
-
 	var err C.virError
 	ret := C.virNetworkPortFreeWrapper(n.ptr, &err)
 	if ret == -1 {
@@ -65,10 +61,6 @@ func (n *NetworkPort) Free() error {
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortRef
 func (c *NetworkPort) Ref() error {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return makeNotImplementedError("virNetworkPortRef")
-	}
-
 	var err C.virError
 	ret := C.virNetworkPortRefWrapper(c.ptr, &err)
 	if ret == -1 {
@@ -99,10 +91,6 @@ func (n *NetworkPort) GetNetwork() (*Network, error) {
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortGetUUID
 func (n *NetworkPort) GetUUID() ([]byte, error) {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return []byte{}, makeNotImplementedError("virNetworkPortGetUUID")
-	}
-
 	var cUuid [C.VIR_UUID_BUFLEN](byte)
 	cuidPtr := unsafe.Pointer(&cUuid)
 	var err C.virError
@@ -115,10 +103,6 @@ func (n *NetworkPort) GetUUID() ([]byte, error) {
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortGetUUIDString
 func (n *NetworkPort) GetUUIDString() (string, error) {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return "", makeNotImplementedError("virNetworkPortGetUUIDString")
-	}
-
 	var cUuid [C.VIR_UUID_STRING_BUFLEN](C.char)
 	cuidPtr := unsafe.Pointer(&cUuid)
 	var err C.virError
@@ -131,10 +115,6 @@ func (n *NetworkPort) GetUUIDString() (string, error) {
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortDelete
 func (n *NetworkPort) Delete(flags uint32) error {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return makeNotImplementedError("virNetworkPortDelete")
-	}
-
 	var err C.virError
 	result := C.virNetworkPortDeleteWrapper(n.ptr, C.uint(flags), &err)
 	if result == -1 {
@@ -145,10 +125,6 @@ func (n *NetworkPort) Delete(flags uint32) error {
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortGetXMLDesc
 func (d *NetworkPort) GetXMLDesc(flags uint32) (string, error) {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return "", makeNotImplementedError("virNetworkPortDelete")
-	}
-
 	var err C.virError
 	result := C.virNetworkPortGetXMLDescWrapper(d.ptr, C.uint(flags), &err)
 	if result == nil {
@@ -211,10 +187,6 @@ func getNetworkPortParametersFieldInfo(params *NetworkPortParameters) map[string
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortGetParameters
 func (d *NetworkPort) GetParameters(flags uint32) (*NetworkPortParameters, error) {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return nil, makeNotImplementedError("virNetworkPortGetParameters")
-	}
-
 	params := &NetworkPortParameters{}
 	info := getNetworkPortParametersFieldInfo(params)
 
@@ -238,10 +210,6 @@ func (d *NetworkPort) GetParameters(flags uint32) (*NetworkPortParameters, error
 
 // See also https://libvirt.org/html/libvirt-libvirt-network.html#virNetworkPortSetParameters
 func (d *NetworkPort) SetParameters(params *NetworkPortParameters, flags uint32) error {
-	if C.LIBVIR_VERSION_NUMBER < 5005000 {
-		return makeNotImplementedError("virNetworkPortSetParameters")
-	}
-
 	info := getNetworkPortParametersFieldInfo(params)
 
 	cparams, cnparams, gerr := typedParamsPackNew(info)

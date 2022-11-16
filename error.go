@@ -647,12 +647,3 @@ func makeError(err *C.virError) Error {
 	C.virResetErrorWrapper(err)
 	return ret
 }
-
-func makeNotImplementedError(apiname string) Error {
-	return Error{
-		Code:    ERR_NO_SUPPORT,
-		Domain:  FROM_NONE,
-		Message: fmt.Sprintf("Function '%s' not available in the libvirt library used during Go build", apiname),
-		Level:   ERR_ERROR,
-	}
-}
