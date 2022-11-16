@@ -26,6 +26,8 @@ stages:
     - popd
     - go build
     - go test
+    - go test -tags libvirt_without_qemu
+    - go test -tags libvirt_without_lxc
 
 .native_git_build_job_prebuilt_env:
   extends:
@@ -41,8 +43,10 @@ stages:
   script:
     - go build -x
     - go test
-    - go build -x -tags libvirt_without_qemu -tags libvirt_without_lxc
-    - go test
+    - go build -x -tags libvirt_without_qemu
+    - go test -tags libvirt_without_qemu
+    - go build -x -tags libvirt_without_lxc
+    - go test -tags libvirt_without_lxc
 
 .native_build_job_prebuilt_env:
   extends:
@@ -83,3 +87,50 @@ api_coverage_local_env:
   variables:
     IMAGE: docker.io/library/almalinux:8
     NAME: almalinux-8
+
+.go_build: &go_build
+  stage: builds
+  script:
+    - go build -v -tags libvirt_dlopen
+    - go build -v -tags "libvirt_dlopen libvirt_without_qemu"
+    - go build -v -tags "libvirt_dlopen libvirt_without_lxc"
+    - apt-get update
+    - apt-get install -y libvirt0
+    - go test -timeout 10m -v -tags libvirt_dlopen
+    - go test -timeout 10m -v -tags "libvirt_dlopen libvirt_without_qemu"
+    - go test -timeout 10m -v -tags "libvirt_dlopen libvirt_without_lxc"
+  rules:
+    # upstream: pushes to a branch
+    - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push"'
+      when: on_success
+
+    # forks: pushes to a branch
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE'
+      when: on_success
+
+    # upstream+forks: other web/api/scheduled pipelines
+    - if: '$CI_PIPELINE_SOURCE =~ /(web|api|schedule|merge_request_event)/'
+      when: on_success
+
+    # upstream+forks: that's all folks
+    - when: never
+
+# an old version without modules
+go_1_9:
+  <<: *go_build
+  image: golang:1.9
+
+# first version declared in go.mod
+go_1_11:
+  <<: *go_build
+  image: golang:1.11
+
+# very fussy about +go:build tags having a blank line
+go_1_16:
+  <<: *go_build
+  image: golang:1.16
+
+# a quite new version
+go_1_19:
+  <<: *go_build
+  image: golang:1.19
