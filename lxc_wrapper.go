@@ -1,3 +1,4 @@
+//go:build !libvirt_without_lxc
 // +build !libvirt_without_lxc
 
 /*

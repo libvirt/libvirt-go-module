@@ -1,3 +1,4 @@
+//go:build !libvirt_without_qemu
 // +build !libvirt_without_qemu
 
 /*
