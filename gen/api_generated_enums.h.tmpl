@@ -34,9 +34,6 @@
     {{- $lastTypeDefined := "" }}
     {{- range . }}
         {{- if ne $lastTypeDefined .Type }}
-            {{- if ne $lastTypeDefined "" }}
-
-            {{- end }}
             {{- $lastTypeDefined = .Type }}
 
 /* enum {{ .Type }} */
