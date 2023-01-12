@@ -5690,3 +5690,19 @@ func (d *Domain) StartDirtyRateCalc(secs int, flags DomainDirtyRateCalcFlags) er
 
 	return nil
 }
+
+func (d *Domain) FDAssociate(name string, files []os.File, flags DomainFDAssociateFlags) error {
+	cfiles := make([]C.int, len(files))
+	for i := 0; i < len(files); i++ {
+		cfiles[i] = C.int(files[i].Fd())
+	}
+	cname := C.CString(name)
+	defer C.free(unsafe.Pointer(cname))
+	var err C.virError
+	result := C.virDomainFDAssociateWrapper(d.ptr, cname, C.uint(len(files)), &cfiles[0], C.uint(flags), &err)
+	if result == -1 {
+		return makeError(&err)
+	}
+	return nil
+
+}
