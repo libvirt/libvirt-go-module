@@ -1003,6 +1003,13 @@ const (
 	DOMAIN_ABORT_JOB_POSTCOPY = DomainAbortJobFlags(C.VIR_DOMAIN_ABORT_JOB_POSTCOPY)
 )
 
+type DomainFDAssociateFlags uint
+
+const (
+	DOMAIN_FD_ASSOCIATE_SECLABEL_RESTORE  = DomainFDAssociateFlags(C.VIR_DOMAIN_FD_ASSOCIATE_SECLABEL_RESTORE)
+	DOMAIN_FD_ASSOCIATE_SECLABEL_WRITABLE = DomainFDAssociateFlags(C.VIR_DOMAIN_FD_ASSOCIATE_SECLABEL_WRITABLE)
+)
+
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainFree
 func (d *Domain) Free() error {
 	var err C.virError
