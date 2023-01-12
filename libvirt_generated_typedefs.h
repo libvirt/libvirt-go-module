@@ -536,6 +536,10 @@ typedef int virDomainEventUndefinedDetailType;
 typedef int virDomainEventWatchdogAction;
 #endif
 
+#if !LIBVIR_CHECK_VERSION(9, 0, 0)
+typedef int virDomainFDAssociateFlags;
+#endif
+
 #if !LIBVIR_CHECK_VERSION(1, 2, 11)
 typedef virDomainFSInfo * virDomainFSInfoPtr;
 #endif

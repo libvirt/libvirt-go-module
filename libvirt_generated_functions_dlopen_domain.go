@@ -1659,6 +1659,44 @@ virDomainDetachDeviceFlagsWrapper(virDomainPtr domain,
 }
 
 typedef int
+(*virDomainFDAssociateType)(virDomainPtr domain,
+                            const char * name,
+                            unsigned int nfds,
+                            int * fds,
+                            unsigned int flags);
+
+int
+virDomainFDAssociateWrapper(virDomainPtr domain,
+                            const char * name,
+                            unsigned int nfds,
+                            int * fds,
+                            unsigned int flags,
+                            virErrorPtr err)
+{
+    int ret = -1;
+    static virDomainFDAssociateType virDomainFDAssociateSymbol;
+    static bool once;
+    static bool success;
+
+    if (!libvirtSymbol("virDomainFDAssociate",
+                       (void**)&virDomainFDAssociateSymbol,
+                       &once,
+                       &success,
+                       err)) {
+        return ret;
+    }
+    ret = virDomainFDAssociateSymbol(domain,
+                                     name,
+                                     nfds,
+                                     fds,
+                                     flags);
+    if (ret < 0) {
+        virCopyLastErrorWrapper(err);
+    }
+    return ret;
+}
+
+typedef int
 (*virDomainFSFreezeType)(virDomainPtr dom,
                          const char ** mountpoints,
                          unsigned int nmountpoints,

@@ -1054,6 +1054,30 @@ virDomainDetachDeviceFlagsWrapper(virDomainPtr domain,
 }
 
 int
+virDomainFDAssociateWrapper(virDomainPtr domain,
+                            const char * name,
+                            unsigned int nfds,
+                            int * fds,
+                            unsigned int flags,
+                            virErrorPtr err)
+{
+    int ret = -1;
+#if !LIBVIR_CHECK_VERSION(9, 0, 0)
+    setVirError(err, "Function virDomainFDAssociate not available prior to libvirt version 9.0.0");
+#else
+    ret = virDomainFDAssociate(domain,
+                               name,
+                               nfds,
+                               fds,
+                               flags);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+#endif
+    return ret;
+}
+
+int
 virDomainFSFreezeWrapper(virDomainPtr dom,
                          const char ** mountpoints,
                          unsigned int nmountpoints,

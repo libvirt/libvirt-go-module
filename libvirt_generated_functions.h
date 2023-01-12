@@ -738,6 +738,14 @@ virDomainDetachDeviceFlagsWrapper(virDomainPtr domain,
                                   virErrorPtr err);
 
 int
+virDomainFDAssociateWrapper(virDomainPtr domain,
+                            const char * name,
+                            unsigned int nfds,
+                            int * fds,
+                            unsigned int flags,
+                            virErrorPtr err);
+
+int
 virDomainFSFreezeWrapper(virDomainPtr dom,
                          const char ** mountpoints,
                          unsigned int nmountpoints,

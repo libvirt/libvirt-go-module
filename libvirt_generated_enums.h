@@ -1192,6 +1192,14 @@
 #    define VIR_DOMAIN_EVENT_WATCHDOG_LAST 7
 #  endif
 
+/* enum virDomainFDAssociateFlags */
+#  if !LIBVIR_CHECK_VERSION(9, 0, 0)
+#    define VIR_DOMAIN_FD_ASSOCIATE_SECLABEL_RESTORE (1 << 0)
+#  endif
+#  if !LIBVIR_CHECK_VERSION(9, 0, 0)
+#    define VIR_DOMAIN_FD_ASSOCIATE_SECLABEL_WRITABLE (1 << 1)
+#  endif
+
 /* enum virDomainGetHostnameFlags */
 #  if !LIBVIR_CHECK_VERSION(6, 1, 0)
 #    define VIR_DOMAIN_GET_HOSTNAME_LEASE (1 << 0)
@@ -1276,8 +1284,11 @@
 #  if !LIBVIR_CHECK_VERSION(6, 0, 0)
 #    define VIR_DOMAIN_JOB_OPERATION_BACKUP 9
 #  endif
+#  if !LIBVIR_CHECK_VERSION(9, 0, 0)
+#    define VIR_DOMAIN_JOB_OPERATION_SNAPSHOT_DELETE 10
+#  endif
 #  if !LIBVIR_CHECK_VERSION(3, 3, 0)
-#    define VIR_DOMAIN_JOB_OPERATION_LAST 10
+#    define VIR_DOMAIN_JOB_OPERATION_LAST 11
 #  endif
 
 /* enum virDomainJobType */
