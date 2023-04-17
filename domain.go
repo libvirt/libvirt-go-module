@@ -292,6 +292,7 @@ const (
 	DOMAIN_PAUSED_STARTING_UP     = DomainPausedReason(C.VIR_DOMAIN_PAUSED_STARTING_UP)     /* the domainis being started */
 	DOMAIN_PAUSED_POSTCOPY        = DomainPausedReason(C.VIR_DOMAIN_PAUSED_POSTCOPY)        /* paused for post-copy migration */
 	DOMAIN_PAUSED_POSTCOPY_FAILED = DomainPausedReason(C.VIR_DOMAIN_PAUSED_POSTCOPY_FAILED) /* paused after failed post-copy */
+	DOMAIN_PAUSED_API_ERROR       = DomainPausedReason(C.VIR_DOMAIN_PAUSED_API_ERROR)       /* Some APIs (e.g., migration, snapshot) internally need to suspend a domain. This paused state reason is used when resume operation at the end of such API fails.*/
 )
 
 type DomainXMLFlags uint
