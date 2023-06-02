@@ -2479,6 +2479,10 @@ type DomainMigrateParameters struct {
 	TLSDestination            string
 	DisksURISet               bool
 	DisksURI                  string
+	CompressionZlibLevelSet   bool
+	CompressionZlibLevel      int
+	CompressionZstdLevelSet   bool
+	CompressionZstdLevel      int
 }
 
 func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]typedParamsFieldInfo {
@@ -2562,6 +2566,14 @@ func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]ty
 		C.VIR_MIGRATE_PARAM_DISKS_URI: typedParamsFieldInfo{
 			set: &params.DisksURISet,
 			s:   &params.DisksURI,
+		},
+		C.VIR_MIGRATE_PARAM_COMPRESSION_ZLIB_LEVEL: typedParamsFieldInfo{
+			set: &params.CompressionZlibLevelSet,
+			i:   &params.CompressionZlibLevel,
+		},
+		C.VIR_MIGRATE_PARAM_COMPRESSION_ZSTD_LEVEL: typedParamsFieldInfo{
+			set: &params.CompressionZstdLevelSet,
+			i:   &params.CompressionZstdLevel,
 		},
 	}
 }
