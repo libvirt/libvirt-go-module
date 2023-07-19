@@ -2407,7 +2407,7 @@ func (c *Connect) FindStoragePoolSources(pooltype string, srcSpec string, flags 
 	defer C.free(unsafe.Pointer(cpooltype))
 	var csrcSpec *C.char
 	if srcSpec != "" {
-		csrcSpec := C.CString(srcSpec)
+		csrcSpec = C.CString(srcSpec)
 		defer C.free(unsafe.Pointer(csrcSpec))
 	}
 	var err C.virError
@@ -3313,7 +3313,7 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 	}
 
 	for i := 0; i < len(stats); i++ {
-		ret := C.virDomainRefWrapper(stats[i].Domain.ptr, &err)
+		ret = C.virDomainRefWrapper(stats[i].Domain.ptr, &err)
 		if ret < 0 {
 			return []DomainStats{}, makeError(&err)
 		}

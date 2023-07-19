@@ -2336,7 +2336,7 @@ func (d *Domain) BlockRebase(disk string, base string, bandwidth uint64, flags D
 	defer C.free(unsafe.Pointer(cdisk))
 	var cbase *C.char
 	if base != "" {
-		cbase := C.CString(base)
+		cbase = C.CString(base)
 		defer C.free(unsafe.Pointer(cbase))
 	}
 	var err C.virError
@@ -4237,7 +4237,7 @@ func (d *Domain) FSThaw(mounts []string, flags uint32) error {
 func (d *Domain) FSTrim(mount string, minimum uint64, flags uint32) error {
 	var cmount *C.char
 	if mount != "" {
-		cmount := C.CString(mount)
+		cmount = C.CString(mount)
 		defer C.free(unsafe.Pointer(cmount))
 	}
 
@@ -5541,9 +5541,9 @@ func (d *Domain) GetGuestInfo(types DomainGuestInfoTypes, flags uint32) (*Domain
 			if diskLengths.DependencyCountSet && diskLengths.DependencyCount > 0 {
 				info.Disks[i].Dependencies = make([]DomainGuestInfoDiskDependency, diskLengths.DependencyCount)
 				for j := 0; j < int(diskLengths.DependencyCount); j++ {
-					diskInfo := getDomainGuestInfoDiskDependencyFieldInfo(i, j, &info.Disks[i].Dependencies[j])
+					diskInfoDep := getDomainGuestInfoDiskDependencyFieldInfo(i, j, &info.Disks[i].Dependencies[j])
 
-					_, gerr = typedParamsUnpack(cparams, cnparams, diskInfo)
+					_, gerr = typedParamsUnpack(cparams, cnparams, diskInfoDep)
 					if gerr != nil {
 						return nil, gerr
 					}
