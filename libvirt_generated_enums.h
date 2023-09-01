@@ -2798,8 +2798,11 @@
 #  if !LIBVIR_CHECK_VERSION(7, 1, 0)
 #    define VIR_ERR_MULTIPLE_DOMAINS 110
 #  endif
+#  if !LIBVIR_CHECK_VERSION(9, 7, 0)
+#    define VIR_ERR_NO_NETWORK_METADATA 111
+#  endif
 #  if !LIBVIR_CHECK_VERSION(5, 0, 0)
-#    define VIR_ERR_NUMBER_LAST 111
+#    define VIR_ERR_NUMBER_LAST 112
 #  endif
 
 /* enum virEventHandleType */
@@ -2935,6 +2938,20 @@
 #  endif
 #  if !LIBVIR_CHECK_VERSION(1, 2, 1)
 #    define VIR_NETWORK_EVENT_LAST 4
+#  endif
+
+/* enum virNetworkMetadataType */
+#  if !LIBVIR_CHECK_VERSION(9, 7, 0)
+#    define VIR_NETWORK_METADATA_DESCRIPTION 0
+#  endif
+#  if !LIBVIR_CHECK_VERSION(9, 7, 0)
+#    define VIR_NETWORK_METADATA_TITLE 1
+#  endif
+#  if !LIBVIR_CHECK_VERSION(9, 7, 0)
+#    define VIR_NETWORK_METADATA_ELEMENT 2
+#  endif
+#  if !LIBVIR_CHECK_VERSION(9, 7, 0)
+#    define VIR_NETWORK_METADATA_LAST 3
 #  endif
 
 /* enum virNetworkPortCreateFlags */
