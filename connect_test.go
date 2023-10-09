@@ -1061,3 +1061,23 @@ func TestListAllStoragePools(t *testing.T) {
 		t.Fatalf("storage pool %s not found", testStoragePool)
 	}
 }
+
+func TestRawConnection(t *testing.T) {
+	conn := buildTestConnection()
+	defer func() {
+		if res, _ := conn.Close(); res != 0 {
+			t.Errorf("Close() == %d, expected 0", res)
+		}
+	}()
+
+	conn2, err := conn.RawPtr()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if res, _ := CloseRawPtr(conn2); res != 1 {
+			t.Errorf("CloseRawPtr() == %d, expected 1", res)
+		}
+	}()
+}
