@@ -119,6 +119,7 @@ var (
 
 		/* Network event callback typedefs */
 		"virConnectNetworkEventGenericCallback",
+		"virConnectNetworkEventMetadataChangeCallback",
 		"virConnectNetworkEventLifecycleCallback",
 
 		/* Node device event callback typedefs */
