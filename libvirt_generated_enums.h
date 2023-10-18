@@ -2919,8 +2919,11 @@
 #  if !LIBVIR_CHECK_VERSION(1, 2, 1)
 #    define VIR_NETWORK_EVENT_ID_LIFECYCLE 0
 #  endif
+#  if !LIBVIR_CHECK_VERSION(9, 8, 0)
+#    define VIR_NETWORK_EVENT_ID_METADATA_CHANGE 1
+#  endif
 #  if !LIBVIR_CHECK_VERSION(1, 2, 1)
-#    define VIR_NETWORK_EVENT_ID_LAST 1
+#    define VIR_NETWORK_EVENT_ID_LAST 2
 #  endif
 
 /* enum virNetworkEventLifecycleType */
