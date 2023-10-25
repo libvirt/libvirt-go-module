@@ -4649,8 +4649,11 @@ func (d *Domain) Save(destFile string) error {
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainSaveFlags
 func (d *Domain) SaveFlags(destFile string, destXml string, flags DomainSaveRestoreFlags) error {
 	cDestFile := C.CString(destFile)
-	cDestXml := C.CString(destXml)
-	defer C.free(unsafe.Pointer(cDestXml))
+	var cDestXml *C.char
+	if destXml != "" {
+		cDestXml = C.CString(destXml)
+		defer C.free(unsafe.Pointer(cDestXml))
+	}
 	defer C.free(unsafe.Pointer(cDestFile))
 	var err C.virError
 	result := C.virDomainSaveFlagsWrapper(d.ptr, cDestFile, cDestXml, C.uint(flags), &err)

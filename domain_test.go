@@ -289,8 +289,8 @@ func TestSaveDomainFlags(t *testing.T) {
 		return
 	}
 	const srcFile = "/tmp/libvirt-go-module-test.tmp"
-	if err := dom.SaveFlags(srcFile, "", 0); err == nil {
-		t.Fatal("expected xml modification unsupported")
+	if err := dom.SaveFlags(srcFile, "", 0); err != nil {
+		t.Error(err)
 		return
 	}
 }
