@@ -35,8 +35,7 @@ RUN dnf update -y && \
         perl \
         pkgconfig \
         python3 \
-        python3-docutils \
-        rpcgen && \
+        python3-docutils && \
     dnf autoremove -y && \
     dnf clean all -y && \
     rpm -qa | sort > /packages.txt && \
