@@ -587,6 +587,9 @@
 #  if !LIBVIR_CHECK_VERSION(0, 9, 11)
 #    define VIR_DOMAIN_BLOCK_RESIZE_BYTES (1 << 0)
 #  endif
+#  if !LIBVIR_CHECK_VERSION(10, 0, 0)
+#    define VIR_DOMAIN_BLOCK_RESIZE_CAPACITY (1 << 1)
+#  endif
 
 /* enum virDomainBlockedReason */
 #  if !LIBVIR_CHECK_VERSION(0, 9, 2)
