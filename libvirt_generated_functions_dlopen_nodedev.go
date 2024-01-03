@@ -768,6 +768,38 @@ virNodeDeviceUndefineWrapper(virNodeDevicePtr dev,
 }
 
 typedef int
+(*virNodeDeviceUpdateType)(virNodeDevicePtr dev,
+                           const char * xmlDesc,
+                           unsigned int flags);
+
+int
+virNodeDeviceUpdateWrapper(virNodeDevicePtr dev,
+                           const char * xmlDesc,
+                           unsigned int flags,
+                           virErrorPtr err)
+{
+    int ret = -1;
+    static virNodeDeviceUpdateType virNodeDeviceUpdateSymbol;
+    static bool once;
+    static bool success;
+
+    if (!libvirtSymbol("virNodeDeviceUpdate",
+                       (void**)&virNodeDeviceUpdateSymbol,
+                       &once,
+                       &success,
+                       err)) {
+        return ret;
+    }
+    ret = virNodeDeviceUpdateSymbol(dev,
+                                    xmlDesc,
+                                    flags);
+    if (ret < 0) {
+        virCopyLastErrorWrapper(err);
+    }
+    return ret;
+}
+
+typedef int
 (*virNodeListDevicesType)(virConnectPtr conn,
                           const char * cap,
                           char ** const names,

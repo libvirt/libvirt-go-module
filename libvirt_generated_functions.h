@@ -2272,6 +2272,12 @@ virNodeDeviceUndefineWrapper(virNodeDevicePtr dev,
                              virErrorPtr err);
 
 int
+virNodeDeviceUpdateWrapper(virNodeDevicePtr dev,
+                           const char * xmlDesc,
+                           unsigned int flags,
+                           virErrorPtr err);
+
+int
 virNodeGetCPUMapWrapper(virConnectPtr conn,
                         unsigned char ** cpumap,
                         unsigned int * online,

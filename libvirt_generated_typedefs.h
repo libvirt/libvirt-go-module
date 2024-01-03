@@ -908,6 +908,14 @@ typedef int virNodeDeviceEventLifecycleType;
 typedef virNodeDevice * virNodeDevicePtr;
 #endif
 
+#if !LIBVIR_CHECK_VERSION(10, 1, 0)
+typedef int virNodeDeviceUpdateFlags;
+#endif
+
+#if !LIBVIR_CHECK_VERSION(10, 1, 0)
+typedef int virNodeDeviceXMLFlags;
+#endif
+
 #if !LIBVIR_CHECK_VERSION(0, 9, 8)
 typedef int virNodeGetCPUStatsAllCPUs;
 #endif
