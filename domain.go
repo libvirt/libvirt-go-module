@@ -670,7 +670,8 @@ const (
 type DomainBlockResizeFlags uint
 
 const (
-	DOMAIN_BLOCK_RESIZE_BYTES = DomainBlockResizeFlags(C.VIR_DOMAIN_BLOCK_RESIZE_BYTES)
+	DOMAIN_BLOCK_RESIZE_BYTES    = DomainBlockResizeFlags(C.VIR_DOMAIN_BLOCK_RESIZE_BYTES)
+	DOMAIN_BLOCK_RESIZE_CAPACITY = DomainBlockResizeFlags(C.VIR_DOMAIN_BLOCK_RESIZE_CAPACITY)
 )
 
 type Domain struct {
