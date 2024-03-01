@@ -67,6 +67,12 @@ const (
 	NODE_DEVICE_DEFINE_XML_VALIDATE = NodeDeviceDefineXMLFlags(C.VIR_NODE_DEVICE_DEFINE_XML_VALIDATE)
 )
 
+type NodeDeviceXMLFlags int
+
+const (
+	NODE_DEVICE_XML_INACTIVE = NodeDeviceXMLFlags(C.VIR_NODE_DEVICE_XML_INACTIVE)
+)
+
 type NodeDevice struct {
 	ptr C.virNodeDevicePtr
 }
@@ -154,7 +160,7 @@ func (n *NodeDevice) GetName() (string, error) {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-nodedev.html#virNodeDeviceGetXMLDesc
-func (n *NodeDevice) GetXMLDesc(flags uint32) (string, error) {
+func (n *NodeDevice) GetXMLDesc(flags NodeDeviceXMLFlags) (string, error) {
 	var err C.virError
 	result := C.virNodeDeviceGetXMLDescWrapper(n.ptr, C.uint(flags), &err)
 	if result == nil {
