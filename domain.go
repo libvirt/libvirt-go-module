@@ -1012,6 +1012,13 @@ const (
 	DOMAIN_FD_ASSOCIATE_SECLABEL_WRITABLE = DomainFDAssociateFlags(C.VIR_DOMAIN_FD_ASSOCIATE_SECLABEL_WRITABLE)
 )
 
+type DomainGraphicsReloadType uint
+
+const (
+	DOMAIN_GRAPHICS_RELOAD_TYPE_ANY = DomainGraphicsReloadType(C.VIR_DOMAIN_GRAPHICS_RELOAD_TYPE_ANY)
+	DOMAIN_GRAPHICS_RELOAD_TYPE_VNC = DomainGraphicsReloadType(C.VIR_DOMAIN_GRAPHICS_RELOAD_TYPE_VNC)
+)
+
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainFree
 func (d *Domain) Free() error {
 	var err C.virError
@@ -5722,4 +5729,14 @@ func (d *Domain) FDAssociate(name string, files []os.File, flags DomainFDAssocia
 	}
 	return nil
 
+}
+
+func (d *Domain) GraphicsReload(typ DomainGraphicsReloadType, flags uint32) error {
+	var err C.virError
+	ret := C.virDomainGraphicsReloadWrapper(d.ptr, C.uint(typ), C.uint(flags), &err)
+	if ret == -1 {
+		return makeError(&err)
+	}
+
+	return nil
 }
