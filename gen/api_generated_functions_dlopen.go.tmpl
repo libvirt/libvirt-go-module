@@ -126,7 +126,7 @@ package libvirt
             {{- /* The indentation changes to produce a nicer output */}}
 
 {{- /* Function prototype */}}
-{{- $prototypePrefix := (printf "(*%sType)(" .Name) }}
+{{- $prototypePrefix := (printf "(*%sFuncType)(" .Name) }}
 typedef {{ .Return.Type }}
 {{ $prototypePrefix }}{{ indent $prototypeArgs $prototypePrefix }});
 {{/* Wrapper function */}}
@@ -135,7 +135,7 @@ typedef {{ .Return.Type }}
 {{ $wrapperPrefix }}{{ indent $wrapperArgs $wrapperPrefix}})
 {
 {{ $mayDefineRet }}
-    static {{ .Name }}Type {{ .Name }}Symbol;
+    static {{ .Name }}FuncType {{ .Name }}Symbol;
     static bool once;
     static bool success;
 
