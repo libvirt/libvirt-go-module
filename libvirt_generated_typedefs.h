@@ -552,6 +552,10 @@ typedef int virDomainGetHostnameFlags;
 typedef int virDomainGetJobStatsFlags;
 #endif
 
+#if !LIBVIR_CHECK_VERSION(10, 2, 0)
+typedef int virDomainGraphicsReloadType;
+#endif
+
 #if !LIBVIR_CHECK_VERSION(5, 7, 0)
 typedef int virDomainGuestInfoTypes;
 #endif

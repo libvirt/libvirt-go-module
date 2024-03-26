@@ -1038,6 +1038,12 @@ virDomainGetXMLDescWrapper(virDomainPtr domain,
                            virErrorPtr err);
 
 int
+virDomainGraphicsReloadWrapper(virDomainPtr domain,
+                               unsigned int type,
+                               unsigned int flags,
+                               virErrorPtr err);
+
+int
 virDomainHasCurrentSnapshotWrapper(virDomainPtr domain,
                                    unsigned int flags,
                                    virErrorPtr err);

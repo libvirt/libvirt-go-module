@@ -1225,6 +1225,17 @@
 #    define VIR_DOMAIN_JOB_STATS_KEEP_COMPLETED (1 << 1)
 #  endif
 
+/* enum virDomainGraphicsReloadType */
+#  if !LIBVIR_CHECK_VERSION(10, 2, 0)
+#    define VIR_DOMAIN_GRAPHICS_RELOAD_TYPE_ANY 0
+#  endif
+#  if !LIBVIR_CHECK_VERSION(10, 2, 0)
+#    define VIR_DOMAIN_GRAPHICS_RELOAD_TYPE_VNC 1
+#  endif
+#  if !LIBVIR_CHECK_VERSION(10, 2, 0)
+#    define VIR_DOMAIN_GRAPHICS_RELOAD_TYPE_LAST 2
+#  endif
+
 /* enum virDomainGuestInfoTypes */
 #  if !LIBVIR_CHECK_VERSION(5, 7, 0)
 #    define VIR_DOMAIN_GUEST_INFO_USERS (1 << 0)

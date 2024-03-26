@@ -3243,6 +3243,38 @@ virDomainGetXMLDescWrapper(virDomainPtr domain,
 }
 
 typedef int
+(*virDomainGraphicsReloadType)(virDomainPtr domain,
+                               unsigned int type,
+                               unsigned int flags);
+
+int
+virDomainGraphicsReloadWrapper(virDomainPtr domain,
+                               unsigned int type,
+                               unsigned int flags,
+                               virErrorPtr err)
+{
+    int ret = -1;
+    static virDomainGraphicsReloadType virDomainGraphicsReloadSymbol;
+    static bool once;
+    static bool success;
+
+    if (!libvirtSymbol("virDomainGraphicsReload",
+                       (void**)&virDomainGraphicsReloadSymbol,
+                       &once,
+                       &success,
+                       err)) {
+        return ret;
+    }
+    ret = virDomainGraphicsReloadSymbol(domain,
+                                        type,
+                                        flags);
+    if (ret < 0) {
+        virCopyLastErrorWrapper(err);
+    }
+    return ret;
+}
+
+typedef int
 (*virDomainHasManagedSaveImageType)(virDomainPtr dom,
                                     unsigned int flags);
 
