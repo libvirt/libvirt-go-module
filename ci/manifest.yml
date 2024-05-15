@@ -9,7 +9,7 @@ gitlab:
     go-fmt: true
 
 targets:
-  almalinux-8:
+  almalinux-9:
     projects:
       - libvirt-go-module
       - libvirt+dist
@@ -26,8 +26,6 @@ targets:
             - build
             - scratch
 
-  centos-stream-8: x86_64
-
   centos-stream-9: x86_64
 
   debian-11: x86_64
@@ -36,9 +34,9 @@ targets:
 
   debian-sid: x86_64
 
-  fedora-37: x86_64
+  fedora-39: x86_64
 
-  fedora-38: x86_64
+  fedora-40: x86_64
 
   fedora-rawhide: x86_64
 
@@ -46,6 +44,6 @@ targets:
 
   opensuse-tumbleweed: x86_64
 
-  ubuntu-2004: x86_64
-
   ubuntu-2204: x86_64
+
+  ubuntu-2404: x86_64

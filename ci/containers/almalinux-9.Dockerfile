@@ -4,12 +4,11 @@
 #
 # https://gitlab.com/libvirt/libvirt-ci
 
-FROM docker.io/library/almalinux:8
+FROM docker.io/library/almalinux:9
 
 RUN dnf update -y && \
     dnf install 'dnf-command(config-manager)' -y && \
-    dnf config-manager --set-enabled -y powertools && \
-    dnf install -y centos-release-advanced-virtualization && \
+    dnf config-manager --set-enabled -y crb && \
     dnf install -y epel-release && \
     dnf install -y \
         ca-certificates \
@@ -32,12 +31,13 @@ RUN dnf update -y && \
         make \
         meson \
         ninja-build \
-        perl \
+        perl-base \
         pkgconfig \
         python3 \
         python3-docutils && \
     dnf autoremove -y && \
     dnf clean all -y && \
+    rm -f /usr/lib*/python3*/EXTERNALLY-MANAGED && \
     rpm -qa | sort > /packages.txt && \
     mkdir -p /usr/libexec/ccache-wrappers && \
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/cc && \
