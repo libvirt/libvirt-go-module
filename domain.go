@@ -4978,6 +4978,8 @@ type DomainLaunchSecurityParameters struct {
 	SEVBuildID        uint
 	SEVPolicySet      bool
 	SEVPolicy         uint
+	SEVSNPPolicySet   bool
+	SEVSNPPolicy      uint64
 }
 
 func getDomainLaunchSecurityFieldInfo(params *DomainLaunchSecurityParameters) map[string]typedParamsFieldInfo {
@@ -5001,6 +5003,10 @@ func getDomainLaunchSecurityFieldInfo(params *DomainLaunchSecurityParameters) ma
 		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_POLICY: typedParamsFieldInfo{
 			set: &params.SEVPolicySet,
 			ui:  &params.SEVPolicy,
+		},
+		C.VIR_DOMAIN_LAUNCH_SECURITY_SEV_SNP_POLICY: typedParamsFieldInfo{
+			set: &params.SEVSNPPolicySet,
+			ul:  &params.SEVSNPPolicy,
 		},
 	}
 }
