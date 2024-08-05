@@ -3211,6 +3211,8 @@ type DomainJobInfo struct {
 	DiskTempTotal             uint64
 	ErrorMessageSet           bool
 	ErrorMessage              string
+	VFIODataTransferredSet    bool
+	VFIODataTransferred       uint64
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainGetJobInfo
@@ -3391,6 +3393,10 @@ func getDomainJobInfoFieldInfo(params *DomainJobInfo) map[string]typedParamsFiel
 		C.VIR_DOMAIN_JOB_ERRMSG: typedParamsFieldInfo{
 			set: &params.ErrorMessageSet,
 			s:   &params.ErrorMessage,
+		},
+		C.VIR_DOMAIN_JOB_VFIO_DATA_TRANSFERRED: typedParamsFieldInfo{
+			set: &params.VFIODataTransferredSet,
+			ul:  &params.VFIODataTransferred,
 		},
 	}
 }
