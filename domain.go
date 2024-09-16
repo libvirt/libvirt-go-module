@@ -5691,8 +5691,13 @@ func (d *Domain) AuthorizedSSHKeysSet(user string, keys []string, flags DomainAu
 	}
 
 	nkeys := len(keys)
+	var cKeysPtr **C.char = nil
+	if nkeys > 0 {
+		cKeysPtr = (**C.char)(unsafe.Pointer(&ckeys[0]))
+	}
+
 	var err C.virError
-	ret := C.virDomainAuthorizedSSHKeysSetWrapper(d.ptr, cuser, (**C.char)(unsafe.Pointer(&ckeys[0])), C.uint(nkeys), C.uint(flags), &err)
+	ret := C.virDomainAuthorizedSSHKeysSetWrapper(d.ptr, cuser, cKeysPtr, C.uint(nkeys), C.uint(flags), &err)
 	if ret == -1 {
 		return makeError(&err)
 	}
