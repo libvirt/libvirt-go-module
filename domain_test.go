@@ -295,18 +295,7 @@ func TestSaveDomainFlags(t *testing.T) {
 	}
 }
 
-func TestCreateDestroyDomain(t *testing.T) {
-	dom, conn := buildTestDomain()
-	defer func() {
-		dom.Free()
-		if res, _ := conn.Close(); res != 0 {
-			t.Errorf("Close() == %d, expected 0", res)
-		}
-	}()
-	if err := dom.Create(); err != nil {
-		t.Error(err)
-		return
-	}
+func domainCheckDomain(t *testing.T, dom *Domain) {
 	state, reason, err := dom.GetState()
 	if err != nil {
 		t.Error(err)
@@ -337,6 +326,44 @@ func TestCreateDestroyDomain(t *testing.T) {
 		t.Fatal("Domain reason should be destroyed")
 		return
 	}
+}
+
+func TestCreateDestroyDomain(t *testing.T) {
+	dom, conn := buildTestDomain()
+	defer func() {
+		dom.Free()
+		if res, _ := conn.Close(); res != 0 {
+			t.Errorf("Close() == %d, expected 0", res)
+		}
+	}()
+	if err := dom.Create(); err != nil {
+		t.Error(err)
+		return
+	}
+
+	domainCheckDomain(t, dom)
+}
+
+func TestCreateDestroyDomainWithFiles(t *testing.T) {
+	dom, conn := buildTestDomain()
+	defer func() {
+		dom.Free()
+		if res, _ := conn.Close(); res != 0 {
+			t.Errorf("Close() == %d, expected 0", res)
+		}
+	}()
+	if err := dom.CreateWithFiles(nil, 0); err != nil {
+		lverr, ok := err.(Error)
+		// Are we running with older libvirt where the test driver doesn't
+		// implement the API yet?
+		if ok && lverr.Code == ERR_NO_SUPPORT {
+			t.Skip("Libvirt is too old for this test")
+		} else {
+			t.Error(err)
+		}
+		return
+	}
+	domainCheckDomain(t, dom)
 }
 
 func TestShutdownDomain(t *testing.T) {
@@ -743,6 +770,11 @@ func TestDomainPinVcpu(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	err = dom.PinVcpu(2, nil)
+	if err == nil {
+		t.Errorf("Expected an error for nil cpumap in PinVcpu()")
+	}
 }
 
 type CPUStringData struct {
@@ -889,12 +921,26 @@ func TestSendKeys(t *testing.T) {
 	if err := dom.Create(); err != nil {
 		t.Error("Failed to create domain")
 	}
+	defer dom.Destroy()
 
 	KEY_LEFTCTRL := uint(29)
 	KEY_LEFTALT := uint(56)
 	KEY_F1 := uint(59)
 	var keys = []uint{KEY_LEFTCTRL, KEY_LEFTALT, KEY_F1}
-	dom.SendKey(uint(KEYCODE_SET_LINUX), 100, keys, 0)
+	if err := dom.SendKey(uint(KEYCODE_SET_LINUX), 100, keys, 0); err != nil {
+		lverr, ok := err.(Error)
+		// Are we running with older libvirt where the test driver doesn't
+		// implement the API yet?
+		if ok && lverr.Code == ERR_NO_SUPPORT {
+			t.Skip("Libvirt is too old for this test")
+		} else {
+			t.Error(err)
+		}
+		return
+	}
 
-	dom.Destroy()
+	if err := dom.SendKey(uint(KEYCODE_SET_LINUX), 100, nil, 0); err == nil {
+		t.Errorf("Expected an error for nil keycodes in SendKey()")
+		return
+	}
 }
