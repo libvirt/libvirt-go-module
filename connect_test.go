@@ -92,6 +92,22 @@ func TestConnectionReadOnly(t *testing.T) {
 	}
 }
 
+func TestConnectionWithAuth(t *testing.T) {
+	conn, err := NewConnectWithAuth("test:///default", nil, 0)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	res, err := conn.Close()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if res != 0 {
+		t.Errorf("Close() == %d, expected 0", res)
+	}
+}
+
 func TestInvalidConnection(t *testing.T) {
 	_, err := NewConnect("invalid_transport:///default")
 	if err == nil {
@@ -427,6 +443,31 @@ func TestLookupInvalidDomainByName(t *testing.T) {
 	}
 }
 
+func connectCheckDomain(t *testing.T, dom *Domain, defName string, conn *Connect) {
+	name, err := dom.GetName()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if name != defName {
+		t.Fatalf("Name was not '%s': %s", defName, name)
+		return
+	}
+
+	// Destroy the domain: it should not be persistent
+	if err := dom.Destroy(); err != nil {
+		t.Error(err)
+		return
+	}
+
+	testeddom, err := conn.LookupDomainByName(defName)
+	if err == nil {
+		testeddom.Free()
+		t.Fatal("Created domain is persisting")
+		return
+	}
+}
+
 func TestDomainCreateXML(t *testing.T) {
 	conn := buildTestConnection()
 	defer func() {
@@ -452,28 +493,44 @@ func TestDomainCreateXML(t *testing.T) {
 		dom.Destroy()
 		dom.Free()
 	}()
-	name, err := dom.GetName()
+
+	connectCheckDomain(t, dom, defName, conn)
+}
+
+func TestDomainCreateXMLWithFiles(t *testing.T) {
+	conn := buildTestConnection()
+	defer func() {
+		if res, _ := conn.Close(); res != 0 {
+			t.Errorf("Close() == %d, expected 0", res)
+		}
+	}()
+	// Test a minimally valid xml
+	defName := time.Now().String()
+	xml := `<domain type="test">
+		<name>` + defName + `</name>
+		<memory unit="KiB">8192</memory>
+		<os>
+			<type>hvm</type>
+		</os>
+	</domain>`
+	dom, err := conn.DomainCreateXMLWithFiles(xml, nil, DOMAIN_NONE)
 	if err != nil {
-		t.Error(err)
+		lverr, ok := err.(Error)
+		// Are we running with older libvirt where the test driver doesn't
+		// implement the API yet?
+		if ok && lverr.Code == ERR_NO_SUPPORT {
+			t.Skip("Libvirt is too old for this test")
+		} else {
+			t.Error(err)
+		}
 		return
 	}
-	if name != defName {
-		t.Fatalf("Name was not '%s': %s", defName, name)
-		return
-	}
+	defer func() {
+		dom.Destroy()
+		dom.Free()
+	}()
 
-	// Destroy the domain: it should not be persistent
-	if err := dom.Destroy(); err != nil {
-		t.Error(err)
-		return
-	}
-
-	testeddom, err := conn.LookupDomainByName(defName)
-	if err == nil {
-		testeddom.Free()
-		t.Fatal("Created domain is persisting")
-		return
-	}
+	connectCheckDomain(t, dom, defName, conn)
 }
 
 func TestDomainDefineXML(t *testing.T) {
@@ -1080,4 +1137,32 @@ func TestRawConnection(t *testing.T) {
 			t.Errorf("CloseRawPtr() == %d, expected 1", res)
 		}
 	}()
+}
+
+func TestAllocPages(t *testing.T) {
+	conn := buildTestConnection()
+	defer func() {
+		if res, _ := conn.Close(); res != 0 {
+			t.Errorf("Close() == %d, expected 0", res)
+		}
+	}()
+
+	_, err := conn.AllocPages(nil, 0, 0, 0)
+	if err == nil {
+		t.Errorf("Expected an error when allocating pages")
+	}
+}
+
+func TestGetFreePages(t *testing.T) {
+	conn := buildTestConnection()
+	defer func() {
+		if res, _ := conn.Close(); res != 0 {
+			t.Errorf("Close() == %d, expected 0", res)
+		}
+	}()
+
+	_, err := conn.GetFreePages(nil, 0, 0, 0)
+	if err == nil {
+		t.Errorf("Expected an error when getting free pages")
+	}
 }
