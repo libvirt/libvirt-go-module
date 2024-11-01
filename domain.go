@@ -2483,48 +2483,50 @@ func (d *Domain) Migrate2(dconn *Connect, dxml string, flags DomainMigrateFlags,
 }
 
 type DomainMigrateParameters struct {
-	URISet                    bool
-	URI                       string
-	DestNameSet               bool
-	DestName                  string
-	DestXMLSet                bool
-	DestXML                   string
-	PersistXMLSet             bool
-	PersistXML                string
-	BandwidthSet              bool
-	Bandwidth                 uint64
-	GraphicsURISet            bool
-	GraphicsURI               string
-	ListenAddressSet          bool
-	ListenAddress             string
-	MigrateDisksSet           bool
-	MigrateDisks              []string
-	DisksPortSet              bool
-	DisksPort                 int
-	CompressionSet            bool
-	Compression               string
-	CompressionMTLevelSet     bool
-	CompressionMTLevel        int
-	CompressionMTThreadsSet   bool
-	CompressionMTThreads      int
-	CompressionMTDThreadsSet  bool
-	CompressionMTDThreads     int
-	CompressionXBZRLECacheSet bool
-	CompressionXBZRLECache    uint64
-	AutoConvergeInitialSet    bool
-	AutoConvergeInitial       int
-	AutoConvergeIncrementSet  bool
-	AutoConvergeIncrement     int
-	ParallelConnectionsSet    bool
-	ParallelConnections       int
-	TLSDestinationSet         bool
-	TLSDestination            string
-	DisksURISet               bool
-	DisksURI                  string
-	CompressionZlibLevelSet   bool
-	CompressionZlibLevel      int
-	CompressionZstdLevelSet   bool
-	CompressionZstdLevel      int
+	URISet                      bool
+	URI                         string
+	DestNameSet                 bool
+	DestName                    string
+	DestXMLSet                  bool
+	DestXML                     string
+	PersistXMLSet               bool
+	PersistXML                  string
+	BandwidthSet                bool
+	Bandwidth                   uint64
+	GraphicsURISet              bool
+	GraphicsURI                 string
+	ListenAddressSet            bool
+	ListenAddress               string
+	MigrateDisksSet             bool
+	MigrateDisks                []string
+	DisksPortSet                bool
+	DisksPort                   int
+	CompressionSet              bool
+	Compression                 string
+	CompressionMTLevelSet       bool
+	CompressionMTLevel          int
+	CompressionMTThreadsSet     bool
+	CompressionMTThreads        int
+	CompressionMTDThreadsSet    bool
+	CompressionMTDThreads       int
+	CompressionXBZRLECacheSet   bool
+	CompressionXBZRLECache      uint64
+	AutoConvergeInitialSet      bool
+	AutoConvergeInitial         int
+	AutoConvergeIncrementSet    bool
+	AutoConvergeIncrement       int
+	ParallelConnectionsSet      bool
+	ParallelConnections         int
+	TLSDestinationSet           bool
+	TLSDestination              string
+	DisksURISet                 bool
+	DisksURI                    string
+	CompressionZlibLevelSet     bool
+	CompressionZlibLevel        int
+	CompressionZstdLevelSet     bool
+	CompressionZstdLevel        int
+	MigrateDisksDetectZeroesSet bool
+	MigrateDisksDetectZeroes    bool
 }
 
 func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]typedParamsFieldInfo {
@@ -2616,6 +2618,10 @@ func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]ty
 		C.VIR_MIGRATE_PARAM_COMPRESSION_ZSTD_LEVEL: typedParamsFieldInfo{
 			set: &params.CompressionZstdLevelSet,
 			i:   &params.CompressionZstdLevel,
+		},
+		C.VIR_MIGRATE_PARAM_MIGRATE_DISKS_DETECT_ZEROES: typedParamsFieldInfo{
+			set: &params.MigrateDisksDetectZeroesSet,
+			b:   &params.MigrateDisksDetectZeroes,
 		},
 	}
 }
