@@ -1,6 +1,6 @@
 projects:
   - libvirt-go-module
-  - libvirt+dist
+  - https://gitlab.com/libvirt/libvirt/-/raw/master/ci/lcitool/projects/libvirt+dist.yml
 
 gitlab:
   namespace: libvirt
@@ -12,8 +12,8 @@ targets:
   almalinux-9:
     projects:
       - libvirt-go-module
-      - libvirt+dist
-      - libvirt+minimal
+      - https://gitlab.com/libvirt/libvirt/-/raw/master/ci/lcitool/projects/libvirt+minimal.yml
+      - https://gitlab.com/libvirt/libvirt/-/raw/master/ci/lcitool/projects/libvirt+dist.yml
 
     jobs:
       - arch: x86_64
