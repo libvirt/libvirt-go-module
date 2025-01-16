@@ -44,8 +44,8 @@ stages:
 
 include: '/ci/gitlab.yml'
 
-.api_coverage_job:
-  extents:
+api_coverage_job:
+  extends:
     - .gitlab_native_build_job
   stage: sanity_checks
   script:
