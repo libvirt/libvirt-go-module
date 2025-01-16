@@ -226,6 +226,11 @@
 #    define VIR_CONNECT_GET_ALL_DOMAINS_STATS_ENFORCE_STATS (1U << 31)
 #  endif
 
+/* enum virConnectGetDomainCapabilitiesFlags */
+#  if !LIBVIR_CHECK_VERSION(11, 0, 0)
+#    define VIR_CONNECT_GET_DOMAIN_CAPABILITIES_DISABLE_DEPRECATED_FEATURES (1 << 0)
+#  endif
+
 /* enum virConnectListAllDomainsFlags */
 #  if !LIBVIR_CHECK_VERSION(0, 9, 13)
 #    define VIR_CONNECT_LIST_DOMAINS_ACTIVE (1 << 0)
