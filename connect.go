@@ -260,6 +260,12 @@ const (
 	CRED_EXTERNAL     = ConnectCredentialType(C.VIR_CRED_EXTERNAL)
 )
 
+type ConnectGetDomainCapabilitiesFlags uint32
+
+const (
+	DOMAIN_CAPABILITIES_DISABLE_DEPRECATED_FEATURES = ConnectGetDomainCapabilitiesFlags(C.VIR_CONNECT_GET_DOMAIN_CAPABILITIES_DISABLE_DEPRECATED_FEATURES)
+)
+
 type Connect struct {
 	ptr C.virConnectPtr
 }
@@ -2413,7 +2419,7 @@ func (c *Connect) GetCPUModelNames(arch string, flags uint32) ([]string, error) 
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virConnectGetDomainCapabilities
-func (c *Connect) GetDomainCapabilities(emulatorbin string, arch string, machine string, virttype string, flags uint32) (string, error) {
+func (c *Connect) GetDomainCapabilities(emulatorbin string, arch string, machine string, virttype string, flags ConnectGetDomainCapabilitiesFlags) (string, error) {
 	var cemulatorbin *C.char
 	if emulatorbin != "" {
 		cemulatorbin = C.CString(emulatorbin)
