@@ -3160,11 +3160,13 @@ type DomainStatsMemoryBandwidthMonitor struct {
 
 func getDomainStatsMemoryBandwidthMonitorFieldInfo(idx int, params *DomainStatsMemoryBandwidthMonitor) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("memory.bandwidth.monitor.%d.name", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NAME, idx): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		fmt.Sprintf("memory.bandwidth.monitor.%d.vcpus", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_VCPUS, idx): typedParamsFieldInfo{
 			set: &params.VCPUsSet,
 			s:   &params.VCPUs,
 		},
@@ -3178,7 +3180,8 @@ type domainStatsMemoryBandwidthMonitorLengths struct {
 
 func getDomainStatsMemoryBandwidthMonitorLengthsFieldInfo(idx int, params *domainStatsMemoryBandwidthMonitorLengths) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("memory.bandwidth.monitor.%d.node.count", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NODE_COUNT, idx): typedParamsFieldInfo{
 			set: &params.NodeCountSet,
 			ui:  &params.NodeCount,
 		},
@@ -3196,15 +3199,21 @@ type DomainStatsMemoryBandwidthMonitorNode struct {
 
 func getDomainStatsMemoryBandwidthMonitorNodeFieldInfo(idx1, idx2 int, params *DomainStatsMemoryBandwidthMonitorNode) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("memory.bandwidth.monitor.%d.node.%d.id", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NODE_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NODE_SUFFIX_ID, idx1, idx2): typedParamsFieldInfo{
 			set: &params.IDSet,
 			ui:  &params.ID,
 		},
-		fmt.Sprintf("memory.bandwidth.monitor.%d.node.%d.bytes.local", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NODE_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NODE_SUFFIX_BYTES_LOCAL, idx1, idx2): typedParamsFieldInfo{
 			set: &params.BytesLocalSet,
 			ul:  &params.BytesLocal,
 		},
-		fmt.Sprintf("memory.bandwidth.monitor.%d.node.%d.bytes.total", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NODE_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_SUFFIX_NODE_SUFFIX_BYTES_TOTAL, idx1, idx2): typedParamsFieldInfo{
 			set: &params.BytesTotalSet,
 			ul:  &params.BytesTotal,
 		},
@@ -3324,7 +3333,7 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 			set: &params.BlockCountSet,
 			ui:  &params.BlockCount,
 		},
-		"memory.bandwidth.monitor.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_MEMORY_BANDWIDTH_MONITOR_COUNT: typedParamsFieldInfo{
 			set: &params.BandwidthCountSet,
 			ui:  &params.BandwidthCount,
 		},
