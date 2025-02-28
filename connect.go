@@ -2838,39 +2838,48 @@ type DomainStatsNet struct {
 
 func getDomainStatsNetFieldInfo(idx int, params *DomainStatsNet) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("net.%d.name", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_NAME, idx): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		fmt.Sprintf("net.%d.rx.bytes", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_RX_BYTES, idx): typedParamsFieldInfo{
 			set: &params.RxBytesSet,
 			ul:  &params.RxBytes,
 		},
-		fmt.Sprintf("net.%d.rx.pkts", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_RX_PKTS, idx): typedParamsFieldInfo{
 			set: &params.RxPktsSet,
 			ul:  &params.RxPkts,
 		},
-		fmt.Sprintf("net.%d.rx.errs", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_RX_ERRS, idx): typedParamsFieldInfo{
 			set: &params.RxErrsSet,
 			ul:  &params.RxErrs,
 		},
-		fmt.Sprintf("net.%d.rx.drop", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_RX_DROP, idx): typedParamsFieldInfo{
 			set: &params.RxDropSet,
 			ul:  &params.RxDrop,
 		},
-		fmt.Sprintf("net.%d.tx.bytes", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_TX_BYTES, idx): typedParamsFieldInfo{
 			set: &params.TxBytesSet,
 			ul:  &params.TxBytes,
 		},
-		fmt.Sprintf("net.%d.tx.pkts", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_TX_PKTS, idx): typedParamsFieldInfo{
 			set: &params.TxPktsSet,
 			ul:  &params.TxPkts,
 		},
-		fmt.Sprintf("net.%d.tx.errs", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_TX_ERRS, idx): typedParamsFieldInfo{
 			set: &params.TxErrsSet,
 			ul:  &params.TxErrs,
 		},
-		fmt.Sprintf("net.%d.tx.drop", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_NET_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_NET_SUFFIX_TX_DROP, idx): typedParamsFieldInfo{
 			set: &params.TxDropSet,
 			ul:  &params.TxDrop,
 		},
@@ -3249,7 +3258,7 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 			set: &params.VcpuMaximumSet,
 			ui:  &params.VcpuMaximum,
 		},
-		"net.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_NET_COUNT: typedParamsFieldInfo{
 			set: &params.NetCountSet,
 			ui:  &params.NetCount,
 		},
