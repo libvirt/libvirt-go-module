@@ -5481,7 +5481,7 @@ type DomainGuestInfo struct {
 
 func getDomainGuestInfoFieldInfo(params *DomainGuestInfo) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"hostname": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_HOSTNAME_HOSTNAME: typedParamsFieldInfo{
 			set: &params.HostnameSet,
 			s:   &params.Hostname,
 		},
