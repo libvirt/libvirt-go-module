@@ -2572,11 +2572,15 @@ type DomainStatsCPUCacheMonitorBank struct {
 
 func getDomainStatsCPUCacheMonitorBankFieldInfo(idx1, idx2 int, params *DomainStatsCPUCacheMonitorBank) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("cpu.cache.monitor.%d.bank.%d.id", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_SUFFIX_BANK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_SUFFIX_BANK_SUFFIX_ID, idx1, idx2): typedParamsFieldInfo{
 			set: &params.IDSet,
 			ui:  &params.ID,
 		},
-		fmt.Sprintf("cpu.cache.monitor.%d.bank.%d.bytes", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_SUFFIX_BANK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_SUFFIX_BANK_SUFFIX_BYTES, idx1, idx2): typedParamsFieldInfo{
 			set: &params.BytesSet,
 			ul:  &params.Bytes,
 		},
@@ -2590,7 +2594,8 @@ type domainStatsCPUCacheMonitorLengths struct {
 
 func getDomainStatsCPUCacheMonitorLengthsFieldInfo(idx int, params *domainStatsCPUCacheMonitorLengths) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("cpu.cache.monitor.%d.bank.count", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_SUFFIX_BANK_COUNT, idx): typedParamsFieldInfo{
 			set: &params.BankCountSet,
 			ui:  &params.BankCount,
 		},
@@ -2607,11 +2612,13 @@ type DomainStatsCPUCacheMonitor struct {
 
 func getDomainStatsCPUCacheMonitorFieldInfo(idx int, params *DomainStatsCPUCacheMonitor) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("cpu.cache.monitor.%d.name", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_SUFFIX_NAME, idx): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		fmt.Sprintf("cpu.cache.monitor.%d.vcpus", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_SUFFIX_VCPUS, idx): typedParamsFieldInfo{
 			set: &params.VcpusSet,
 			s:   &params.Vcpus,
 		},
@@ -2625,7 +2632,7 @@ type domainStatsCPULengths struct {
 
 func getDomainStatsCPULengthsFieldInfo(params *domainStatsCPULengths) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"cpu.cache.monitor.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_COUNT: typedParamsFieldInfo{
 			set: &params.CacheMonitorCountSet,
 			ui:  &params.CacheMonitorCount,
 		},
@@ -2648,23 +2655,23 @@ type DomainStatsCPU struct {
 
 func getDomainStatsCPUFieldInfo(params *DomainStatsCPU) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"cpu.time": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_CPU_TIME: typedParamsFieldInfo{
 			set: &params.TimeSet,
 			ul:  &params.Time,
 		},
-		"cpu.user": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_CPU_USER: typedParamsFieldInfo{
 			set: &params.UserSet,
 			ul:  &params.User,
 		},
-		"cpu.system": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_CPU_SYSTEM: typedParamsFieldInfo{
 			set: &params.SystemSet,
 			ul:  &params.System,
 		},
-		"cpu.haltpoll.success.time": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_CPU_HALTPOLL_SUCCESS_TIME: typedParamsFieldInfo{
 			set: &params.HaltPollSuccessTimeSet,
 			ul:  &params.HaltPollSuccessTime,
 		},
-		"cpu.haltpoll.fail.time": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_CPU_HALTPOLL_FAIL_TIME: typedParamsFieldInfo{
 			set: &params.HaltPollFailTimeSet,
 			ul:  &params.HaltPollFailTime,
 		},
