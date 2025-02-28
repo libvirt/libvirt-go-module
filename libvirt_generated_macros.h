@@ -29,7 +29,7 @@
 #pragma once
 
 #if !LIBVIR_CHECK_VERSION(0, 0, 1)
-#  define LIBVIR_VERSION_NUMBER 11000000
+#  define LIBVIR_VERSION_NUMBER 11001000
 #endif
 
 #if !LIBVIR_CHECK_VERSION(5, 8, 0)
@@ -722,6 +722,10 @@
 
 #if !LIBVIR_CHECK_VERSION(1, 1, 0)
 #  define VIR_MIGRATE_PARAM_BANDWIDTH "bandwidth"
+#endif
+
+#if !LIBVIR_CHECK_VERSION(11, 1, 0)
+#  define VIR_MIGRATE_PARAM_BANDWIDTH_AVAIL_SWITCHOVER "bandwidth.avail.switchover"
 #endif
 
 #if !LIBVIR_CHECK_VERSION(5, 1, 0)

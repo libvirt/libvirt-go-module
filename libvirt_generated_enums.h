@@ -376,6 +376,12 @@
 #  if !LIBVIR_CHECK_VERSION(7, 9, 0)
 #    define VIR_CONNECT_LIST_NODE_DEVICES_CAP_VPD (1 << 21)
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 1, 0)
+#    define VIR_CONNECT_LIST_NODE_DEVICES_CAP_CCWGROUP_DEV (1 << 22)
+#  endif
+#  if !LIBVIR_CHECK_VERSION(11, 1, 0)
+#    define VIR_CONNECT_LIST_NODE_DEVICES_CAP_CCWGROUP_MEMBER (1 << 23)
+#  endif
 #  if !LIBVIR_CHECK_VERSION(10, 1, 0)
 #    define VIR_CONNECT_LIST_NODE_DEVICES_PERSISTENT (1 << 28)
 #  endif
@@ -1487,6 +1493,9 @@
 #  endif
 #  if !LIBVIR_CHECK_VERSION(7, 1, 0)
 #    define VIR_DOMAIN_MESSAGE_TAINTING (1 << 1)
+#  endif
+#  if !LIBVIR_CHECK_VERSION(11, 1, 0)
+#    define VIR_DOMAIN_MESSAGE_IOERRORS (1 << 2)
 #  endif
 
 /* enum virDomainMetadataType */
