@@ -5256,11 +5256,11 @@ type DomainGuestInfoTimeZone struct {
 
 func getDomainGuestInfoTimeZoneFieldInfo(params *DomainGuestInfoTimeZone) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"timezone.name": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_TIMEZONE_NAME: typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		"timezone.offset": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_TIMEZONE_OFFSET: typedParamsFieldInfo{
 			set: &params.OffsetSet,
 			i:   &params.Offset,
 		},
