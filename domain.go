@@ -981,6 +981,7 @@ type DomainMessageType uint
 const (
 	DOMAIN_MESSAGE_DEPRECATION = DomainMessageType(C.VIR_DOMAIN_MESSAGE_DEPRECATION)
 	DOMAIN_MESSAGE_TAINTING    = DomainMessageType(C.VIR_DOMAIN_MESSAGE_TAINTING)
+	DOMAIN_MESSAGE_IOERRORS    = DomainMessageType(C.VIR_DOMAIN_MESSAGE_IOERRORS)
 )
 
 type DomainDirtyRateStatus uint
