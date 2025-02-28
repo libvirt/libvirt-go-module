@@ -2563,13 +2563,87 @@ func getDomainStatsStateFieldInfo(params *DomainStatsState) map[string]typedPara
 	}
 }
 
+type DomainStatsCPUCacheMonitorBank struct {
+	IDSet    bool
+	ID       uint
+	BytesSet bool
+	Bytes    uint64
+}
+
+func getDomainStatsCPUCacheMonitorBankFieldInfo(idx1, idx2 int, params *DomainStatsCPUCacheMonitorBank) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf("cpu.cache.monitor.%d.bank.%d.id", idx1, idx2): typedParamsFieldInfo{
+			set: &params.IDSet,
+			ui:  &params.ID,
+		},
+		fmt.Sprintf("cpu.cache.monitor.%d.bank.%d.bytes", idx1, idx2): typedParamsFieldInfo{
+			set: &params.BytesSet,
+			ul:  &params.Bytes,
+		},
+	}
+}
+
+type domainStatsCPUCacheMonitorLengths struct {
+	BankCountSet bool
+	BankCount    uint
+}
+
+func getDomainStatsCPUCacheMonitorLengthsFieldInfo(idx int, params *domainStatsCPUCacheMonitorLengths) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf("cpu.cache.monitor.%d.bank.count", idx): typedParamsFieldInfo{
+			set: &params.BankCountSet,
+			ui:  &params.BankCount,
+		},
+	}
+}
+
+type DomainStatsCPUCacheMonitor struct {
+	NameSet  bool
+	Name     string
+	VcpusSet bool
+	Vcpus    string
+	Banks    []DomainStatsCPUCacheMonitorBank
+}
+
+func getDomainStatsCPUCacheMonitorFieldInfo(idx int, params *DomainStatsCPUCacheMonitor) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf("cpu.cache.monitor.%d.name", idx): typedParamsFieldInfo{
+			set: &params.NameSet,
+			s:   &params.Name,
+		},
+		fmt.Sprintf("cpu.cache.monitor.%d.vcpus", idx): typedParamsFieldInfo{
+			set: &params.VcpusSet,
+			s:   &params.Vcpus,
+		},
+	}
+}
+
+type domainStatsCPULengths struct {
+	CacheMonitorCountSet bool
+	CacheMonitorCount    uint
+}
+
+func getDomainStatsCPULengthsFieldInfo(params *domainStatsCPULengths) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		"cpu.cache.monitor.count": typedParamsFieldInfo{
+			set: &params.CacheMonitorCountSet,
+			ui:  &params.CacheMonitorCount,
+		},
+	}
+}
+
 type DomainStatsCPU struct {
-	TimeSet   bool
-	Time      uint64
-	UserSet   bool
-	User      uint64
-	SystemSet bool
-	System    uint64
+	TimeSet                bool
+	Time                   uint64
+	UserSet                bool
+	User                   uint64
+	SystemSet              bool
+	System                 uint64
+	HaltPollSuccessTimeSet bool
+	HaltPollSuccessTime    uint64
+	HaltPollFailTimeSet    bool
+	HaltPollFailTime       uint64
+	CacheMonitors          []DomainStatsCPUCacheMonitor
 }
 
 func getDomainStatsCPUFieldInfo(params *DomainStatsCPU) map[string]typedParamsFieldInfo {
@@ -2585,6 +2659,14 @@ func getDomainStatsCPUFieldInfo(params *DomainStatsCPU) map[string]typedParamsFi
 		"cpu.system": typedParamsFieldInfo{
 			set: &params.SystemSet,
 			ul:  &params.System,
+		},
+		"cpu.haltpoll.success.time": typedParamsFieldInfo{
+			set: &params.HaltPollSuccessTimeSet,
+			ul:  &params.HaltPollSuccessTime,
+		},
+		"cpu.haltpoll.fail.time": typedParamsFieldInfo{
+			set: &params.HaltPollFailTimeSet,
+			ul:  &params.HaltPollFailTime,
 		},
 	}
 }
@@ -3227,6 +3309,47 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 		}
 		if count != 0 {
 			domstats.Cpu = cpu
+		}
+
+		cpuLengths := domainStatsCPULengths{}
+		cpuLengthsInfo := getDomainStatsCPULengthsFieldInfo(&cpuLengths)
+
+		_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuLengthsInfo)
+		if gerr != nil {
+			return nil, gerr
+		}
+
+		if cpuLengths.CacheMonitorCountSet && cpuLengths.CacheMonitorCount > 0 {
+			cpu.CacheMonitors = make([]DomainStatsCPUCacheMonitor, cpuLengths.CacheMonitorCount)
+			for i := 0; i < int(cpuLengths.CacheMonitorCount); i++ {
+				cpuCacheInfo := getDomainStatsCPUCacheMonitorFieldInfo(i, &cpu.CacheMonitors[i])
+
+				_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuCacheInfo)
+				if gerr != nil {
+					return nil, gerr
+				}
+
+				cpuCacheMonitorLengths := domainStatsCPUCacheMonitorLengths{}
+				cpuCacheMonitorLengthsInfo := getDomainStatsCPUCacheMonitorLengthsFieldInfo(i, &cpuCacheMonitorLengths)
+
+				_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuCacheMonitorLengthsInfo)
+				if gerr != nil {
+					return nil, gerr
+				}
+
+				if cpuCacheMonitorLengths.BankCountSet && cpuCacheMonitorLengths.BankCount > 0 {
+					cpu.CacheMonitors[i].Banks = make([]DomainStatsCPUCacheMonitorBank, cpuCacheMonitorLengths.BankCount)
+					for j := 0; j < int(cpuCacheMonitorLengths.BankCount); j++ {
+						cpuCacheBankInfo := getDomainStatsCPUCacheMonitorBankFieldInfo(i, j, &cpu.CacheMonitors[i].Banks[j])
+
+						_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuCacheBankInfo)
+						if gerr != nil {
+							return nil, gerr
+						}
+					}
+				}
+
+			}
 		}
 
 		balloon := &DomainStatsBalloon{}
