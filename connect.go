@@ -2711,60 +2711,59 @@ type DomainStatsBalloon struct {
 
 func getDomainStatsBalloonFieldInfo(params *DomainStatsBalloon) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"balloon.current": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_CURRENT: typedParamsFieldInfo{
 			set: &params.CurrentSet,
 			ul:  &params.Current,
 		},
-		"balloon.maximum": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_MAXIMUM: typedParamsFieldInfo{
 			set: &params.MaximumSet,
 			ul:  &params.Maximum,
 		},
-		"balloon.swap_in": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_SWAP_IN: typedParamsFieldInfo{
 			set: &params.SwapInSet,
 			ul:  &params.SwapIn,
 		},
-		"balloon.swap_out": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_SWAP_OUT: typedParamsFieldInfo{
 			set: &params.SwapOutSet,
 			ul:  &params.SwapOut,
 		},
-		"balloon.major_fault": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_MAJOR_FAULT: typedParamsFieldInfo{
 			set: &params.MajorFaultSet,
 			ul:  &params.MajorFault,
 		},
-		"balloon.minor_fault": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_MINOR_FAULT: typedParamsFieldInfo{
 			set: &params.MinorFaultSet,
 			ul:  &params.MinorFault,
 		},
-		"balloon.unused": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_UNUSED: typedParamsFieldInfo{
 			set: &params.UnusedSet,
 			ul:  &params.Unused,
 		},
-		"balloon.available": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_AVAILABLE: typedParamsFieldInfo{
 			set: &params.AvailableSet,
 			ul:  &params.Available,
 		},
-		"balloon.rss": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_RSS: typedParamsFieldInfo{
 			set: &params.RssSet,
 			ul:  &params.Rss,
 		},
-		"balloon.usable": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_USABLE: typedParamsFieldInfo{
 			set: &params.UsableSet,
 			ul:  &params.Usable,
 		},
-		// note: last-update not last_update, verified in libvirt source
-		"balloon.last-update": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_LAST_UPDATE: typedParamsFieldInfo{
 			set: &params.LastUpdateSet,
 			ul:  &params.LastUpdate,
 		},
-		"balloon.disk_caches": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_DISK_CACHES: typedParamsFieldInfo{
 			set: &params.DiskCachesSet,
 			ul:  &params.DiskCaches,
 		},
-		"balloon.hugetlb_pgalloc": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_HUGETLB_PGALLOC: typedParamsFieldInfo{
 			set: &params.HugetlbPgAllocSet,
 			ul:  &params.HugetlbPgAlloc,
 		},
-		"balloon.hugetlb_pgfail": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BALLOON_HUGETLB_PGFAIL: typedParamsFieldInfo{
 			set: &params.HugetlbPgFailSet,
 			ul:  &params.HugetlbPgFail,
 		},
