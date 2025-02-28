@@ -2552,11 +2552,11 @@ type DomainStatsState struct {
 
 func getDomainStatsStateFieldInfo(params *DomainStatsState) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"state.state": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_STATE_STATE: typedParamsFieldInfo{
 			set: &params.StateSet,
 			i:   (*int)(unsafe.Pointer(&params.State)),
 		},
-		"state.reason": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_STATE_REASON: typedParamsFieldInfo{
 			set: &params.ReasonSet,
 			i:   &params.Reason,
 		},
