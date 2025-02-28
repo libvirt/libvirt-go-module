@@ -5161,15 +5161,18 @@ type DomainGuestInfoUser struct {
 
 func getDomainGuestInfoUserFieldInfo(idx int, params *DomainGuestInfoUser) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("user.%d.name", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_USER_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_USER_SUFFIX_NAME, idx): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		fmt.Sprintf("user.%d.domain", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_USER_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_USER_SUFFIX_DOMAIN, idx): typedParamsFieldInfo{
 			set: &params.DomainSet,
 			s:   &params.Domain,
 		},
-		fmt.Sprintf("user.%d.login-time", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_USER_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_USER_SUFFIX_LOGIN_TIME, idx): typedParamsFieldInfo{
 			set: &params.LoginTimeSet,
 			ul:  &params.LoginTime,
 		},
@@ -5498,7 +5501,7 @@ type domainGuestInfoLengths struct {
 
 func getDomainGuestInfoLengthsFieldInfo(params *domainGuestInfoLengths) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"user.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_USER_COUNT: typedParamsFieldInfo{
 			set: &params.UserCountSet,
 			ui:  &params.UserCount,
 		},
