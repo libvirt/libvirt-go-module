@@ -3657,8 +3657,8 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 			}
 		}
 
-		domstats.VM, gerr = typedParamsUnpackRaw("vm.", filterCustomStats,
-			cdomstats.params, cdomstats.nparams)
+		domstats.VM, gerr = typedParamsUnpackRaw(C.VIR_DOMAIN_STATS_VM_PREFIX,
+			filterCustomStats, cdomstats.params, cdomstats.nparams)
 		if gerr != nil {
 			return []DomainStats{}, gerr
 		}
