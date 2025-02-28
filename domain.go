@@ -5169,7 +5169,7 @@ func getDomainGuestInfoUserFieldInfo(idx int, params *DomainGuestInfoUser) map[s
 			set: &params.DomainSet,
 			s:   &params.Domain,
 		},
-		fmt.Sprintf("user.%d.logintime", idx): typedParamsFieldInfo{
+		fmt.Sprintf("user.%d.login-time", idx): typedParamsFieldInfo{
 			set: &params.LoginTimeSet,
 			ul:  &params.LoginTime,
 		},
