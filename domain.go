@@ -5444,15 +5444,21 @@ type DomainGuestInfoIPAddress struct {
 
 func getDomainGuestInfoIPAddressFieldInfo(idx1, idx2 int, params *DomainGuestInfoIPAddress) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("if.%d.addr.%d.type", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_IF_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_ADDR_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_ADDR_SUFFIX_TYPE, idx1, idx2): typedParamsFieldInfo{
 			set: &params.TypeSet,
 			s:   &params.Type,
 		},
-		fmt.Sprintf("if.%d.addr.%d.addr", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_IF_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_ADDR_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_ADDR_SUFFIX_ADDR, idx1, idx2): typedParamsFieldInfo{
 			set: &params.AddrSet,
 			s:   &params.Addr,
 		},
-		fmt.Sprintf("if.%d.addr.%d.prefix", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_IF_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_ADDR_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_ADDR_SUFFIX_PREFIX, idx1, idx2): typedParamsFieldInfo{
 			set: &params.PrefixSet,
 			ui:  &params.Prefix,
 		},
@@ -5469,11 +5475,13 @@ type DomainGuestInfoInterface struct {
 
 func getDomainGuestInfoInterfaceFieldInfo(idx int, params *DomainGuestInfoInterface) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("if.%d.name", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_IF_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_NAME, idx): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		fmt.Sprintf("if.%d.hwaddr", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_IF_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_HWADDR, idx): typedParamsFieldInfo{
 			set: &params.HwaddrSet,
 			s:   &params.Hwaddr,
 		},
@@ -5487,7 +5495,8 @@ type domainGuestInfoInterfaceLengths struct {
 
 func getDomainGuestInfoInterfaceLengthsFieldInfo(idx int, params *domainGuestInfoInterfaceLengths) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("if.%d.addr.count", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_IF_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_IF_SUFFIX_ADDR_COUNT, idx): typedParamsFieldInfo{
 			set: &params.AddrCountSet,
 			ui:  &params.AddrCount,
 		},
@@ -5539,7 +5548,7 @@ func getDomainGuestInfoLengthsFieldInfo(params *domainGuestInfoLengths) map[stri
 			set: &params.DiskCountSet,
 			ui:  &params.DiskCount,
 		},
-		"if.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_IF_COUNT: typedParamsFieldInfo{
 			set: &params.InterfaceCountSet,
 			ui:  &params.InterfaceCount,
 		},
