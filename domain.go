@@ -5204,43 +5204,43 @@ type DomainGuestInfoOS struct {
 
 func getDomainGuestInfoOSFieldInfo(params *DomainGuestInfoOS) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"os.id": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_ID: typedParamsFieldInfo{
 			set: &params.IDSet,
 			s:   &params.ID,
 		},
-		"os.name": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_NAME: typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		"os.pretty-name": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_PRETTY_NAME: typedParamsFieldInfo{
 			set: &params.PrettyNameSet,
 			s:   &params.PrettyName,
 		},
-		"os.version": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_VERSION: typedParamsFieldInfo{
 			set: &params.VersionSet,
 			s:   &params.Version,
 		},
-		"os.version-id": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_VERSION_ID: typedParamsFieldInfo{
 			set: &params.VersionIDSet,
 			s:   &params.VersionID,
 		},
-		"os.kernel-release": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_KERNEL_RELEASE: typedParamsFieldInfo{
 			set: &params.KernelReleaseSet,
 			s:   &params.KernelRelease,
 		},
-		"os.kernel-version": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_KERNEL_VERSION: typedParamsFieldInfo{
 			set: &params.KernelVersionSet,
 			s:   &params.KernelVersion,
 		},
-		"os.machine": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_MACHINE: typedParamsFieldInfo{
 			set: &params.MachineSet,
 			s:   &params.Machine,
 		},
-		"os.variant": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_VARIANT: typedParamsFieldInfo{
 			set: &params.VariantSet,
 			s:   &params.Variant,
 		},
-		"os.variant-id": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_OS_VARIANT_ID: typedParamsFieldInfo{
 			set: &params.VariantIDSet,
 			s:   &params.VariantID,
 		},
