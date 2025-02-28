@@ -3227,7 +3227,8 @@ type DomainStatsDirtyRateVCPU struct {
 
 func getDomainStatsDirtyRateVCPUFieldInfo(idx int, params *DomainStatsDirtyRateVCPU) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"dirtyrate.vcpu.%d.megabytes_per_second": typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_DIRTYRATE_VCPU_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_DIRTYRATE_VCPU_SUFFIX_MEGABYTES_PER_SECOND, idx): typedParamsFieldInfo{
 			set: &params.MegabytesPerSecondSet,
 			l:   &params.MegabytesPerSecond,
 		},
@@ -3250,23 +3251,23 @@ type DomainStatsDirtyRate struct {
 
 func getDomainStatsDirtyRateFieldInfo(params *DomainStatsDirtyRate) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"dirtyrate.calc_status": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_DIRTYRATE_CALC_STATUS: typedParamsFieldInfo{
 			set: &params.CalcStatusSet,
 			i:   &params.CalcStatus,
 		},
-		"dirtyrate.calc_start_time": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_DIRTYRATE_CALC_START_TIME: typedParamsFieldInfo{
 			set: &params.CalcStartTimeSet,
 			l:   &params.CalcStartTime,
 		},
-		"dirtyrate.calc_period": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_DIRTYRATE_CALC_PERIOD: typedParamsFieldInfo{
 			set: &params.CalcPeriodSet,
 			i:   &params.CalcPeriod,
 		},
-		"dirtyrate.megabytes_per_second": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_DIRTYRATE_MEGABYTES_PER_SECOND: typedParamsFieldInfo{
 			set: &params.MegabytesPerSecondSet,
 			l:   &params.MegabytesPerSecond,
 		},
-		"dirtyrate.calc_mode": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_DIRTYRATE_CALC_MODE: typedParamsFieldInfo{
 			set: &params.CalcModeSet,
 			s:   &params.CalcMode,
 		},
