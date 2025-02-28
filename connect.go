@@ -2923,67 +2923,83 @@ type DomainStatsBlock struct {
 
 func getDomainStatsBlockFieldInfo(idx int, params *DomainStatsBlock) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("block.%d.name", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_NAME, idx): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		fmt.Sprintf("block.%d.backingIndex", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_BACKINGINDEX, idx): typedParamsFieldInfo{
 			set: &params.BackingIndexSet,
 			ui:  &params.BackingIndex,
 		},
-		fmt.Sprintf("block.%d.path", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_PATH, idx): typedParamsFieldInfo{
 			set: &params.PathSet,
 			s:   &params.Path,
 		},
-		fmt.Sprintf("block.%d.rd.reqs", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_RD_REQS, idx): typedParamsFieldInfo{
 			set: &params.RdReqsSet,
 			ul:  &params.RdReqs,
 		},
-		fmt.Sprintf("block.%d.rd.bytes", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_RD_BYTES, idx): typedParamsFieldInfo{
 			set: &params.RdBytesSet,
 			ul:  &params.RdBytes,
 		},
-		fmt.Sprintf("block.%d.rd.times", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_RD_TIMES, idx): typedParamsFieldInfo{
 			set: &params.RdTimesSet,
 			ul:  &params.RdTimes,
 		},
-		fmt.Sprintf("block.%d.wr.reqs", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_WR_REQS, idx): typedParamsFieldInfo{
 			set: &params.WrReqsSet,
 			ul:  &params.WrReqs,
 		},
-		fmt.Sprintf("block.%d.wr.bytes", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_WR_BYTES, idx): typedParamsFieldInfo{
 			set: &params.WrBytesSet,
 			ul:  &params.WrBytes,
 		},
-		fmt.Sprintf("block.%d.wr.times", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_WR_TIMES, idx): typedParamsFieldInfo{
 			set: &params.WrTimesSet,
 			ul:  &params.WrTimes,
 		},
-		fmt.Sprintf("block.%d.fl.reqs", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_FL_REQS, idx): typedParamsFieldInfo{
 			set: &params.FlReqsSet,
 			ul:  &params.FlReqs,
 		},
-		fmt.Sprintf("block.%d.fl.times", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_FL_TIMES, idx): typedParamsFieldInfo{
 			set: &params.FlTimesSet,
 			ul:  &params.FlTimes,
 		},
-		fmt.Sprintf("block.%d.errors", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_ERRORS, idx): typedParamsFieldInfo{
 			set: &params.ErrorsSet,
 			ul:  &params.Errors,
 		},
-		fmt.Sprintf("block.%d.allocation", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_ALLOCATION, idx): typedParamsFieldInfo{
 			set: &params.AllocationSet,
 			ul:  &params.Allocation,
 		},
-		fmt.Sprintf("block.%d.capacity", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_CAPACITY, idx): typedParamsFieldInfo{
 			set: &params.CapacitySet,
 			ul:  &params.Capacity,
 		},
-		fmt.Sprintf("block.%d.physical", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_PHYSICAL, idx): typedParamsFieldInfo{
 			set: &params.PhysicalSet,
 			ul:  &params.Physical,
 		},
-		fmt.Sprintf("block.%d.threshold", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_THRESHOLD, idx): typedParamsFieldInfo{
 			set: &params.ThresholdSet,
 			ul:  &params.Threshold,
 		},
@@ -3268,7 +3284,7 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 			set: &params.NetCountSet,
 			ui:  &params.NetCount,
 		},
-		"block.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_BLOCK_COUNT: typedParamsFieldInfo{
 			set: &params.BlockCountSet,
 			ui:  &params.BlockCount,
 		},
