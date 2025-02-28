@@ -2528,6 +2528,8 @@ type DomainMigrateParameters struct {
 	MigrateDisksDetectZeroesSet  bool
 	MigrateDisksDetectZeroes     bool // Deprecated: wrong type & unused. Delete in v2.nnn
 	MigrateDisksDetectZeroesList []string
+	BandwidthAvailSwitchoverSet  bool
+	BandwidthAvailSwitchover     uint64
 }
 
 func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]typedParamsFieldInfo {
@@ -2623,6 +2625,10 @@ func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]ty
 		C.VIR_MIGRATE_PARAM_MIGRATE_DISKS_DETECT_ZEROES: typedParamsFieldInfo{
 			set: &params.MigrateDisksDetectZeroesSet,
 			sl:  &params.MigrateDisksDetectZeroesList,
+		},
+		C.VIR_MIGRATE_PARAM_BANDWIDTH_AVAIL_SWITCHOVER: typedParamsFieldInfo{
+			set: &params.BandwidthAvailSwitchoverSet,
+			ul:  &params.BandwidthAvailSwitchover,
 		},
 	}
 }
