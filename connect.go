@@ -3055,91 +3055,91 @@ type DomainStatsPerf struct {
 
 func getDomainStatsPerfFieldInfo(params *DomainStatsPerf) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"perf.cmt": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_CMT: typedParamsFieldInfo{
 			set: &params.CmtSet,
 			ul:  &params.Cmt,
 		},
-		"perf.mbmt": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_MBMT: typedParamsFieldInfo{
 			set: &params.MbmtSet,
 			ul:  &params.Mbmt,
 		},
-		"perf.mbml": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_MBML: typedParamsFieldInfo{
 			set: &params.MbmlSet,
 			ul:  &params.Mbml,
 		},
-		"perf.cache_misses": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_CACHE_MISSES: typedParamsFieldInfo{
 			set: &params.CacheMissesSet,
 			ul:  &params.CacheMisses,
 		},
-		"perf.cache_references": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_CACHE_REFERENCES: typedParamsFieldInfo{
 			set: &params.CacheReferencesSet,
 			ul:  &params.CacheReferences,
 		},
-		"perf.instructions": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_INSTRUCTIONS: typedParamsFieldInfo{
 			set: &params.InstructionsSet,
 			ul:  &params.Instructions,
 		},
-		"perf.cpu_cycles": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_CPU_CYCLES: typedParamsFieldInfo{
 			set: &params.CpuCyclesSet,
 			ul:  &params.CpuCycles,
 		},
-		"perf.branch_instructions": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_BRANCH_INSTRUCTIONS: typedParamsFieldInfo{
 			set: &params.BranchInstructionsSet,
 			ul:  &params.BranchInstructions,
 		},
-		"perf.branch_misses": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_BRANCH_MISSES: typedParamsFieldInfo{
 			set: &params.BranchMissesSet,
 			ul:  &params.BranchMisses,
 		},
-		"perf.bus_cycles": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_BUS_CYCLES: typedParamsFieldInfo{
 			set: &params.BusCyclesSet,
 			ul:  &params.BusCycles,
 		},
-		"perf.stalled_cycles_frontend": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_STALLED_CYCLES_FRONTEND: typedParamsFieldInfo{
 			set: &params.StalledCyclesFrontendSet,
 			ul:  &params.StalledCyclesFrontend,
 		},
-		"perf.stalled_cycles_backend": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_STALLED_CYCLES_BACKEND: typedParamsFieldInfo{
 			set: &params.StalledCyclesBackendSet,
 			ul:  &params.StalledCyclesBackend,
 		},
-		"perf.ref_cpu_cycles": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_REF_CPU_CYCLES: typedParamsFieldInfo{
 			set: &params.RefCpuCyclesSet,
 			ul:  &params.RefCpuCycles,
 		},
-		"perf.cpu_clock": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_CPU_CLOCK: typedParamsFieldInfo{
 			set: &params.CpuClockSet,
 			ul:  &params.CpuClock,
 		},
-		"perf.task_clock": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_TASK_CLOCK: typedParamsFieldInfo{
 			set: &params.TaskClockSet,
 			ul:  &params.TaskClock,
 		},
-		"perf.page_faults": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_PAGE_FAULTS: typedParamsFieldInfo{
 			set: &params.PageFaultsSet,
 			ul:  &params.PageFaults,
 		},
-		"perf.context_switches": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_CONTEXT_SWITCHES: typedParamsFieldInfo{
 			set: &params.ContextSwitchesSet,
 			ul:  &params.ContextSwitches,
 		},
-		"perf.cpu_migrations": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_CPU_MIGRATIONS: typedParamsFieldInfo{
 			set: &params.CpuMigrationsSet,
 			ul:  &params.CpuMigrations,
 		},
-		"perf.page_faults_min": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_PAGE_FAULTS_MIN: typedParamsFieldInfo{
 			set: &params.PageFaultsMinSet,
 			ul:  &params.PageFaultsMin,
 		},
-		"perf.page_faults_maj": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_PAGE_FAULTS_MAJ: typedParamsFieldInfo{
 			set: &params.PageFaultsMajSet,
 			ul:  &params.PageFaultsMaj,
 		},
-		"perf.alignment_faults": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_ALIGNMENT_FAULTS: typedParamsFieldInfo{
 			set: &params.AlignmentFaultsSet,
 			ul:  &params.AlignmentFaults,
 		},
-		"perf.emulation_faults": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_PERF_EMULATION_FAULTS: typedParamsFieldInfo{
 			set: &params.EmulationFaultsSet,
 			ul:  &params.EmulationFaults,
 		},
