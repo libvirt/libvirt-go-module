@@ -2787,23 +2787,28 @@ type DomainStatsVcpu struct {
 
 func getDomainStatsVcpuFieldInfo(idx int, params *DomainStatsVcpu) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("vcpu.%d.state", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_VCPU_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_VCPU_SUFFIX_STATE, idx): typedParamsFieldInfo{
 			set: &params.StateSet,
 			i:   (*int)(unsafe.Pointer(&params.State)),
 		},
-		fmt.Sprintf("vcpu.%d.time", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_VCPU_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_VCPU_SUFFIX_TIME, idx): typedParamsFieldInfo{
 			set: &params.TimeSet,
 			ul:  &params.Time,
 		},
-		fmt.Sprintf("vcpu.%d.wait", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_VCPU_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_VCPU_SUFFIX_WAIT, idx): typedParamsFieldInfo{
 			set: &params.WaitSet,
 			ul:  &params.Wait,
 		},
-		fmt.Sprintf("vcpu.%d.halted", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_VCPU_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_VCPU_SUFFIX_HALTED, idx): typedParamsFieldInfo{
 			set: &params.HaltedSet,
 			b:   &params.Halted,
 		},
-		fmt.Sprintf("vcpu.%d.delay", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_VCPU_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_VCPU_SUFFIX_DELAY, idx): typedParamsFieldInfo{
 			set: &params.DelaySet,
 			ul:  &params.Delay,
 		},
@@ -3236,11 +3241,11 @@ type domainStatsLengths struct {
 
 func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		"vcpu.current": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_VCPU_CURRENT: typedParamsFieldInfo{
 			set: &params.VcpuCurrentSet,
 			ui:  &params.VcpuCurrent,
 		},
-		"vcpu.maximum": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_VCPU_MAXIMUM: typedParamsFieldInfo{
 			set: &params.VcpuMaximumSet,
 			ui:  &params.VcpuMaximum,
 		},
@@ -3260,9 +3265,9 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 }
 
 func filterCustomStats(key string) bool {
-	if !strings.HasSuffix(key, ".cur") &&
-		!strings.HasSuffix(key, ".max") &&
-		!strings.HasSuffix(key, ".sum") {
+	if !strings.HasSuffix(key, C.VIR_DOMAIN_STATS_CUSTOM_SUFFIX_TYPE_CUR) &&
+		!strings.HasSuffix(key, C.VIR_DOMAIN_STATS_CUSTOM_SUFFIX_TYPE_MAX) &&
+		!strings.HasSuffix(key, C.VIR_DOMAIN_STATS_CUSTOM_SUFFIX_TYPE_SUM) {
 		return false
 	}
 	return true
