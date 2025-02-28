@@ -2917,6 +2917,8 @@ type DomainStatsBlock struct {
 	Capacity        uint64
 	PhysicalSet     bool
 	Physical        uint64
+	ThresholdSet    bool
+	Threshold       uint64
 }
 
 func getDomainStatsBlockFieldInfo(idx int, params *DomainStatsBlock) map[string]typedParamsFieldInfo {
@@ -2980,6 +2982,10 @@ func getDomainStatsBlockFieldInfo(idx int, params *DomainStatsBlock) map[string]
 		fmt.Sprintf("block.%d.physical", idx): typedParamsFieldInfo{
 			set: &params.PhysicalSet,
 			ul:  &params.Physical,
+		},
+		fmt.Sprintf("block.%d.threshold", idx): typedParamsFieldInfo{
+			set: &params.ThresholdSet,
+			ul:  &params.Threshold,
 		},
 	}
 }
