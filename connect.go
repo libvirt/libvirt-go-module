@@ -3256,16 +3256,19 @@ type DomainStatsIOThread struct {
 
 func getDomainStatsIOThreadFieldInfo(idx int, params *DomainStatsIOThread) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("iothread.%d.poll-max-ns", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_IOTHREAD_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_IOTHREAD_SUFFIX_POLL_MAX_NS, idx): typedParamsFieldInfo{
 			set: &params.PollMaxNSSet,
 			ul:  &params.PollMaxNS,
 		},
-		fmt.Sprintf("iothread.%d.poll-grow", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_IOTHREAD_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_IOTHREAD_SUFFIX_POLL_GROW, idx): typedParamsFieldInfo{
 			set: &params.PollGrowSet,
 			ui:  &params.PollGrow,
 			ul:  &params.PollGrow64,
 		},
-		fmt.Sprintf("iothread.%d.poll-shrink", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_IOTHREAD_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_IOTHREAD_SUFFIX_POLL_SHRINK, idx): typedParamsFieldInfo{
 			set: &params.PollShrinkSet,
 			ui:  &params.PollShrink,
 			ul:  &params.PollShrink64,
@@ -3300,7 +3303,7 @@ type domainStatsLengths struct {
 	BandwidthCountSet bool
 	BandwidthCount    uint
 	IOThreadCountSet  bool
-	IOThreadCOunt     uint
+	IOThreadCount     uint
 }
 
 func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typedParamsFieldInfo {
@@ -3325,7 +3328,7 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 			set: &params.BandwidthCountSet,
 			ui:  &params.BandwidthCount,
 		},
-		"iothread.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_STATS_IOTHREAD_COUNT: typedParamsFieldInfo{
 			set: &params.IOThreadCountSet,
 			ui:  &params.IOThreadCount,
 		},
