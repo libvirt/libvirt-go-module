@@ -5365,7 +5365,9 @@ type DomainGuestInfoDiskDependency struct {
 
 func getDomainGuestInfoDiskDependencyFieldInfo(idx1, idx2 int, params *DomainGuestInfoDiskDependency) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("disk.%d.dependency.%d.name", idx1, idx2): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_DEPENDENCY_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_DEPENDENCY_SUFFIX_NAME, idx1, idx2): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
@@ -5388,23 +5390,28 @@ type DomainGuestInfoDisk struct {
 
 func getDomainGuestInfoDiskFieldInfo(idx int, params *DomainGuestInfoDisk) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("disk.%d.name", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_NAME, idx): typedParamsFieldInfo{
 			set: &params.NameSet,
 			s:   &params.Name,
 		},
-		fmt.Sprintf("disk.%d.partition", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_PARTITION, idx): typedParamsFieldInfo{
 			set: &params.PartitionSet,
 			b:   &params.Partition,
 		},
-		fmt.Sprintf("disk.%d.alias", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_ALIAS, idx): typedParamsFieldInfo{
 			set: &params.AliasSet,
 			s:   &params.Alias,
 		},
-		fmt.Sprintf("disk.%d.guest_alias", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_GUEST_ALIAS, idx): typedParamsFieldInfo{
 			set: &params.GuestAliasSet,
 			s:   &params.GuestAlias,
 		},
-		fmt.Sprintf("disk.%d.serial", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_SERIAL, idx): typedParamsFieldInfo{
 			set: &params.SerialSet,
 			s:   &params.Serial,
 		},
@@ -5418,7 +5425,8 @@ type domainGuestInfoDiskLengths struct {
 
 func getDomainGuestInfoDiskLengthsFieldInfo(idx int, params *domainGuestInfoDiskLengths) map[string]typedParamsFieldInfo {
 	return map[string]typedParamsFieldInfo{
-		fmt.Sprintf("disk.%d.dependency.count", idx): typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_DEPENDENCY_COUNT, idx): typedParamsFieldInfo{
 			set: &params.DependencyCountSet,
 			ui:  &params.DependencyCount,
 		},
@@ -5527,7 +5535,7 @@ func getDomainGuestInfoLengthsFieldInfo(params *domainGuestInfoLengths) map[stri
 			set: &params.FileSystemCountSet,
 			ui:  &params.FileSystemCount,
 		},
-		"disk.count": typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_DISK_COUNT: typedParamsFieldInfo{
 			set: &params.DiskCountSet,
 			ui:  &params.DiskCount,
 		},
