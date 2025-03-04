@@ -2782,6 +2782,7 @@ type DomainStatsVcpu struct {
 	Halted    bool
 	DelaySet  bool
 	Delay     uint64
+	Custom    []TypedParamValue
 }
 
 func getDomainStatsVcpuFieldInfo(idx int, params *DomainStatsVcpu) map[string]typedParamsFieldInfo {
@@ -3417,6 +3418,14 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 					vcpu.StateSet = true
 					vcpu.State = VCPU_OFFLINE
 				}
+
+				vcpu.Custom, gerr = typedParamsUnpackRaw(
+					fmt.Sprintf("vcpu.%d.", j), filterCustomStats,
+					cdomstats.params, cdomstats.nparams)
+				if gerr != nil {
+					return []DomainStats{}, gerr
+				}
+
 				domstats.Vcpu[j] = vcpu
 			}
 		}
