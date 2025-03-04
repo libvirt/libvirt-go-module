@@ -3243,6 +3243,36 @@ func getDomainStatsDirtyRateFieldInfo(params *DomainStatsDirtyRate) map[string]t
 	}
 }
 
+type DomainStatsIOThread struct {
+	PollMaxNSSet  bool
+	PollMaxNS     uint64
+	PollGrowSet   bool
+	PollGrow      uint
+	PollGrow64    uint64
+	PollShrinkSet bool
+	PollShrink    uint
+	PollShrink64  uint64
+}
+
+func getDomainStatsIOThreadFieldInfo(idx int, params *DomainStatsIOThread) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf("iothread.%d.poll-max-ns", idx): typedParamsFieldInfo{
+			set: &params.PollMaxNSSet,
+			ul:  &params.PollMaxNS,
+		},
+		fmt.Sprintf("iothread.%d.poll-grow", idx): typedParamsFieldInfo{
+			set: &params.PollGrowSet,
+			ui:  &params.PollGrow,
+			ul:  &params.PollGrow64,
+		},
+		fmt.Sprintf("iothread.%d.poll-shrink", idx): typedParamsFieldInfo{
+			set: &params.PollShrinkSet,
+			ui:  &params.PollShrink,
+			ul:  &params.PollShrink64,
+		},
+	}
+}
+
 type DomainStats struct {
 	Domain    *Domain
 	State     *DomainStatsState
@@ -3255,6 +3285,7 @@ type DomainStats struct {
 	Memory    *DomainStatsMemory
 	DirtyRate *DomainStatsDirtyRate
 	VM        []TypedParamValue
+	IOThread  []DomainStatsIOThread
 }
 
 type domainStatsLengths struct {
@@ -3268,6 +3299,8 @@ type domainStatsLengths struct {
 	BlockCount        uint
 	BandwidthCountSet bool
 	BandwidthCount    uint
+	IOThreadCountSet  bool
+	IOThreadCOunt     uint
 }
 
 func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typedParamsFieldInfo {
@@ -3291,6 +3324,10 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 		"memory.bandwidth.monitor.count": typedParamsFieldInfo{
 			set: &params.BandwidthCountSet,
 			ui:  &params.BandwidthCount,
+		},
+		"iothread.count": typedParamsFieldInfo{
+			set: &params.IOThreadCountSet,
+			ui:  &params.IOThreadCount,
 		},
 	}
 }
@@ -3551,6 +3588,22 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 		}
 		if count != 0 {
 			domstats.DirtyRate = dirtyrate
+		}
+
+		if lengths.IOThreadCountSet && lengths.IOThreadCount > 0 {
+			domstats.IOThread = make([]DomainStatsIOThread, lengths.IOThreadCount)
+			for j := 0; j < int(lengths.IOThreadCount); j++ {
+				block := DomainStatsIOThread{}
+				blockInfo := getDomainStatsIOThreadFieldInfo(j, &block)
+
+				count, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, blockInfo)
+				if gerr != nil {
+					return []DomainStats{}, gerr
+				}
+				if count != 0 {
+					domstats.IOThread[j] = block
+				}
+			}
 		}
 
 		domstats.VM, gerr = typedParamsUnpackRaw("vm.", filterCustomStats,
