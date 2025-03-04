@@ -3220,6 +3220,20 @@ func getDomainStatsMemoryBandwidthMonitorNodeFieldInfo(idx1, idx2 int, params *D
 	}
 }
 
+type DomainStatsDirtyRateVCPU struct {
+	MegabytesPerSecondSet bool
+	MegabytesPerSecond    int64
+}
+
+func getDomainStatsDirtyRateVCPUFieldInfo(idx int, params *DomainStatsDirtyRateVCPU) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		"dirtyrate.vcpu.%d.megabytes_per_second": typedParamsFieldInfo{
+			set: &params.MegabytesPerSecondSet,
+			l:   &params.MegabytesPerSecond,
+		},
+	}
+}
+
 type DomainStatsDirtyRate struct {
 	CalcStatusSet         bool
 	CalcStatus            int
@@ -3229,6 +3243,9 @@ type DomainStatsDirtyRate struct {
 	CalcPeriod            int
 	MegabytesPerSecondSet bool
 	MegabytesPerSecond    int64
+	CalcModeSet           bool
+	CalcMode              string
+	VCPUS                 []DomainStatsDirtyRateVCPU
 }
 
 func getDomainStatsDirtyRateFieldInfo(params *DomainStatsDirtyRate) map[string]typedParamsFieldInfo {
@@ -3248,6 +3265,10 @@ func getDomainStatsDirtyRateFieldInfo(params *DomainStatsDirtyRate) map[string]t
 		"dirtyrate.megabytes_per_second": typedParamsFieldInfo{
 			set: &params.MegabytesPerSecondSet,
 			l:   &params.MegabytesPerSecond,
+		},
+		"dirtyrate.calc_mode": typedParamsFieldInfo{
+			set: &params.CalcModeSet,
+			s:   &params.CalcMode,
 		},
 	}
 }
@@ -3600,6 +3621,23 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 		}
 		if count != 0 {
 			domstats.DirtyRate = dirtyrate
+		}
+
+		vcpuCount, gerr := domstats.Domain.GetVcpusFlags(DOMAIN_VCPU_MAXIMUM)
+		if vcpuCount > 0 {
+			dirtyrate.VCPUS = make([]DomainStatsDirtyRateVCPU, count)
+			for j := 0; j < int(vcpuCount); j++ {
+				vcpu := DomainStatsDirtyRateVCPU{}
+				vcpuInfo := getDomainStatsDirtyRateVCPUFieldInfo(j, &vcpu)
+
+				count, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, vcpuInfo)
+				if gerr != nil {
+					return []DomainStats{}, gerr
+				}
+				if count != 0 {
+					dirtyrate.VCPUS[j] = vcpu
+				}
+			}
 		}
 
 		if lengths.IOThreadCountSet && lengths.IOThreadCount > 0 {
