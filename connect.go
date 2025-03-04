@@ -30,6 +30,7 @@ import (
 	"fmt"
 	"os"
 	"reflect"
+	"strings"
 	"sync"
 	"unsafe"
 )
@@ -3257,6 +3258,15 @@ func getDomainStatsLengthsFieldInfo(params *domainStatsLengths) map[string]typed
 	}
 }
 
+func filterCustomStats(key string) bool {
+	if !strings.HasSuffix(key, ".cur") &&
+		!strings.HasSuffix(key, ".max") &&
+		!strings.HasSuffix(key, ".sum") {
+		return false
+	}
+	return true
+}
+
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virConnectGetAllDomainStats
 //
 // Note that each struct element in the returned 'DomainStats'
@@ -3498,7 +3508,8 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 			domstats.DirtyRate = dirtyrate
 		}
 
-		domstats.VM, gerr = typedParamsUnpackRaw("vm.", cdomstats.params, cdomstats.nparams)
+		domstats.VM, gerr = typedParamsUnpackRaw("vm.", filterCustomStats,
+			cdomstats.params, cdomstats.nparams)
 		if gerr != nil {
 			return []DomainStats{}, gerr
 		}
