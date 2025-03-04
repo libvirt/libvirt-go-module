@@ -166,12 +166,30 @@ func typedParamsUnpack(cparams *C.virTypedParameter, cnparams C.int, infomap map
 				ret = C.virTypedParamsGetIntWrapper(cparams, cnparams, cname, &ci, &err)
 				if ret == 1 {
 					*value.i = int(ci)
+				} else if ret < 0 {
+					if value.l != nil {
+						var cl C.longlong
+						C.virResetErrorWrapper(&err)
+						ret = C.virTypedParamsGetLLongWrapper(cparams, cnparams, cname, &cl, &err)
+						if ret == 1 {
+							*value.l = int64(cl)
+						}
+					}
 				}
 			} else if value.ui != nil {
 				var cui C.uint
 				ret = C.virTypedParamsGetUIntWrapper(cparams, cnparams, cname, &cui, &err)
 				if ret == 1 {
 					*value.ui = uint(cui)
+				} else if ret < 0 {
+					if value.ul != nil {
+						var cul C.ulonglong
+						C.virResetErrorWrapper(&err)
+						ret = C.virTypedParamsGetULLongWrapper(cparams, cnparams, cname, &cul, &err)
+						if ret == 1 {
+							*value.ul = uint64(cul)
+						}
+					}
 				}
 			} else if value.l != nil {
 				var cl C.longlong
