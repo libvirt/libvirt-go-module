@@ -925,6 +925,7 @@ const (
 	DOMAIN_GUEST_INFO_FILESYSTEM = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_FILESYSTEM)
 	DOMAIN_GUEST_INFO_DISKS      = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_DISKS)
 	DOMAIN_GUEST_INFO_INTERFACES = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_INTERFACES)
+	DOMAIN_GUEST_INFO_LOAD       = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_LOAD)
 )
 
 type DomainAgentSetResponseTimeoutValues int
@@ -5503,6 +5504,32 @@ func getDomainGuestInfoInterfaceLengthsFieldInfo(idx int, params *domainGuestInf
 	}
 }
 
+type DomainGuestInfoLoad struct {
+	Load1MSet  bool
+	Load1M     float64
+	Load5MSet  bool
+	Load5M     float64
+	Load15MSet bool
+	Load15M    float64
+}
+
+func getDomainGuestInfoLoadFieldInfo(params *DomainGuestInfoLoad) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		C.VIR_DOMAIN_GUEST_INFO_LOAD_1M: typedParamsFieldInfo{
+			set: &params.Load1MSet,
+			d:   &params.Load1M,
+		},
+		C.VIR_DOMAIN_GUEST_INFO_LOAD_5M: typedParamsFieldInfo{
+			set: &params.Load5MSet,
+			d:   &params.Load5M,
+		},
+		C.VIR_DOMAIN_GUEST_INFO_LOAD_15M: typedParamsFieldInfo{
+			set: &params.Load15MSet,
+			d:   &params.Load15M,
+		},
+	}
+}
+
 type DomainGuestInfo struct {
 	Users       []DomainGuestInfoUser
 	OS          *DomainGuestInfoOS
@@ -5512,6 +5539,7 @@ type DomainGuestInfo struct {
 	FileSystems []DomainGuestInfoFileSystem
 	Disks       []DomainGuestInfoDisk
 	Interfaces  []DomainGuestInfoInterface
+	Load        *DomainGuestInfoLoad
 }
 
 func getDomainGuestInfoFieldInfo(params *DomainGuestInfo) map[string]typedParamsFieldInfo {
@@ -5707,6 +5735,15 @@ func (d *Domain) GetGuestInfo(types DomainGuestInfoTypes, flags uint32) (*Domain
 			}
 		}
 	}
+
+	info.Load = &DomainGuestInfoLoad{}
+	loadInfo := getDomainGuestInfoLoadFieldInfo(info.Load)
+
+	_, gerr = typedParamsUnpack(cparams, cnparams, loadInfo)
+	if gerr != nil {
+		return nil, gerr
+	}
+
 	return &info, nil
 }
 
