@@ -5387,6 +5387,8 @@ type DomainGuestInfoDisk struct {
 	Dependencies  []DomainGuestInfoDiskDependency
 	SerialSet     bool
 	Serial        string
+	GuestBusSet   bool
+	GuestBus      string
 }
 
 func getDomainGuestInfoDiskFieldInfo(idx int, params *DomainGuestInfoDisk) map[string]typedParamsFieldInfo {
@@ -5415,6 +5417,11 @@ func getDomainGuestInfoDiskFieldInfo(idx int, params *DomainGuestInfoDisk) map[s
 			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_SERIAL, idx): typedParamsFieldInfo{
 			set: &params.SerialSet,
 			s:   &params.Serial,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DISK_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DISK_SUFFIX_GUEST_BUS, idx): typedParamsFieldInfo{
+			set: &params.GuestBusSet,
+			s:   &params.GuestBus,
 		},
 	}
 }
