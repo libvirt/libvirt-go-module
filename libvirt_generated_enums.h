@@ -1269,6 +1269,9 @@
 #  if !LIBVIR_CHECK_VERSION(7, 10, 0)
 #    define VIR_DOMAIN_GUEST_INFO_INTERFACES (1 << 6)
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 2, 0)
+#    define VIR_DOMAIN_GUEST_INFO_LOAD (1 << 7)
+#  endif
 
 /* enum virDomainInterfaceAddressesSource */
 #  if !LIBVIR_CHECK_VERSION(1, 2, 14)
