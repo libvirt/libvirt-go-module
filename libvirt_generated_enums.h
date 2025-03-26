@@ -991,8 +991,11 @@
 #  if !LIBVIR_CHECK_VERSION(7, 9, 0)
 #    define VIR_DOMAIN_EVENT_ID_MEMORY_DEVICE_SIZE_CHANGE 26
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 2, 0)
+#    define VIR_DOMAIN_EVENT_ID_NIC_MAC_CHANGE 27
+#  endif
 #  if !LIBVIR_CHECK_VERSION(0, 8, 0)
-#    define VIR_DOMAIN_EVENT_ID_LAST 27
+#    define VIR_DOMAIN_EVENT_ID_LAST 28
 #  endif
 
 /* enum virDomainEventIOErrorAction */
@@ -2838,8 +2841,14 @@
 #  if !LIBVIR_CHECK_VERSION(9, 7, 0)
 #    define VIR_ERR_NO_NETWORK_METADATA 111
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 2, 0)
+#    define VIR_ERR_AGENT_COMMAND_TIMEOUT 112
+#  endif
+#  if !LIBVIR_CHECK_VERSION(11, 2, 0)
+#    define VIR_ERR_AGENT_COMMAND_FAILED 113
+#  endif
 #  if !LIBVIR_CHECK_VERSION(5, 0, 0)
-#    define VIR_ERR_NUMBER_LAST 112
+#    define VIR_ERR_NUMBER_LAST 114
 #  endif
 
 /* enum virEventHandleType */

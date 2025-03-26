@@ -728,6 +728,10 @@
 #  define VIR_DOMAIN_SAVE_PARAM_IMAGE_FORMAT "image_format"
 #endif
 
+#if !LIBVIR_CHECK_VERSION(11, 2, 0)
+#  define VIR_DOMAIN_SAVE_PARAM_PARALLEL_CHANNELS "parallel.channels"
+#endif
+
 #if !LIBVIR_CHECK_VERSION(0, 9, 7)
 #  define VIR_DOMAIN_SCHEDULER_CAP "cap"
 #endif
@@ -1110,94 +1114,6 @@
 
 #if !LIBVIR_CHECK_VERSION(11, 2, 0)
 #  define VIR_DOMAIN_STATS_NET_SUFFIX_TX_PKTS ".tx.pkts"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_ALIGNMENT_FAULTS "perf.alignment_faults"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_BRANCH_INSTRUCTIONS "perf.branch_instructions"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_BRANCH_MISSES "perf.branch_misses"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_BUS_CYCLES "perf.bus_cycles"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_CACHE_MISSES "perf.cache_misses"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_CACHE_REFERENCES "perf.cache_references"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_CMT "perf.cmt"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_CONTEXT_SWITCHES "perf.context_switches"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_CPU_CLOCK "perf.cpu_clock"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_CPU_CYCLES "perf.cpu_cycles"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_CPU_MIGRATIONS "perf.cpu_migrations"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_EMULATION_FAULTS "perf.emulation_faults"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_INSTRUCTIONS "perf.instructions"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_MBML "perf.mbml"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_MBMT "perf.mbmt"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_PAGE_FAULTS "perf.page_faults"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_PAGE_FAULTS_MAJ "perf.page_faults_maj"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_PAGE_FAULTS_MIN "perf.page_faults_min"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_REF_CPU_CYCLES "perf.ref_cpu_cycles"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_STALLED_CYCLES_BACKEND "perf.stalled_cycles_backend"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_STALLED_CYCLES_FRONTEND "perf.stalled_cycles_frontend"
-#endif
-
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-#  define VIR_DOMAIN_STATS_PERF_TASK_CLOCK "perf.task_clock"
 #endif
 
 #if !LIBVIR_CHECK_VERSION(11, 2, 0)
