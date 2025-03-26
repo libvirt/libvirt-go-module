@@ -1183,6 +1183,39 @@ func (d *Domain) GetAutostart() (bool, error) {
 	}
 }
 
+// See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainSetAutostartOnce
+func (d *Domain) SetAutostartOnce(autostart bool) error {
+	var cAutostart C.int
+	switch autostart {
+	case true:
+		cAutostart = 1
+	default:
+		cAutostart = 0
+	}
+	var err C.virError
+	result := C.virDomainSetAutostartOnceWrapper(d.ptr, cAutostart, &err)
+	if result == -1 {
+		return makeError(&err)
+	}
+	return nil
+}
+
+// See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainGetAutostartOnce
+func (d *Domain) GetAutostartOnce() (bool, error) {
+	var out C.int
+	var err C.virError
+	result := C.virDomainGetAutostartOnceWrapper(d.ptr, (*C.int)(unsafe.Pointer(&out)), &err)
+	if result == -1 {
+		return false, makeError(&err)
+	}
+	switch out {
+	case 1:
+		return true, nil
+	default:
+		return false, nil
+	}
+}
+
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainGetBlockInfo
 func (d *Domain) GetBlockInfo(disk string, flags uint32) (*DomainBlockInfo, error) {
 	var cinfo C.virDomainBlockInfo
