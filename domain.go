@@ -5952,3 +5952,33 @@ func (d *Domain) GraphicsReload(typ DomainGraphicsReloadType, flags uint32) erro
 
 	return nil
 }
+
+func (d *Domain) DelThrottleGroup(group string, flags DomainModificationImpact) error {
+	var err C.virError
+	cgroup := C.CString(group)
+	ret := C.virDomainDelThrottleGroupWrapper(d.ptr, cgroup, C.uint(flags), &err)
+	if ret == -1 {
+		return makeError(&err)
+	}
+
+	return nil
+}
+
+func (d *Domain) SetThrottleGroup(group string, params *DomainBlockIoTuneParameters, flags DomainModificationImpact) error {
+	info := getBlockIoTuneParametersFieldInfo(params)
+	cparams, cnparams, gerr := typedParamsPackNew(info)
+	if gerr != nil {
+		return gerr
+	}
+
+	defer C.virTypedParamsFreeWrapper(cparams, cnparams)
+
+	var err C.virError
+	cgroup := C.CString(group)
+	ret := C.virDomainSetThrottleGroupWrapper(d.ptr, cgroup, cparams, cnparams, C.uint(flags), &err)
+	if ret == -1 {
+		return makeError(&err)
+	}
+
+	return nil
+}
