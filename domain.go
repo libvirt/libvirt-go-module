@@ -4742,12 +4742,14 @@ func (d *Domain) SaveFlags(destFile string, destXml string, flags DomainSaveRest
 }
 
 type DomainSaveRestoreParams struct {
-	FileSet        bool
-	File           string
-	DXMLSet        bool
-	DXML           string
-	ImageFormatSet bool
-	ImageFormat    string
+	FileSet             bool
+	File                string
+	DXMLSet             bool
+	DXML                string
+	ImageFormatSet      bool
+	ImageFormat         string
+	ParallelChannelsSet bool
+	ParallelChannels    int
 }
 
 func getDomainSaveRestoreParametersFieldInfo(params *DomainSaveRestoreParams) map[string]typedParamsFieldInfo {
@@ -4763,6 +4765,10 @@ func getDomainSaveRestoreParametersFieldInfo(params *DomainSaveRestoreParams) ma
 		C.VIR_DOMAIN_SAVE_PARAM_IMAGE_FORMAT: typedParamsFieldInfo{
 			set: &params.ImageFormatSet,
 			s:   &params.ImageFormat,
+		},
+		C.VIR_DOMAIN_SAVE_PARAM_PARALLEL_CHANNELS: typedParamsFieldInfo{
+			set: &params.ParallelChannelsSet,
+			i:   &params.ParallelChannels,
 		},
 	}
 }
