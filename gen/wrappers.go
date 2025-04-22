@@ -470,6 +470,7 @@ func main() {
 		APIModule{"libvirt_api", "libvirt"},
 		APIModule{"libvirt_lxc_api", "libvirt-lxc"},
 		APIModule{"libvirt_qemu_api", "libvirt-qemu"},
+		APIModule{"libvirt_admin_api", "libvirt-admin"},
 	}
 
 	var coreAPI *API
