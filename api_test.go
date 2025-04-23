@@ -474,14 +474,17 @@ func TestAPICoverage(t *testing.T) {
 	path := GetAPIPath("libvirt_api", "libvirt")
 	lxcpath := GetAPIPath("libvirt_lxc_api", "libvirt-lxc")
 	qemupath := GetAPIPath("libvirt_qemu_api", "libvirt-qemu")
+	adminpath := GetAPIPath("libvirt_admin_api", "libvirt-admin")
 
 	api := GetAPI(path)
 	lxcapi := GetAPI(lxcpath)
 	qemuapi := GetAPI(qemupath)
+	adminapi := GetAPI(adminpath)
 
 	GetAPISymbols(api, funcs, macros, enums)
 	GetAPISymbols(lxcapi, funcs, macros, enums)
 	GetAPISymbols(qemuapi, funcs, macros, enums)
+	GetAPISymbols(adminapi, funcs, macros, enums)
 
 	SetIgnores(ignoreFuncs, funcs)
 	SetIgnores(ignoreMacros, macros)
