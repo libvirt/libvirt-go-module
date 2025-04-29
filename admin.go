@@ -730,3 +730,11 @@ func (c *AdmClient) GetInfo(flags uint32) (*ClientInfo, error) {
 
 	return params, nil
 }
+
+func adminInitialize() error {
+	var err C.virError
+	if C.virAdmInitializeWrapper(&err) < 0 {
+		return makeError(&err)
+	}
+	return nil
+}
