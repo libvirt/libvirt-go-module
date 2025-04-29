@@ -82,6 +82,7 @@ var (
 
 		/* Connect callback typedef */
 		"virConnectCloseFunc",
+		"virAdmConnectCloseFunc",
 
 		/* Data free callback typedef */
 		"virFreeCallback",
