@@ -27,15 +27,3 @@
  ****************************************************************************/
 
 #pragma once
-
-#if !LIBVIR_CHECK_VERSION(1, 2, 3)
-typedef int virConnectDomainQemuMonitorEventRegisterFlags;
-#endif
-
-#if !LIBVIR_CHECK_VERSION(0, 10, 0)
-typedef int virDomainQemuAgentCommandTimeoutValues;
-#endif
-
-#if !LIBVIR_CHECK_VERSION(0, 8, 8)
-typedef int virDomainQemuMonitorCommandFlags;
-#endif

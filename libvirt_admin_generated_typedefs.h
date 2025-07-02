@@ -44,18 +44,10 @@ typedef struct _virAdmServer virAdmServer;
 typedef virAdmClient * virAdmClientPtr;
 #endif
 
-#if !LIBVIR_CHECK_VERSION(11, 2, 0)
-typedef int virAdmConnectDaemonShutdownFlags;
-#endif
-
 #if !LIBVIR_CHECK_VERSION(2, 0, 0)
 typedef virAdmConnect * virAdmConnectPtr;
 #endif
 
 #if !LIBVIR_CHECK_VERSION(2, 0, 0)
 typedef virAdmServer * virAdmServerPtr;
-#endif
-
-#if !LIBVIR_CHECK_VERSION(2, 0, 0)
-typedef int virClientTransport;
 #endif

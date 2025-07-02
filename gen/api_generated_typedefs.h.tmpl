@@ -42,14 +42,19 @@ typedef {{ .Type }} {{ .Name }};
 
 {{- with .Typedefs }}
     {{- range . }}
+        {{- if eq .Type "enum" }}
+            {{- if eq .Name "virErrorLevel" }}
 
 #if !LIBVIR_CHECK_VERSION({{ getVersionMajor .Version }}, {{ getVersionMinor .Version }}, {{ getVersionMicro .Version }})
-        {{- if eq .Type "enum" }}
 typedef int {{ .Name }};
-        {{- else }}
-typedef {{ .Type }} {{ .Name }};
-        {{- end }}
 #endif
-{{- end }}
+            {{- end }}
+        {{- else }}
+
+#if !LIBVIR_CHECK_VERSION({{ getVersionMajor .Version }}, {{ getVersionMinor .Version }}, {{ getVersionMicro .Version }})
+typedef {{ .Type }} {{ .Name }};
+#endif
+        {{- end }}
+    {{- end }}
 {{- end }}
 {{- /* vim: set syntax=gotexttmpl : */}}
