@@ -72,6 +72,9 @@
 #  if !LIBVIR_CHECK_VERSION(1, 2, 14)
 #    define VIR_CONNECT_BASELINE_CPU_MIGRATABLE (1 << 1)
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 6, 0)
+#    define VIR_CONNECT_BASELINE_CPU_IGNORE_HOST (1 << 2)
+#  endif
 
 /* enum virConnectCloseReason */
 #  if !LIBVIR_CHECK_VERSION(0, 10, 0)
@@ -1073,8 +1076,11 @@
 #  if !LIBVIR_CHECK_VERSION(0, 9, 11)
 #    define VIR_DOMAIN_EVENT_STARTED_WAKEUP 4
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 6, 0)
+#    define VIR_DOMAIN_EVENT_STARTED_RECREATED 5
+#  endif
 #  if !LIBVIR_CHECK_VERSION(0, 9, 10)
-#    define VIR_DOMAIN_EVENT_STARTED_LAST 5
+#    define VIR_DOMAIN_EVENT_STARTED_LAST 6
 #  endif
 
 /* enum virDomainEventStoppedDetailType */
@@ -1099,8 +1105,11 @@
 #  if !LIBVIR_CHECK_VERSION(0, 8, 0)
 #    define VIR_DOMAIN_EVENT_STOPPED_FROM_SNAPSHOT 6
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 6, 0)
+#    define VIR_DOMAIN_EVENT_STOPPED_RECREATED 7
+#  endif
 #  if !LIBVIR_CHECK_VERSION(0, 9, 10)
-#    define VIR_DOMAIN_EVENT_STOPPED_LAST 7
+#    define VIR_DOMAIN_EVENT_STOPPED_LAST 8
 #  endif
 
 /* enum virDomainEventSuspendedDetailType */
