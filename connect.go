@@ -1926,6 +1926,8 @@ type NodeCPUStats struct {
 	Intr           uint64
 	UtilizationSet bool
 	Utilization    uint64
+	GuestSet       bool
+	Guest          uint64
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-host.html#virNodeGetCPUStats
@@ -1967,6 +1969,9 @@ func (c *Connect) GetCPUStats(cpuNum int, flags uint32) (*NodeCPUStats, error) {
 		case C.VIR_NODE_CPU_STATS_UTILIZATION:
 			stats.UtilizationSet = true
 			stats.Utilization = uint64(param.value)
+		case C.VIR_NODE_CPU_STATS_GUEST:
+			stats.GuestSet = true
+			stats.Guest = uint64(param.value)
 		}
 	}
 
