@@ -2892,6 +2892,33 @@ func getDomainStatsNetFieldInfo(idx int, params *DomainStatsNet) map[string]type
 	}
 }
 
+type DomainStatsBlockLimits struct {
+	RequestAlignment          uint64
+	RequestAlignmentSet       bool
+	DiscardMax                uint64
+	DiscardMaxSet             bool
+	DiscardAlignment          uint64
+	DiscardAlignmentSet       bool
+	WriteZeroesMax            uint64
+	WriteZeroesMaxSet         bool
+	WriteZeroesAlignment      uint64
+	WriteZeroesAlignmentSet   bool
+	TransferOptimal           uint64
+	TransferOptimalSet        bool
+	TransferMax               uint64
+	TransferMaxSet            bool
+	TransferHwMax             uint64
+	TransferHwMaxSet          bool
+	IovMax                    uint64
+	IovMaxSet                 bool
+	IovHwMax                  uint64
+	IovHwMaxSet               bool
+	MemoryAlignmentMinimal    uint64
+	MemoryAlignmentMinimalSet bool
+	MemoryAlignmentOptimal    uint64
+	MemoryAlignmentOptimalSet bool
+}
+
 type DomainStatsBlock struct {
 	NameSet         bool
 	Name            string
@@ -2925,6 +2952,7 @@ type DomainStatsBlock struct {
 	Physical        uint64
 	ThresholdSet    bool
 	Threshold       uint64
+	Limits          DomainStatsBlockLimits
 }
 
 func getDomainStatsBlockFieldInfo(idx int, params *DomainStatsBlock) map[string]typedParamsFieldInfo {
@@ -3008,6 +3036,66 @@ func getDomainStatsBlockFieldInfo(idx int, params *DomainStatsBlock) map[string]
 			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_THRESHOLD, idx): typedParamsFieldInfo{
 			set: &params.ThresholdSet,
 			ul:  &params.Threshold,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_REQUEST_ALIGNMENT, idx): typedParamsFieldInfo{
+			set: &params.Limits.RequestAlignmentSet,
+			ul:  &params.Limits.RequestAlignment,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_DISCARD_MAX, idx): typedParamsFieldInfo{
+			set: &params.Limits.DiscardMaxSet,
+			ul:  &params.Limits.DiscardMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_DISCARD_ALIGNMENT, idx): typedParamsFieldInfo{
+			set: &params.Limits.DiscardAlignmentSet,
+			ul:  &params.Limits.DiscardAlignment,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_WRITE_ZEROES_MAX, idx): typedParamsFieldInfo{
+			set: &params.Limits.WriteZeroesMaxSet,
+			ul:  &params.Limits.WriteZeroesMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_WRITE_ZEROES_ALIGNMENT, idx): typedParamsFieldInfo{
+			set: &params.Limits.WriteZeroesAlignmentSet,
+			ul:  &params.Limits.WriteZeroesAlignment,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_TRANSFER_OPTIMAL, idx): typedParamsFieldInfo{
+			set: &params.Limits.TransferOptimalSet,
+			ul:  &params.Limits.TransferOptimal,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_TRANSFER_MAX, idx): typedParamsFieldInfo{
+			set: &params.Limits.TransferMaxSet,
+			ul:  &params.Limits.TransferMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_TRANSFER_HW_MAX, idx): typedParamsFieldInfo{
+			set: &params.Limits.TransferHwMaxSet,
+			ul:  &params.Limits.TransferHwMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_IOV_MAX, idx): typedParamsFieldInfo{
+			set: &params.Limits.IovMaxSet,
+			ul:  &params.Limits.IovMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_IOV_HW_MAX, idx): typedParamsFieldInfo{
+			set: &params.Limits.IovHwMaxSet,
+			ul:  &params.Limits.IovHwMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_MEMORY_ALIGNMENT_MINIMAL, idx): typedParamsFieldInfo{
+			set: &params.Limits.MemoryAlignmentMinimalSet,
+			ul:  &params.Limits.MemoryAlignmentMinimal,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LIMITS_MEMORY_ALIGNMENT_OPTIMAL, idx): typedParamsFieldInfo{
+			set: &params.Limits.MemoryAlignmentOptimalSet,
+			ul:  &params.Limits.MemoryAlignmentOptimal,
 		},
 	}
 }
