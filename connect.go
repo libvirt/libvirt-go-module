@@ -2892,6 +2892,157 @@ func getDomainStatsNetFieldInfo(idx int, params *DomainStatsNet) map[string]type
 	}
 }
 
+type domainStatsBlockTimedStatsLengths struct {
+	TimedStatsGroupCount    uint64
+	TimedStatsGroupCountSet bool
+}
+
+func getDomainStatsBlockTimedStatsLengthsFieldInfo(idx int, params *domainStatsBlockTimedStatsLengths) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_COUNT, idx): typedParamsFieldInfo{
+			set: &params.TimedStatsGroupCountSet,
+			ul:  &params.TimedStatsGroupCount,
+		},
+	}
+}
+
+type DomainStatsBlockTimedStats struct {
+	IntervalLength             uint64
+	IntervalLengthSet          bool
+	RdLatencyMin               uint64
+	RdLatencyMinSet            bool
+	RdLatencyMax               uint64
+	RdLatencyMaxSet            bool
+	RdLatencyAvg               uint64
+	RdLatencyAvgSet            bool
+	WrLatencyMin               uint64
+	WrLatencyMinSet            bool
+	WrLatencyMax               uint64
+	WrLatencyMaxSet            bool
+	WrLatencyAvg               uint64
+	WrLatencyAvgSet            bool
+	ZoneAppendLatencyMin       uint64
+	ZoneAppendLatencyMinSet    bool
+	ZoneAppendLatencyMax       uint64
+	ZoneAppendLatencyMaxSet    bool
+	ZoneAppendLatencyAvg       uint64
+	ZoneAppendLatencyAvgSet    bool
+	FlushLatencyMin            uint64
+	FlushLatencyMinSet         bool
+	FlushLatencyMax            uint64
+	FlushLatencyMaxSet         bool
+	FlushLatencyAvg            uint64
+	FlushLatencyAvgSet         bool
+	RdQueueDepthAvg            float64
+	RdQueueDepthAvgSet         bool
+	WrQueueDepthAvg            float64
+	WrQueueDepthAvgSet         bool
+	ZoneAppendQueueDepthAvg    float64
+	ZoneAppendQueueDepthAvgSet bool
+}
+
+func getDomainStatsBlockTimedStatsFieldInfo(idx1, idx2 int, params *DomainStatsBlockTimedStats) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_INTERVAL, idx1, idx2): typedParamsFieldInfo{
+			set: &params.IntervalLengthSet,
+			ul:  &params.IntervalLength,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_RD_LATENCY_MIN, idx1, idx2): typedParamsFieldInfo{
+			set: &params.RdLatencyMinSet,
+			ul:  &params.RdLatencyMin,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_RD_LATENCY_MAX, idx1, idx2): typedParamsFieldInfo{
+			set: &params.RdLatencyMaxSet,
+			ul:  &params.RdLatencyMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_RD_LATENCY_AVG, idx1, idx2): typedParamsFieldInfo{
+			set: &params.RdLatencyAvgSet,
+			ul:  &params.RdLatencyAvg,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_WR_LATENCY_MIN, idx1, idx2): typedParamsFieldInfo{
+			set: &params.WrLatencyMinSet,
+			ul:  &params.WrLatencyMin,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_WR_LATENCY_MAX, idx1, idx2): typedParamsFieldInfo{
+			set: &params.WrLatencyMaxSet,
+			ul:  &params.WrLatencyMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_WR_LATENCY_AVG, idx1, idx2): typedParamsFieldInfo{
+			set: &params.WrLatencyAvgSet,
+			ul:  &params.WrLatencyAvg,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_ZONE_APPEND_LATENCY_MIN, idx1, idx2): typedParamsFieldInfo{
+			set: &params.ZoneAppendLatencyMinSet,
+			ul:  &params.ZoneAppendLatencyMin,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_ZONE_APPEND_LATENCY_MAX, idx1, idx2): typedParamsFieldInfo{
+			set: &params.ZoneAppendLatencyMaxSet,
+			ul:  &params.ZoneAppendLatencyMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_ZONE_APPEND_LATENCY_AVG, idx1, idx2): typedParamsFieldInfo{
+			set: &params.ZoneAppendLatencyAvgSet,
+			ul:  &params.ZoneAppendLatencyAvg,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_FLUSH_LATENCY_MIN, idx1, idx2): typedParamsFieldInfo{
+			set: &params.FlushLatencyMinSet,
+			ul:  &params.FlushLatencyMin,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_FLUSH_LATENCY_MAX, idx1, idx2): typedParamsFieldInfo{
+			set: &params.FlushLatencyMaxSet,
+			ul:  &params.FlushLatencyMax,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_FLUSH_LATENCY_AVG, idx1, idx2): typedParamsFieldInfo{
+			set: &params.FlushLatencyAvgSet,
+			ul:  &params.FlushLatencyAvg,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_RD_QUEUE_DEPTH_AVG, idx1, idx2): typedParamsFieldInfo{
+			set: &params.RdQueueDepthAvgSet,
+			d:   &params.RdQueueDepthAvg,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_WR_QUEUE_DEPTH_AVG, idx1, idx2): typedParamsFieldInfo{
+			set: &params.WrQueueDepthAvgSet,
+			d:   &params.WrQueueDepthAvg,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_TIMED_GROUP_SUFFIX_ZONE_APPEND_QUEUE_DEPTH_AVG, idx1, idx2): typedParamsFieldInfo{
+			set: &params.ZoneAppendQueueDepthAvgSet,
+			d:   &params.ZoneAppendQueueDepthAvg,
+		},
+	}
+}
+
 type DomainStatsBlockLimits struct {
 	RequestAlignment          uint64
 	RequestAlignmentSet       bool
@@ -2953,6 +3104,7 @@ type DomainStatsBlock struct {
 	ThresholdSet    bool
 	Threshold       uint64
 	Limits          DomainStatsBlockLimits
+	TimedStats      []DomainStatsBlockTimedStats
 }
 
 func getDomainStatsBlockFieldInfo(idx int, params *DomainStatsBlock) map[string]typedParamsFieldInfo {
@@ -3641,6 +3793,31 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 				if gerr != nil {
 					return []DomainStats{}, gerr
 				}
+
+				timedStatsLenghts := domainStatsBlockTimedStatsLengths{}
+				timedStatsLenghtsInfo := getDomainStatsBlockTimedStatsLengthsFieldInfo(j, &timedStatsLenghts)
+
+				_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, timedStatsLenghtsInfo)
+				if gerr != nil {
+					return nil, gerr
+				}
+
+				if timedStatsLenghts.TimedStatsGroupCountSet && timedStatsLenghts.TimedStatsGroupCount > 0 {
+					block.TimedStats = make([]DomainStatsBlockTimedStats, timedStatsLenghts.TimedStatsGroupCount)
+
+					for k := 0; k < int(timedStatsLenghts.TimedStatsGroupCount); k++ {
+						timedStats := DomainStatsBlockTimedStats{}
+						timedStatsInfo := getDomainStatsBlockTimedStatsFieldInfo(j, k, &timedStats)
+
+						_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, timedStatsInfo)
+						if gerr != nil {
+							return nil, gerr
+						}
+
+						block.TimedStats[k] = timedStats
+					}
+				}
+
 				if count != 0 {
 					domstats.Block[j] = block
 				}
