@@ -3451,8 +3451,8 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 
 		if cpuLengths.CacheMonitorCountSet && cpuLengths.CacheMonitorCount > 0 {
 			cpu.CacheMonitors = make([]DomainStatsCPUCacheMonitor, cpuLengths.CacheMonitorCount)
-			for i := 0; i < int(cpuLengths.CacheMonitorCount); i++ {
-				cpuCacheInfo := getDomainStatsCPUCacheMonitorFieldInfo(i, &cpu.CacheMonitors[i])
+			for j := 0; j < int(cpuLengths.CacheMonitorCount); j++ {
+				cpuCacheInfo := getDomainStatsCPUCacheMonitorFieldInfo(j, &cpu.CacheMonitors[j])
 
 				_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuCacheInfo)
 				if gerr != nil {
@@ -3469,8 +3469,8 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 
 				if cpuCacheMonitorLengths.BankCountSet && cpuCacheMonitorLengths.BankCount > 0 {
 					cpu.CacheMonitors[i].Banks = make([]DomainStatsCPUCacheMonitorBank, cpuCacheMonitorLengths.BankCount)
-					for j := 0; j < int(cpuCacheMonitorLengths.BankCount); j++ {
-						cpuCacheBankInfo := getDomainStatsCPUCacheMonitorBankFieldInfo(i, j, &cpu.CacheMonitors[i].Banks[j])
+					for k := 0; k < int(cpuCacheMonitorLengths.BankCount); k++ {
+						cpuCacheBankInfo := getDomainStatsCPUCacheMonitorBankFieldInfo(j, k, &cpu.CacheMonitors[j].Banks[k])
 
 						_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuCacheBankInfo)
 						if gerr != nil {
