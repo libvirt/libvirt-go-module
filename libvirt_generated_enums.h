@@ -502,6 +502,9 @@
 #  if !LIBVIR_CHECK_VERSION(6, 0, 0)
 #    define VIR_DOMAIN_BACKUP_BEGIN_REUSE_EXTERNAL (1 << 0)
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 10, 0)
+#    define VIR_DOMAIN_BACKUP_BEGIN_PRESERVE_SHUTDOWN_DOMAIN (1 << 1)
+#  endif
 
 /* enum virDomainBlockCommitFlags */
 #  if !LIBVIR_CHECK_VERSION(0, 10, 2)
@@ -1140,8 +1143,11 @@
 #  if !LIBVIR_CHECK_VERSION(1, 3, 3)
 #    define VIR_DOMAIN_EVENT_SUSPENDED_POSTCOPY_FAILED 8
 #  endif
+#  if !LIBVIR_CHECK_VERSION(11, 10, 0)
+#    define VIR_DOMAIN_EVENT_SUSPENDED_GUEST_SHUTDOWN 9
+#  endif
 #  if !LIBVIR_CHECK_VERSION(0, 9, 10)
-#    define VIR_DOMAIN_EVENT_SUSPENDED_LAST 9
+#    define VIR_DOMAIN_EVENT_SUSPENDED_LAST 10
 #  endif
 
 /* enum virDomainEventTrayChangeReason */
