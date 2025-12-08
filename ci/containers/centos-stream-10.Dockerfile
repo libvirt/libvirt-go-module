@@ -4,14 +4,12 @@
 #
 # https://gitlab.com/libvirt/libvirt-ci
 
-FROM docker.io/library/almalinux:9
+FROM quay.io/centos/centos:stream10
 
-RUN dnf update -y && \
+RUN dnf distro-sync -y && \
     dnf install 'dnf-command(config-manager)' -y && \
     dnf config-manager --set-enabled -y crb && \
     dnf install -y epel-release && \
-    dnf install almalinux-release-devel -y && \
-    dnf config-manager --set-enabled -y devel && \
     dnf install -y \
         ca-certificates \
         ccache \

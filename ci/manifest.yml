@@ -9,7 +9,9 @@ gitlab:
     go-fmt: true
 
 targets:
-  almalinux-9:
+  almalinux-9: x86_64
+
+  almalinux-10:
     projects:
       - libvirt-go-module
       - https://gitlab.com/libvirt/libvirt/-/raw/master/ci/lcitool/projects/libvirt+minimal.yml
@@ -28,15 +30,17 @@ targets:
 
   centos-stream-9: x86_64
 
-  debian-11: x86_64
+  centos-stream-10: x86_64
 
   debian-12: x86_64
 
+  debian-13: x86_64
+
   debian-sid: x86_64
 
-  fedora-40: x86_64
+  fedora-42: x86_64
 
-  fedora-41: x86_64
+  fedora-43: x86_64
 
   fedora-rawhide: x86_64
 

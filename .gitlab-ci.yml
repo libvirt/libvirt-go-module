@@ -53,11 +53,11 @@ api_coverage_job:
     - go test -tags api
   allow_failure: true
   needs:
-    - job: x86_64-almalinux-9-git
+    - job: x86_64-almalinux-10-git
       artifacts: true
   variables:
-    NAME: almalinux-9
-    TARGET_BASE_IMAGE: docker.io/library/almalinux:9
+    NAME: almalinux-10
+    TARGET_BASE_IMAGE: docker.io/library/almalinux:10
 
 .go_build: &go_build
   stage: builds
