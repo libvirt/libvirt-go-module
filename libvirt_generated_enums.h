@@ -2862,8 +2862,11 @@
 #  if !LIBVIR_CHECK_VERSION(11, 2, 0)
 #    define VIR_ERR_AGENT_COMMAND_FAILED 113
 #  endif
+#  if !LIBVIR_CHECK_VERSION(12, 1, 0)
+#    define VIR_ERR_INVALID_ENCR_KEY_SECRET 114
+#  endif
 #  if !LIBVIR_CHECK_VERSION(5, 0, 0)
-#    define VIR_ERR_NUMBER_LAST 114
+#    define VIR_ERR_NUMBER_LAST 115
 #  endif
 
 /* enum virEventHandleType */
