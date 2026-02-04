@@ -3070,41 +3070,128 @@ type DomainStatsBlockLimits struct {
 	MemoryAlignmentOptimalSet bool
 }
 
+type domainStatsBlockLatencyHistogramBinLengths struct {
+	LatencyHistogramBinCount    uint64
+	LatencyHistogramBinCountSet bool
+}
+
+func getDomainStatsBlockLatencyHistogramsBinLengthsFieldInfo(idx int, histogramTypePrefix string, params *domainStatsBlockLatencyHistogramBinLengths) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			histogramTypePrefix+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_SUFFIX_BIN_COUNT, idx): typedParamsFieldInfo{
+			set: &params.LatencyHistogramBinCountSet,
+			ul:  &params.LatencyHistogramBinCount,
+		},
+	}
+}
+
+type DomainStatsBlockLatencyHistogramBin struct {
+	Start    uint64
+	StartSet bool
+	Value    uint64
+	ValueSet bool
+}
+
+func getDomainStatsBlockLatencyHistogramsBinFieldInfo(idx int, histogramTypePrefix string, bin int, params *DomainStatsBlockLatencyHistogramBin) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			histogramTypePrefix+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_SUFFIX_BIN_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_SUFFIX_BIN_SUFFIX_START,
+			idx, bin): typedParamsFieldInfo{
+			set: &params.StartSet,
+			ul:  &params.Start,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_BLOCK_PREFIX+"%d"+
+			histogramTypePrefix+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_SUFFIX_BIN_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_SUFFIX_BIN_SUFFIX_VALUE,
+			idx, bin): typedParamsFieldInfo{
+			set: &params.ValueSet,
+			ul:  &params.Value,
+		},
+	}
+}
+
+type DomainStatsBlockLatencyHistogram struct {
+	Bins []DomainStatsBlockLatencyHistogramBin
+}
+
+type DomainStatsBlockLatencyHistograms struct {
+	Read       *DomainStatsBlockLatencyHistogram
+	Write      *DomainStatsBlockLatencyHistogram
+	ZoneAppend *DomainStatsBlockLatencyHistogram
+	Flush      *DomainStatsBlockLatencyHistogram
+}
+
+func getDomainStatsBlockLatencyHistogram(idx int, histogramTypePrefix string, cparams *C.virTypedParameter, cnparams C.int) (*DomainStatsBlockLatencyHistogram, error) {
+	binLengths := domainStatsBlockLatencyHistogramBinLengths{}
+	binLengthsInfo := getDomainStatsBlockLatencyHistogramsBinLengthsFieldInfo(idx, histogramTypePrefix, &binLengths)
+	hist := DomainStatsBlockLatencyHistogram{}
+
+	_, gerr := typedParamsUnpack(cparams, cnparams, binLengthsInfo)
+	if gerr != nil {
+		return nil, gerr
+	}
+
+	if !binLengths.LatencyHistogramBinCountSet || binLengths.LatencyHistogramBinCount == 0 {
+		return nil, nil
+	}
+
+	hist.Bins = make([]DomainStatsBlockLatencyHistogramBin, binLengths.LatencyHistogramBinCount)
+
+	for k := 0; k < int(binLengths.LatencyHistogramBinCount); k++ {
+		bin := DomainStatsBlockLatencyHistogramBin{}
+		binInfo := getDomainStatsBlockLatencyHistogramsBinFieldInfo(idx, histogramTypePrefix, k, &bin)
+
+		_, gerr = typedParamsUnpack(cparams, cnparams, binInfo)
+		if gerr != nil {
+			return nil, gerr
+		}
+
+		hist.Bins[k] = bin
+	}
+
+	return &hist, nil
+}
+
 type DomainStatsBlock struct {
-	NameSet         bool
-	Name            string
-	BackingIndexSet bool
-	BackingIndex    uint
-	PathSet         bool
-	Path            string
-	RdReqsSet       bool
-	RdReqs          uint64
-	RdBytesSet      bool
-	RdBytes         uint64
-	RdTimesSet      bool
-	RdTimes         uint64
-	WrReqsSet       bool
-	WrReqs          uint64
-	WrBytesSet      bool
-	WrBytes         uint64
-	WrTimesSet      bool
-	WrTimes         uint64
-	FlReqsSet       bool
-	FlReqs          uint64
-	FlTimesSet      bool
-	FlTimes         uint64
-	ErrorsSet       bool
-	Errors          uint64
-	AllocationSet   bool
-	Allocation      uint64
-	CapacitySet     bool
-	Capacity        uint64
-	PhysicalSet     bool
-	Physical        uint64
-	ThresholdSet    bool
-	Threshold       uint64
-	Limits          DomainStatsBlockLimits
-	TimedStats      []DomainStatsBlockTimedStats
+	NameSet           bool
+	Name              string
+	BackingIndexSet   bool
+	BackingIndex      uint
+	PathSet           bool
+	Path              string
+	RdReqsSet         bool
+	RdReqs            uint64
+	RdBytesSet        bool
+	RdBytes           uint64
+	RdTimesSet        bool
+	RdTimes           uint64
+	WrReqsSet         bool
+	WrReqs            uint64
+	WrBytesSet        bool
+	WrBytes           uint64
+	WrTimesSet        bool
+	WrTimes           uint64
+	FlReqsSet         bool
+	FlReqs            uint64
+	FlTimesSet        bool
+	FlTimes           uint64
+	ErrorsSet         bool
+	Errors            uint64
+	AllocationSet     bool
+	Allocation        uint64
+	CapacitySet       bool
+	Capacity          uint64
+	PhysicalSet       bool
+	Physical          uint64
+	ThresholdSet      bool
+	Threshold         uint64
+	Limits            DomainStatsBlockLimits
+	TimedStats        []DomainStatsBlockTimedStats
+	LatencyHistograms DomainStatsBlockLatencyHistograms
 }
 
 func getDomainStatsBlockFieldInfo(idx int, params *DomainStatsBlock) map[string]typedParamsFieldInfo {
@@ -3820,6 +3907,31 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 
 				if count != 0 {
 					domstats.Block[j] = block
+				}
+
+				domstats.Block[j].LatencyHistograms.Read, gerr = getDomainStatsBlockLatencyHistogram(j,
+					C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_READ_PREFIX,
+					cdomstats.params, cdomstats.nparams)
+				if gerr != nil {
+					return nil, gerr
+				}
+				domstats.Block[j].LatencyHistograms.Write, gerr = getDomainStatsBlockLatencyHistogram(j,
+					C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_WRITE_PREFIX,
+					cdomstats.params, cdomstats.nparams)
+				if gerr != nil {
+					return nil, gerr
+				}
+				domstats.Block[j].LatencyHistograms.ZoneAppend, gerr = getDomainStatsBlockLatencyHistogram(j,
+					C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_ZONE_APPEND_PREFIX,
+					cdomstats.params, cdomstats.nparams)
+				if gerr != nil {
+					return nil, gerr
+				}
+				domstats.Block[j].LatencyHistograms.Flush, gerr = getDomainStatsBlockLatencyHistogram(j,
+					C.VIR_DOMAIN_STATS_BLOCK_SUFFIX_LATENCY_HISTOGRAM_FLUSH_PREFIX,
+					cdomstats.params, cdomstats.nparams)
+				if gerr != nil {
+					return nil, gerr
 				}
 			}
 		}
