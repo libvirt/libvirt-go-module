@@ -41,12 +41,12 @@ package libvirt
 #include "callbacks_helper.h"
 
 
-extern void domainQemuMonitorEventCallback(virConnectPtr, virDomainPtr, const char *, long long, unsigned int, const char *, int);
-void domainQemuMonitorEventCallbackHelper(virConnectPtr conn, virDomainPtr dom,
-					const char *event, long long secs,
-					unsigned int micros, const char *details, void *data)
+extern void virGoDomainQemuMonitorEventCallback(virConnectPtr, virDomainPtr, const char *, long long, unsigned int, const char *, int);
+void virGoDomainQemuMonitorEventCallbackHelper(virConnectPtr conn, virDomainPtr dom,
+                                               const char *event, long long secs,
+                                               unsigned int micros, const char *details, void *data)
 {
-    domainQemuMonitorEventCallback(conn, dom, event, secs, micros, details, (int)(intptr_t)data);
+    virGoDomainQemuMonitorEventCallback(conn, dom, event, secs, micros, details, (int)(intptr_t)data);
 }
 
 
@@ -60,7 +60,7 @@ virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
 {
     void *id = (void *)goCallbackId;
     return virConnectDomainQemuMonitorEventRegisterWrapper(conn, dom, event,
-                                                           domainQemuMonitorEventCallbackHelper,
+                                                           virGoDomainQemuMonitorEventCallbackHelper,
                                                            id, virGoFreeCallbackHelper, flags, err);
 }
 
