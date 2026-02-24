@@ -49,8 +49,8 @@ type StoragePoolEventLifecycleCallback func(c *Connect, n *StoragePool, event *S
 
 type StoragePoolEventGenericCallback func(c *Connect, n *StoragePool)
 
-//export storagePoolEventLifecycleCallback
-func storagePoolEventLifecycleCallback(c C.virConnectPtr, s C.virStoragePoolPtr,
+//export virGoStoragePoolEventLifecycleCallback
+func virGoStoragePoolEventLifecycleCallback(c C.virConnectPtr, s C.virStoragePoolPtr,
 	event int, detail int,
 	goCallbackId int) {
 
@@ -70,8 +70,8 @@ func storagePoolEventLifecycleCallback(c C.virConnectPtr, s C.virStoragePoolPtr,
 	callback(connection, storage_pool, eventDetails)
 }
 
-//export storagePoolEventGenericCallback
-func storagePoolEventGenericCallback(c C.virConnectPtr, s C.virStoragePoolPtr,
+//export virGoStoragePoolEventGenericCallback
+func virGoStoragePoolEventGenericCallback(c C.virConnectPtr, s C.virStoragePoolPtr,
 	goCallbackId int) {
 
 	storage_pool := &StoragePool{ptr: s}
@@ -88,7 +88,7 @@ func storagePoolEventGenericCallback(c C.virConnectPtr, s C.virStoragePoolPtr,
 func (c *Connect) StoragePoolEventLifecycleRegister(pool *StoragePool, callback StoragePoolEventLifecycleCallback) (int, error) {
 	goCallBackId := registerCallbackId(callback)
 
-	callbackPtr := unsafe.Pointer(C.storagePoolEventLifecycleCallbackHelper)
+	callbackPtr := unsafe.Pointer(C.virGoStoragePoolEventLifecycleCallbackHelper)
 	var cpool C.virStoragePoolPtr
 	if pool != nil {
 		cpool = pool.ptr
@@ -108,7 +108,7 @@ func (c *Connect) StoragePoolEventLifecycleRegister(pool *StoragePool, callback 
 func (c *Connect) StoragePoolEventRefreshRegister(pool *StoragePool, callback StoragePoolEventGenericCallback) (int, error) {
 	goCallBackId := registerCallbackId(callback)
 
-	callbackPtr := unsafe.Pointer(C.storagePoolEventGenericCallbackHelper)
+	callbackPtr := unsafe.Pointer(C.virGoStoragePoolEventGenericCallbackHelper)
 	var cpool C.virStoragePoolPtr
 	if pool != nil {
 		cpool = pool.ptr
