@@ -370,8 +370,8 @@ type ConnectAuth struct {
 	Callback ConnectAuthCallback
 }
 
-//export connectAuthCallback
-func connectAuthCallback(ccredlist C.virConnectCredentialPtr, ncred C.uint, callbackID C.int) C.int {
+//export virGoConnectAuthCallback
+func virGoConnectAuthCallback(ccredlist C.virConnectCredentialPtr, ncred C.uint, callbackID C.int) C.int {
 	cred := make([]*ConnectCredential, int(ncred))
 
 	for i := 0; i < int(ncred); i++ {
@@ -547,8 +547,8 @@ func (c *Connect) UnregisterCloseCallback() error {
 	return nil
 }
 
-//export closeCallback
-func closeCallback(conn C.virConnectPtr, reason ConnectCloseReason, goCallbackId int) {
+//export virGoCloseCallback
+func virGoCloseCallback(conn C.virConnectPtr, reason ConnectCloseReason, goCallbackId int) {
 	callbackFunc := getCallbackId(goCallbackId)
 	callback, ok := callbackFunc.(CloseCallback)
 	if !ok {
