@@ -155,8 +155,8 @@ func (c *AdmConnect) UnregisterCloseCallback() error {
 	return nil
 }
 
-//export admCloseCallback
-func admCloseCallback(conn C.virAdmConnectPtr, reason ConnectCloseReason, goCallbackId int) {
+//export virGoAdmCloseCallback
+func virGoAdmCloseCallback(conn C.virAdmConnectPtr, reason ConnectCloseReason, goCallbackId int) {
 	callbackFunc := getCallbackId(goCallbackId)
 	callback, ok := callbackFunc.(AdmCloseCallback)
 	if !ok {

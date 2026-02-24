@@ -33,10 +33,10 @@ package libvirt
 #include "libvirt_admin_generated.h"
 #include "callbacks_helper.h"
 
-extern void admCloseCallback(virAdmConnectPtr, int, long);
-void admCloseCallbackHelper(virAdmConnectPtr conn, int reason, void *opaque)
+extern void virGoAdmCloseCallback(virAdmConnectPtr, int, long);
+void virGoAdmCloseCallbackHelper(virAdmConnectPtr conn, int reason, void *opaque)
 {
-    admCloseCallback(conn, reason, (long)opaque);
+    virGoAdmCloseCallback(conn, reason, (long)opaque);
 }
 
 
@@ -46,7 +46,7 @@ virAdmConnectRegisterCloseCallbackHelper(virAdmConnectPtr conn,
                                          virErrorPtr err)
 {
     void *id = (void *)goCallbackId;
-    return virAdmConnectRegisterCloseCallbackWrapper(conn, admCloseCallbackHelper, id,
+    return virAdmConnectRegisterCloseCallbackWrapper(conn, virGoAdmCloseCallbackHelper, id,
                                                      freeGoCallbackHelper, err);
 }
 
@@ -55,7 +55,7 @@ int
 virAdmConnectUnregisterCloseCallbackHelper(virAdmConnectPtr conn,
                                            virErrorPtr err)
 {
-    return virAdmConnectUnregisterCloseCallbackWrapper(conn, admCloseCallbackHelper, err);
+    return virAdmConnectUnregisterCloseCallbackWrapper(conn, virGoAdmCloseCallbackHelper, err);
 }
 
 */
