@@ -35,18 +35,18 @@ package libvirt
 #include "callbacks_helper.h"
 
 
-extern void nodeDeviceEventLifecycleCallback(virConnectPtr, virNodeDevicePtr, int, int, int);
-void nodeDeviceEventLifecycleCallbackHelper(virConnectPtr conn, virNodeDevicePtr dev,
-                                           int event, int detail, void *data)
+extern void virGoNodeDeviceEventLifecycleCallback(virConnectPtr, virNodeDevicePtr, int, int, int);
+void virGoNodeDeviceEventLifecycleCallbackHelper(virConnectPtr conn, virNodeDevicePtr dev,
+                                                 int event, int detail, void *data)
 {
-    nodeDeviceEventLifecycleCallback(conn, dev, event, detail, (int)(intptr_t)data);
+    virGoNodeDeviceEventLifecycleCallback(conn, dev, event, detail, (int)(intptr_t)data);
 }
 
 
-extern void nodeDeviceEventGenericCallback(virConnectPtr, virNodeDevicePtr, int);
-void nodeDeviceEventGenericCallbackHelper(virConnectPtr conn, virNodeDevicePtr dev, void *data)
+extern void virGoNodeDeviceEventGenericCallback(virConnectPtr, virNodeDevicePtr, int);
+void virGoNodeDeviceEventGenericCallbackHelper(virConnectPtr conn, virNodeDevicePtr dev, void *data)
 {
-    nodeDeviceEventGenericCallback(conn, dev, (int)(intptr_t)data);
+    virGoNodeDeviceEventGenericCallback(conn, dev, (int)(intptr_t)data);
 }
 
 
