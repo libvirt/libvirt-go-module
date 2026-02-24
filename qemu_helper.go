@@ -61,7 +61,7 @@ virConnectDomainQemuMonitorEventRegisterHelper(virConnectPtr conn,
     void *id = (void *)goCallbackId;
     return virConnectDomainQemuMonitorEventRegisterWrapper(conn, dom, event,
                                                            domainQemuMonitorEventCallbackHelper,
-                                                           id, freeGoCallbackHelper, flags, err);
+                                                           id, virGoFreeCallbackHelper, flags, err);
 }
 
 

@@ -211,7 +211,7 @@ func (c *Connect) DomainQemuMonitorEventRegister(dom *Domain, event string, call
 		C.long(goCallBackId),
 		C.uint(flags), &err)
 	if ret < 0 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil

@@ -84,7 +84,7 @@ virConnectRegisterCloseCallbackHelper(virConnectPtr conn,
 {
     void *id = (void *)goCallbackId;
     return virConnectRegisterCloseCallbackWrapper(conn, closeCallbackHelper, id,
-                                                  freeGoCallbackHelper, err);
+                                                  virGoFreeCallbackHelper, err);
 }
 
 

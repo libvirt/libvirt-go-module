@@ -61,7 +61,7 @@ virConnectSecretEventRegisterAnyHelper(virConnectPtr conn,
 {
     void *id = (void *)goCallbackId;
     return virConnectSecretEventRegisterAnyWrapper(conn, secret, eventID, cb, id,
-                                                   freeGoCallbackHelper, err);
+                                                   virGoFreeCallbackHelper, err);
 }
 
 

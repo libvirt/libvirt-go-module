@@ -98,7 +98,7 @@ func (c *Connect) SecretEventLifecycleRegister(secret *Secret, callback SecretEv
 		C.virConnectSecretEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -117,7 +117,7 @@ func (c *Connect) SecretEventValueChangedRegister(secret *Secret, callback Secre
 		C.virConnectSecretEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil

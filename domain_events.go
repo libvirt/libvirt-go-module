@@ -1052,7 +1052,7 @@ func (c *Connect) DomainEventLifecycleRegister(dom *Domain, callback DomainEvent
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1072,7 +1072,7 @@ func (c *Connect) DomainEventRebootRegister(dom *Domain, callback DomainEventGen
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1092,7 +1092,7 @@ func (c *Connect) DomainEventRTCChangeRegister(dom *Domain, callback DomainEvent
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1112,7 +1112,7 @@ func (c *Connect) DomainEventWatchdogRegister(dom *Domain, callback DomainEventW
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1132,7 +1132,7 @@ func (c *Connect) DomainEventIOErrorRegister(dom *Domain, callback DomainEventIO
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1152,7 +1152,7 @@ func (c *Connect) DomainEventGraphicsRegister(dom *Domain, callback DomainEventG
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1172,7 +1172,7 @@ func (c *Connect) DomainEventIOErrorReasonRegister(dom *Domain, callback DomainE
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1192,7 +1192,7 @@ func (c *Connect) DomainEventControlErrorRegister(dom *Domain, callback DomainEv
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1212,7 +1212,7 @@ func (c *Connect) DomainEventBlockJobRegister(dom *Domain, callback DomainEventB
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1232,7 +1232,7 @@ func (c *Connect) DomainEventDiskChangeRegister(dom *Domain, callback DomainEven
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1252,7 +1252,7 @@ func (c *Connect) DomainEventTrayChangeRegister(dom *Domain, callback DomainEven
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1272,7 +1272,7 @@ func (c *Connect) DomainEventPMWakeupRegister(dom *Domain, callback DomainEventP
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1292,7 +1292,7 @@ func (c *Connect) DomainEventPMSuspendRegister(dom *Domain, callback DomainEvent
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1312,7 +1312,7 @@ func (c *Connect) DomainEventBalloonChangeRegister(dom *Domain, callback DomainE
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1332,7 +1332,7 @@ func (c *Connect) DomainEventPMSuspendDiskRegister(dom *Domain, callback DomainE
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1352,7 +1352,7 @@ func (c *Connect) DomainEventDeviceRemovedRegister(dom *Domain, callback DomainE
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1372,7 +1372,7 @@ func (c *Connect) DomainEventBlockJob2Register(dom *Domain, callback DomainEvent
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1392,7 +1392,7 @@ func (c *Connect) DomainEventTunableRegister(dom *Domain, callback DomainEventTu
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1412,7 +1412,7 @@ func (c *Connect) DomainEventAgentLifecycleRegister(dom *Domain, callback Domain
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1432,7 +1432,7 @@ func (c *Connect) DomainEventDeviceAddedRegister(dom *Domain, callback DomainEve
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1452,7 +1452,7 @@ func (c *Connect) DomainEventMigrationIterationRegister(dom *Domain, callback Do
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1472,7 +1472,7 @@ func (c *Connect) DomainEventJobCompletedRegister(dom *Domain, callback DomainEv
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1492,7 +1492,7 @@ func (c *Connect) DomainEventDeviceRemovalFailedRegister(dom *Domain, callback D
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1512,7 +1512,7 @@ func (c *Connect) DomainEventMetadataChangeRegister(dom *Domain, callback Domain
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1532,7 +1532,7 @@ func (c *Connect) DomainEventBlockThresholdRegister(dom *Domain, callback Domain
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1552,7 +1552,7 @@ func (c *Connect) DomainEventMemoryFailureRegister(dom *Domain, callback DomainE
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1572,7 +1572,7 @@ func (c *Connect) DomainEventMemoryDeviceSizeChangeRegister(dom *Domain, callbac
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -1592,7 +1592,7 @@ func (c *Connect) DomainEventNICMACChangeRegister(dom *Domain, callback DomainEv
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil

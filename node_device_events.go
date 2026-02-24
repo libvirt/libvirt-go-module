@@ -99,7 +99,7 @@ func (c *Connect) NodeDeviceEventLifecycleRegister(device *NodeDevice, callback 
 		C.virConnectNodeDeviceEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -119,7 +119,7 @@ func (c *Connect) NodeDeviceEventUpdateRegister(device *NodeDevice, callback Nod
 		C.virConnectNodeDeviceEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil

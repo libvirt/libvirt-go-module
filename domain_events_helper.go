@@ -294,7 +294,7 @@ virConnectDomainEventRegisterAnyHelper(virConnectPtr conn,
 {
     void *id = (void *)goCallbackId;
     return virConnectDomainEventRegisterAnyWrapper(conn, dom, eventID, cb, id,
-                                                   freeGoCallbackHelper, err);
+                                                   virGoFreeCallbackHelper, err);
 }
 
 

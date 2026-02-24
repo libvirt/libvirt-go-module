@@ -61,7 +61,7 @@ virConnectStoragePoolEventRegisterAnyHelper(virConnectPtr conn,
 {
     void *id = (void *)goCallbackId;
     return virConnectStoragePoolEventRegisterAnyWrapper(conn, pool, eventID, cb, id,
-                                                        freeGoCallbackHelper, err);
+                                                        virGoFreeCallbackHelper, err);
 }
 
 

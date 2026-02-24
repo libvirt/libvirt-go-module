@@ -47,7 +47,7 @@ virAdmConnectRegisterCloseCallbackHelper(virAdmConnectPtr conn,
 {
     void *id = (void *)goCallbackId;
     return virAdmConnectRegisterCloseCallbackWrapper(conn, virGoAdmCloseCallbackHelper, id,
-                                                     freeGoCallbackHelper, err);
+                                                     virGoFreeCallbackHelper, err);
 }
 
 

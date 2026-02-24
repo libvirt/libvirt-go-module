@@ -107,7 +107,7 @@ func (c *Connect) NetworkEventLifecycleRegister(net *Network, callback NetworkEv
 		C.virConnectNetworkEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -126,7 +126,7 @@ func (c *Connect) NetworkEventMetadataChangeRegister(net *Network, callback Netw
 		C.virConnectNetworkEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil

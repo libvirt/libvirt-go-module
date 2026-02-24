@@ -247,7 +247,7 @@ func (v *Stream) RecvAll(handler StreamSinkFunc) error {
 
 	var err C.virError
 	ret := C.virStreamRecvAllHelper(v.ptr, (C.int)(callbackID), &err)
-	freeCallbackId(callbackID)
+	virGoFreeCallbackId(callbackID)
 	if ret == -1 {
 		return makeError(&err)
 	}
@@ -262,8 +262,8 @@ func (v *Stream) SparseRecvAll(handler StreamSinkFunc, holeHandler StreamSinkHol
 
 	var err C.virError
 	ret := C.virStreamSparseRecvAllHelper(v.ptr, (C.int)(callbackID), (C.int)(holeCallbackID), &err)
-	freeCallbackId(callbackID)
-	freeCallbackId(holeCallbackID)
+	virGoFreeCallbackId(callbackID)
+	virGoFreeCallbackId(holeCallbackID)
 	if ret == -1 {
 		return makeError(&err)
 	}
@@ -350,7 +350,7 @@ func (v *Stream) SendAll(handler StreamSourceFunc) error {
 
 	var err C.virError
 	ret := C.virStreamSendAllHelper(v.ptr, (C.int)(callbackID), &err)
-	freeCallbackId(callbackID)
+	virGoFreeCallbackId(callbackID)
 	if ret == -1 {
 		return makeError(&err)
 	}
@@ -366,9 +366,9 @@ func (v *Stream) SparseSendAll(handler StreamSourceFunc, holeHandler StreamSourc
 
 	var err C.virError
 	ret := C.virStreamSparseSendAllHelper(v.ptr, (C.int)(callbackID), (C.int)(holeCallbackID), (C.int)(skipCallbackID), &err)
-	freeCallbackId(callbackID)
-	freeCallbackId(holeCallbackID)
-	freeCallbackId(skipCallbackID)
+	virGoFreeCallbackId(callbackID)
+	virGoFreeCallbackId(holeCallbackID)
+	virGoFreeCallbackId(skipCallbackID)
 	if ret == -1 {
 		return makeError(&err)
 	}

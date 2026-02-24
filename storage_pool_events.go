@@ -99,7 +99,7 @@ func (c *Connect) StoragePoolEventLifecycleRegister(pool *StoragePool, callback 
 		C.virConnectStoragePoolEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil
@@ -119,7 +119,7 @@ func (c *Connect) StoragePoolEventRefreshRegister(pool *StoragePool, callback St
 		C.virConnectStoragePoolEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {
-		freeCallbackId(goCallBackId)
+		virGoFreeCallbackId(goCallBackId)
 		return 0, makeError(&err)
 	}
 	return int(ret), nil

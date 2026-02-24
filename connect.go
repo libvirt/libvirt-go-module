@@ -426,7 +426,7 @@ func NewConnectWithAuth(uri string, auth *ConnectAuth, flags ConnectFlags) (*Con
 		callbackID := registerCallbackId(auth.Callback)
 
 		ptr = C.virConnectOpenAuthHelper(cUri, &ccredtype[0], C.uint(len(auth.CredType)), C.int(callbackID), C.uint(flags), &err)
-		freeCallbackId(callbackID)
+		virGoFreeCallbackId(callbackID)
 	}
 
 	if ptr == nil {
@@ -524,7 +524,7 @@ func (c *Connect) RegisterCloseCallback(callback CloseCallback) error {
 	var err C.virError
 	res := C.virConnectRegisterCloseCallbackHelper(c.ptr, C.long(goCallbackId), &err)
 	if res != 0 {
-		freeCallbackId(goCallbackId)
+		virGoFreeCallbackId(goCallbackId)
 		return makeError(&err)
 	}
 	connData := getConnectionData(c)
