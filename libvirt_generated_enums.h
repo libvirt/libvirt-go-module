@@ -539,6 +539,9 @@
 #  if !LIBVIR_CHECK_VERSION(8, 0, 0)
 #    define VIR_DOMAIN_BLOCK_COPY_SYNCHRONOUS_WRITES (1 << 3)
 #  endif
+#  if !LIBVIR_CHECK_VERSION(12, 2, 0)
+#    define VIR_DOMAIN_BLOCK_COPY_TARGET_ZEROED (1 << 4)
+#  endif
 
 /* enum virDomainBlockJobAbortFlags */
 #  if !LIBVIR_CHECK_VERSION(0, 9, 12)
