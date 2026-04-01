@@ -2582,6 +2582,8 @@ type DomainMigrateParameters struct {
 	MigrateDisksDetectZeroesList []string
 	BandwidthAvailSwitchoverSet  bool
 	BandwidthAvailSwitchover     uint64
+	MigrateDisksTargetZeroSet    bool
+	MigrateDisksTargetZero       []string
 }
 
 func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]typedParamsFieldInfo {
@@ -2677,6 +2679,10 @@ func getMigrateParameterFieldInfo(params *DomainMigrateParameters) map[string]ty
 		C.VIR_MIGRATE_PARAM_MIGRATE_DISKS_DETECT_ZEROES: typedParamsFieldInfo{
 			set: &params.MigrateDisksDetectZeroesSet,
 			sl:  &params.MigrateDisksDetectZeroesList,
+		},
+		C.VIR_MIGRATE_PARAM_MIGRATE_DISKS_TARGET_ZERO: typedParamsFieldInfo{
+			set: &params.MigrateDisksTargetZeroSet,
+			sl:  &params.MigrateDisksTargetZero,
 		},
 		C.VIR_MIGRATE_PARAM_BANDWIDTH_AVAIL_SWITCHOVER: typedParamsFieldInfo{
 			set: &params.BandwidthAvailSwitchoverSet,
