@@ -29,7 +29,7 @@
 #pragma once
 
 #if !LIBVIR_CHECK_VERSION(0, 0, 1)
-#  define LIBVIR_VERSION_NUMBER 12002000
+#  define LIBVIR_VERSION_NUMBER 12003000
 #endif
 
 #if !LIBVIR_CHECK_VERSION(5, 8, 0)
@@ -1754,6 +1754,10 @@
 
 #if !LIBVIR_CHECK_VERSION(0, 10, 2)
 #  define VIR_NODE_MEMORY_SHARED_SLEEP_MILLISECS "shm_sleep_millisecs"
+#endif
+
+#if !LIBVIR_CHECK_VERSION(12, 3, 0)
+#  define VIR_NODE_MEMORY_STATS_AVAILABLE "available"
 #endif
 
 #if !LIBVIR_CHECK_VERSION(0, 9, 3)
