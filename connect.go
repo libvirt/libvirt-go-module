@@ -2123,14 +2123,16 @@ func (c *Connect) GetMemoryParameters(flags uint32) (*NodeMemoryParameters, erro
 }
 
 type NodeMemoryStats struct {
-	TotalSet   bool
-	Total      uint64
-	FreeSet    bool
-	Free       uint64
-	BuffersSet bool
-	Buffers    uint64
-	CachedSet  bool
-	Cached     uint64
+	TotalSet     bool
+	Total        uint64
+	FreeSet      bool
+	Free         uint64
+	BuffersSet   bool
+	Buffers      uint64
+	CachedSet    bool
+	Cached       uint64
+	AvailableSet bool
+	Available    uint64
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-host.html#virNodeGetMemoryStats
@@ -2166,6 +2168,9 @@ func (c *Connect) GetMemoryStats(cellNum int, flags uint32) (*NodeMemoryStats, e
 		case C.VIR_NODE_MEMORY_STATS_CACHED:
 			stats.CachedSet = true
 			stats.Cached = uint64(param.value)
+		case C.VIR_NODE_MEMORY_STATS_AVAILABLE:
+			stats.AvailableSet = true
+			stats.Available = uint64(param.value)
 		}
 	}
 
