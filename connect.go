@@ -2638,9 +2638,65 @@ func getDomainStatsCPUCacheMonitorFieldInfo(idx int, params *DomainStatsCPUCache
 	}
 }
 
+type DomainStatsCPUEnergyMonitorPkg struct {
+	IDSet bool
+	ID    uint
+}
+
+func getDomainStatsCPUEnergyMonitorPkgFieldInfo(idx1, idx2 int, params *DomainStatsCPUEnergyMonitorPkg) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_SUFFIX_PKG_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_SUFFIX_PKG_SUFFIX_ID, idx1, idx2): typedParamsFieldInfo{
+			set: &params.IDSet,
+			ui:  &params.ID,
+		},
+	}
+}
+
+type domainStatsCPUEnergyMonitorLengths struct {
+	PkgCountSet bool
+	PkgCount    uint
+}
+
+func getDomainStatsCPUEnergyMonitorLengthsFieldInfo(idx int, params *domainStatsCPUEnergyMonitorLengths) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_SUFFIX_PKG_COUNT, idx): typedParamsFieldInfo{
+			set: &params.PkgCountSet,
+			ui:  &params.PkgCount,
+		},
+	}
+}
+
+type DomainStatsCPUEnergyMonitor struct {
+	NameSet  bool
+	Name     string
+	VcpusSet bool
+	Vcpus    string
+	Pkgs     []DomainStatsCPUEnergyMonitorPkg
+}
+
+func getDomainStatsCPUEnergyMonitorFieldInfo(idx int, params *DomainStatsCPUEnergyMonitor) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_SUFFIX_NAME, idx): typedParamsFieldInfo{
+			set: &params.NameSet,
+			s:   &params.Name,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_SUFFIX_VCPUS, idx): typedParamsFieldInfo{
+			set: &params.VcpusSet,
+			s:   &params.Vcpus,
+		},
+	}
+}
+
 type domainStatsCPULengths struct {
-	CacheMonitorCountSet bool
-	CacheMonitorCount    uint
+	CacheMonitorCountSet  bool
+	CacheMonitorCount     uint
+	EnergyMonitorCountSet bool
+	EnergyMonitorCount    uint
 }
 
 func getDomainStatsCPULengthsFieldInfo(params *domainStatsCPULengths) map[string]typedParamsFieldInfo {
@@ -2648,6 +2704,10 @@ func getDomainStatsCPULengthsFieldInfo(params *domainStatsCPULengths) map[string
 		C.VIR_DOMAIN_STATS_CPU_CACHE_MONITOR_COUNT: typedParamsFieldInfo{
 			set: &params.CacheMonitorCountSet,
 			ui:  &params.CacheMonitorCount,
+		},
+		C.VIR_DOMAIN_STATS_CPU_ENERGY_MONITOR_COUNT: typedParamsFieldInfo{
+			set: &params.EnergyMonitorCountSet,
+			ui:  &params.EnergyMonitorCount,
 		},
 	}
 }
@@ -2664,6 +2724,7 @@ type DomainStatsCPU struct {
 	HaltPollFailTimeSet    bool
 	HaltPollFailTime       uint64
 	CacheMonitors          []DomainStatsCPUCacheMonitor
+	EnergyMonitors         []DomainStatsCPUEnergyMonitor
 }
 
 func getDomainStatsCPUFieldInfo(params *DomainStatsCPU) map[string]typedParamsFieldInfo {
@@ -3647,18 +3708,19 @@ func getDomainStatsIOThreadFieldInfo(idx int, params *DomainStatsIOThread) map[s
 }
 
 type DomainStats struct {
-	Domain    *Domain
-	State     *DomainStatsState
-	Cpu       *DomainStatsCPU
-	Balloon   *DomainStatsBalloon
-	Vcpu      []DomainStatsVcpu
-	Net       []DomainStatsNet
-	Block     []DomainStatsBlock
-	Perf      *DomainStatsPerf
-	Memory    *DomainStatsMemory
-	DirtyRate *DomainStatsDirtyRate
-	VM        []TypedParamValue
-	IOThread  []DomainStatsIOThread
+	Domain           *Domain
+	State            *DomainStatsState
+	Cpu              *DomainStatsCPU
+	Balloon          *DomainStatsBalloon
+	Vcpu             []DomainStatsVcpu
+	Net              []DomainStatsNet
+	Block            []DomainStatsBlock
+	Perf             *DomainStatsPerf
+	Memory           *DomainStatsMemory
+	DirtyRate        *DomainStatsDirtyRate
+	VM               []TypedParamValue
+	IOThread         []DomainStatsIOThread
+	CpuEnergyMonitor *DomainStats
 }
 
 type domainStatsLengths struct {
@@ -3806,6 +3868,39 @@ func (c *Connect) GetAllDomainStats(doms []*Domain, statsTypes DomainStatsTypes,
 						cpuCacheBankInfo := getDomainStatsCPUCacheMonitorBankFieldInfo(j, k, &cpu.CacheMonitors[j].Banks[k])
 
 						_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuCacheBankInfo)
+						if gerr != nil {
+							return nil, gerr
+						}
+					}
+				}
+
+			}
+		}
+
+		if cpuLengths.EnergyMonitorCountSet && cpuLengths.EnergyMonitorCount > 0 {
+			cpu.EnergyMonitors = make([]DomainStatsCPUEnergyMonitor, cpuLengths.EnergyMonitorCount)
+			for j := 0; j < int(cpuLengths.EnergyMonitorCount); j++ {
+				cpuEnergyInfo := getDomainStatsCPUEnergyMonitorFieldInfo(j, &cpu.EnergyMonitors[j])
+
+				_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuEnergyInfo)
+				if gerr != nil {
+					return nil, gerr
+				}
+
+				cpuEnergyMonitorLengths := domainStatsCPUEnergyMonitorLengths{}
+				cpuEnergyMonitorLengthsInfo := getDomainStatsCPUEnergyMonitorLengthsFieldInfo(i, &cpuEnergyMonitorLengths)
+
+				_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuEnergyMonitorLengthsInfo)
+				if gerr != nil {
+					return nil, gerr
+				}
+
+				if cpuEnergyMonitorLengths.PkgCountSet && cpuEnergyMonitorLengths.PkgCount > 0 {
+					cpu.EnergyMonitors[i].Pkgs = make([]DomainStatsCPUEnergyMonitorPkg, cpuEnergyMonitorLengths.PkgCount)
+					for k := 0; k < int(cpuEnergyMonitorLengths.PkgCount); k++ {
+						cpuEnergyPkgInfo := getDomainStatsCPUEnergyMonitorPkgFieldInfo(j, k, &cpu.EnergyMonitors[j].Pkgs[k])
+
+						_, gerr = typedParamsUnpack(cdomstats.params, cdomstats.nparams, cpuEnergyPkgInfo)
 						if gerr != nil {
 							return nil, gerr
 						}
