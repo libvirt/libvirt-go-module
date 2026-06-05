@@ -81,6 +81,15 @@ const (
 	DOMAIN_VCPU_ASYNC_UNPLUG = DomainVcpuFlags(C.VIR_DOMAIN_VCPU_ASYNC_UNPLUG)
 )
 
+type DomainSetVcpuFlags uint
+
+const (
+	VIR_DOMAIN_SETVCPU_AFFECT_CURRENT = DomainSetVcpuFlags(C.VIR_DOMAIN_SETVCPU_AFFECT_CURRENT)
+	VIR_DOMAIN_SETVCPU_AFFECT_LIVE    = DomainSetVcpuFlags(C.VIR_DOMAIN_SETVCPU_AFFECT_LIVE)
+	VIR_DOMAIN_SETVCPU_AFFECT_CONFIG  = DomainSetVcpuFlags(C.VIR_DOMAIN_SETVCPU_AFFECT_CONFIG)
+	VIR_DOMAIN_SETVCPU_ASYNC_UNPLUG   = DomainSetVcpuFlags(C.VIR_DOMAIN_SETVCPU_ASYNC_UNPLUG)
+)
+
 type DomainModificationImpact int
 
 const (
@@ -5009,7 +5018,7 @@ func (d *Domain) SetGuestVcpus(cpus []bool, state bool, flags uint32) error {
 }
 
 // See also https://libvirt.org/html/libvirt-libvirt-domain.html#virDomainSetVcpu
-func (d *Domain) SetVcpu(cpus []bool, state bool, flags uint32) error {
+func (d *Domain) SetVcpu(cpus []bool, state bool, flags DomainSetVcpuFlags) error {
 	cpumap := ""
 	for i := 0; i < len(cpus); i++ {
 		if cpus[i] {
