@@ -243,6 +243,20 @@ type DomainEventNICMACChange struct {
 
 type DomainEventNICMACChangeCallback func(c *Connect, d *Domain, event *DomainEventNICMACChange)
 
+type DomainEventChannelLifecycle struct {
+	ChannelName string
+	State       DomainEventChannelLifecycleState
+	Reason      DomainEventChannelLifecycleReason
+}
+
+type DomainEventChannelLifecycleCallback func(c *Connect, d *Domain, event *DomainEventChannelLifecycle)
+
+type DomainEventVcpuRemoved struct {
+	ID uint
+}
+
+type DomainEventVcpuRemovedCallback func(c *Connect, d *Domain, event *DomainEventVcpuRemoved)
+
 //export virGoDomainEventLifecycleCallback
 func virGoDomainEventLifecycleCallback(c C.virConnectPtr, d C.virDomainPtr,
 	event int, detail int,
@@ -1038,6 +1052,40 @@ func virGoDomainEventNICMACChangeCallback(c C.virConnectPtr, d C.virDomainPtr, a
 	callback(connection, domain, eventDetails)
 }
 
+//export virGoDomainEventChannelLifecycleCallback
+func virGoDomainEventChannelLifecycleCallback(c C.virConnectPtr, d C.virDomainPtr, channelName *C.char, state int, reason int, goCallbackId int) {
+	domain := &Domain{ptr: d}
+	connection := &Connect{ptr: c}
+
+	eventDetails := &DomainEventChannelLifecycle{
+		ChannelName: C.GoString(channelName),
+		State:       DomainEventChannelLifecycleState(state),
+		Reason:      DomainEventChannelLifecycleReason(reason),
+	}
+	callbackFunc := getCallbackId(goCallbackId)
+	callback, ok := callbackFunc.(DomainEventChannelLifecycleCallback)
+	if !ok {
+		panic("Inappropriate callback type called")
+	}
+	callback(connection, domain, eventDetails)
+}
+
+//export virGoDomainEventVcpuRemovedCallback
+func virGoDomainEventVcpuRemovedCallback(c C.virConnectPtr, d C.virDomainPtr, vcpuid uint, goCallbackId int) {
+	domain := &Domain{ptr: d}
+	connection := &Connect{ptr: c}
+
+	eventDetails := &DomainEventVcpuRemoved{
+		ID: vcpuid,
+	}
+	callbackFunc := getCallbackId(goCallbackId)
+	callback, ok := callbackFunc.(DomainEventVcpuRemovedCallback)
+	if !ok {
+		panic("Inappropriate callback type called")
+	}
+	callback(connection, domain, eventDetails)
+}
+
 func (c *Connect) DomainEventLifecycleRegister(dom *Domain, callback DomainEventLifecycleCallback) (int, error) {
 	goCallBackId := registerCallbackId(callback)
 
@@ -1589,6 +1637,46 @@ func (c *Connect) DomainEventNICMACChangeRegister(dom *Domain, callback DomainEv
 	var err C.virError
 	ret := C.virConnectDomainEventRegisterAnyHelper(c.ptr, cdom,
 		C.VIR_DOMAIN_EVENT_ID_NIC_MAC_CHANGE,
+		C.virConnectDomainEventGenericCallback(callbackPtr),
+		C.long(goCallBackId), &err)
+	if ret == -1 {
+		virGoFreeCallbackId(goCallBackId)
+		return 0, makeError(&err)
+	}
+	return int(ret), nil
+}
+
+func (c *Connect) DomainEventChannelLifecycleRegister(dom *Domain, callback DomainEventChannelLifecycleCallback) (int, error) {
+	goCallBackId := registerCallbackId(callback)
+
+	callbackPtr := unsafe.Pointer(C.virGoDomainEventChannelLifecycleCallbackHelper)
+	var cdom C.virDomainPtr
+	if dom != nil {
+		cdom = dom.ptr
+	}
+	var err C.virError
+	ret := C.virConnectDomainEventRegisterAnyHelper(c.ptr, cdom,
+		C.VIR_DOMAIN_EVENT_ID_CHANNEL_LIFECYCLE,
+		C.virConnectDomainEventGenericCallback(callbackPtr),
+		C.long(goCallBackId), &err)
+	if ret == -1 {
+		virGoFreeCallbackId(goCallBackId)
+		return 0, makeError(&err)
+	}
+	return int(ret), nil
+}
+
+func (c *Connect) DomainEventVcpuRemovedRegister(dom *Domain, callback DomainEventVcpuRemovedCallback) (int, error) {
+	goCallBackId := registerCallbackId(callback)
+
+	callbackPtr := unsafe.Pointer(C.virGoDomainEventVcpuRemovedCallbackHelper)
+	var cdom C.virDomainPtr
+	if dom != nil {
+		cdom = dom.ptr
+	}
+	var err C.virError
+	ret := C.virConnectDomainEventRegisterAnyHelper(c.ptr, cdom,
+		C.VIR_DOMAIN_EVENT_ID_VCPU_REMOVED,
 		C.virConnectDomainEventGenericCallback(callbackPtr),
 		C.long(goCallBackId), &err)
 	if ret == -1 {

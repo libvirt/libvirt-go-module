@@ -118,6 +118,7 @@ var (
 		"virConnectDomainEventMemoryDeviceSizeChangeCallback",
 		"virConnectDomainEventNICMACChangeCallback",
 		"virConnectDomainEventChannelLifecycleCallback",
+		"virConnectDomainEventVcpuRemovedCallback",
 		"virConnectDomainQemuMonitorEventCallback",
 
 		/* Network event callback typedefs */

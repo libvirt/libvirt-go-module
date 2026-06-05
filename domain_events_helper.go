@@ -284,6 +284,26 @@ void virGoDomainEventNICMACChangeCallbackHelper(virConnectPtr conn,
     virGoDomainEventNICMACChangeCallback(conn, dom, alias, oldMAC, newMAC, (int)(intptr_t)opaque);
 }
 
+extern void virGoDomainEventChannelLifecycleCallback(virConnectPtr, virDomainPtr, const char *, int, int, int);
+void virGoDomainEventChannelLifecycleCallbackHelper(virConnectPtr conn,
+                                                    virDomainPtr dom,
+						    const char *channelName,
+						    int state,
+						    int reason,
+						    void *opaque)
+{
+    virGoDomainEventChannelLifecycleCallback(conn, dom, channelName, state, reason, (int)(intptr_t)opaque);
+}
+
+extern void virGoDomainEventVcpuRemovedCallback(virConnectPtr, virDomainPtr, int, int);
+void virGoDomainEventVcpuRemovedCallbackHelper(virConnectPtr conn,
+                                               virDomainPtr dom,
+					       int vcpuid,
+					       void *opaque)
+{
+    virGoDomainEventVcpuRemovedCallback(conn, dom, vcpuid, (int)(intptr_t)opaque);
+}
+
 int
 virConnectDomainEventRegisterAnyHelper(virConnectPtr conn,
                                        virDomainPtr dom,

@@ -237,6 +237,20 @@ virGoDomainEventNICMACChangeCallbackHelper(virConnectPtr conn,
                                            const char *newMAC,
                                            void *opaque);
 
+void
+virGoDomainEventChannelLifecycleCallbackHelper(virConnectPtr conn,
+					       virDomainPtr dom,
+					       const char *channelName,
+					       int state,
+					       int reason,
+					       void *opaque);
+
+void
+virGoDomainEventVcpuRemovedCallbackHelper(virConnectPtr conn,
+					  virDomainPtr dom,
+					  int vcpuid,
+					  void *opaque);
+
 int
 virConnectDomainEventRegisterAnyHelper(virConnectPtr conn,
                                        virDomainPtr dom,
