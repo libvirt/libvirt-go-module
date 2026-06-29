@@ -478,6 +478,14 @@ virDomainAgentSetResponseTimeoutWrapper(virDomainPtr domain,
                                         virErrorPtr err);
 
 int
+virDomainAnnounceInterfaceWrapper(virDomainPtr dom,
+                                  const char * device,
+                                  virTypedParameterPtr params,
+                                  int nparams,
+                                  unsigned int flags,
+                                  virErrorPtr err);
+
+int
 virDomainAttachDeviceWrapper(virDomainPtr domain,
                              const char * xml,
                              virErrorPtr err);

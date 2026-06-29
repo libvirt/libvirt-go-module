@@ -384,6 +384,30 @@ virDomainAgentSetResponseTimeoutWrapper(virDomainPtr domain,
 }
 
 int
+virDomainAnnounceInterfaceWrapper(virDomainPtr dom,
+                                  const char * device,
+                                  virTypedParameterPtr params,
+                                  int nparams,
+                                  unsigned int flags,
+                                  virErrorPtr err)
+{
+    int ret = -1;
+#if !LIBVIR_CHECK_VERSION(12, 5, 0)
+    setVirError(err, "Function virDomainAnnounceInterface not available prior to libvirt version 12.5.0");
+#else
+    ret = virDomainAnnounceInterface(dom,
+                                     device,
+                                     params,
+                                     nparams,
+                                     flags);
+    if (ret < 0) {
+        virCopyLastError(err);
+    }
+#endif
+    return ret;
+}
+
+int
 virDomainAttachDeviceWrapper(virDomainPtr domain,
                              const char * xml,
                              virErrorPtr err)

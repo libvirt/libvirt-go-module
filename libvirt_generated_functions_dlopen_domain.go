@@ -590,6 +590,44 @@ virDomainAgentSetResponseTimeoutWrapper(virDomainPtr domain,
 }
 
 typedef int
+(*virDomainAnnounceInterfaceFuncType)(virDomainPtr dom,
+                                      const char * device,
+                                      virTypedParameterPtr params,
+                                      int nparams,
+                                      unsigned int flags);
+
+int
+virDomainAnnounceInterfaceWrapper(virDomainPtr dom,
+                                  const char * device,
+                                  virTypedParameterPtr params,
+                                  int nparams,
+                                  unsigned int flags,
+                                  virErrorPtr err)
+{
+    int ret = -1;
+    static virDomainAnnounceInterfaceFuncType virDomainAnnounceInterfaceSymbol;
+    static bool once;
+    static bool success;
+
+    if (!libvirtSymbol("virDomainAnnounceInterface",
+                       (void**)&virDomainAnnounceInterfaceSymbol,
+                       &once,
+                       &success,
+                       err)) {
+        return ret;
+    }
+    ret = virDomainAnnounceInterfaceSymbol(dom,
+                                           device,
+                                           params,
+                                           nparams,
+                                           flags);
+    if (ret < 0) {
+        virCopyLastErrorWrapper(err);
+    }
+    return ret;
+}
+
+typedef int
 (*virDomainAttachDeviceFuncType)(virDomainPtr domain,
                                  const char * xml);
 
