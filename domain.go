@@ -6031,3 +6031,58 @@ func (d *Domain) SetThrottleGroup(group string, params *DomainBlockIoTuneParamet
 
 	return nil
 }
+
+type DomainAnnounceInterfaceParameters struct {
+	InitialSet bool
+	Initial    uint
+	MaxSet     bool
+	Max        uint
+	RoundsSet  bool
+	Rounds     uint
+	StepSet    bool
+	Step       uint
+}
+
+func getDomainAnnounceInterfaceParametersFieldInfo(params *DomainAnnounceInterfaceParameters) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		C.VIR_DOMAIN_ANNOUNCE_INTERFACE_INITIAL: typedParamsFieldInfo{
+			set: &params.InitialSet,
+			ui:  &params.Initial,
+		},
+		C.VIR_DOMAIN_ANNOUNCE_INTERFACE_MAX: typedParamsFieldInfo{
+			set: &params.MaxSet,
+			ui:  &params.Max,
+		},
+		C.VIR_DOMAIN_ANNOUNCE_INTERFACE_ROUNDS: typedParamsFieldInfo{
+			set: &params.RoundsSet,
+			ui:  &params.Rounds,
+		},
+		C.VIR_DOMAIN_ANNOUNCE_INTERFACE_STEP: typedParamsFieldInfo{
+			set: &params.StepSet,
+			ui:  &params.Step,
+		},
+	}
+}
+
+func (d *Domain) AnnounceInterface(device string, params *DomainAnnounceInterfaceParameters, flags uint32) error {
+	cdevice := C.CString(device)
+	defer C.free(unsafe.Pointer(cdevice))
+
+	info := getDomainAnnounceInterfaceParametersFieldInfo(params)
+
+	cparams, cnparams, gerr := typedParamsPackNew(info)
+	if gerr != nil {
+		return gerr
+	}
+
+	defer C.virTypedParamsFreeWrapper(cparams, cnparams)
+
+	var err C.virError
+	ret := C.virDomainAnnounceInterfaceWrapper(d.ptr, cdevice, cparams, cnparams, C.uint(flags), &err)
+
+	if ret == -1 {
+		return makeError(&err)
+	}
+
+	return nil
+}
