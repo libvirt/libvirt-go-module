@@ -3684,6 +3684,9 @@ type DomainStatsIOThread struct {
 	PollShrinkSet bool
 	PollShrink    uint
 	PollShrink64  uint64
+	PollWeightSet bool
+	PollWeight    uint
+	PollWeight64  uint64
 }
 
 func getDomainStatsIOThreadFieldInfo(idx int, params *DomainStatsIOThread) map[string]typedParamsFieldInfo {
@@ -3704,6 +3707,12 @@ func getDomainStatsIOThreadFieldInfo(idx int, params *DomainStatsIOThread) map[s
 			set: &params.PollShrinkSet,
 			ui:  &params.PollShrink,
 			ul:  &params.PollShrink64,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_STATS_IOTHREAD_PREFIX+"%d"+
+			C.VIR_DOMAIN_STATS_IOTHREAD_SUFFIX_POLL_WEIGHT, idx): typedParamsFieldInfo{
+			set: &params.PollWeightSet,
+			ui:  &params.PollWeight,
+			ul:  &params.PollWeight64,
 		},
 	}
 }

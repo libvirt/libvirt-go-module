@@ -4497,6 +4497,8 @@ type DomainSetIOThreadParams struct {
 	PollGrow         uint
 	PollShrinkSet    bool
 	PollShrink       uint
+	PollWeightSet    bool
+	PollWeight       uint
 	ThreadPoolMinSet bool
 	ThreadPoolMin    int
 	ThreadPoolMaxSet bool
@@ -4516,6 +4518,10 @@ func getSetIOThreadParamsFieldInfo(params *DomainSetIOThreadParams) map[string]t
 		C.VIR_DOMAIN_IOTHREAD_POLL_SHRINK: typedParamsFieldInfo{
 			set: &params.PollShrinkSet,
 			ui:  &params.PollShrink,
+		},
+		C.VIR_DOMAIN_IOTHREAD_POLL_WEIGHT: typedParamsFieldInfo{
+			set: &params.PollWeightSet,
+			ui:  &params.PollWeight,
 		},
 		C.VIR_DOMAIN_IOTHREAD_THREAD_POOL_MIN: typedParamsFieldInfo{
 			set: &params.ThreadPoolMinSet,
