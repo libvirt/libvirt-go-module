@@ -957,6 +957,7 @@ const (
 	DOMAIN_GUEST_INFO_DISKS      = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_DISKS)
 	DOMAIN_GUEST_INFO_INTERFACES = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_INTERFACES)
 	DOMAIN_GUEST_INFO_LOAD       = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_LOAD)
+	DOMAIN_GUEST_INFO_DEVICES    = DomainGuestInfoTypes(C.VIR_DOMAIN_GUEST_INFO_DEVICES)
 )
 
 type DomainAgentSetResponseTimeoutValues int
@@ -5632,6 +5633,56 @@ func getDomainGuestInfoLoadFieldInfo(params *DomainGuestInfoLoad) map[string]typ
 	}
 }
 
+type DomainGuestInfoDevice struct {
+	DriverNameSet    bool
+	DriverName       string
+	DriverDateSet    bool
+	DriverDate       int64
+	DriverVersionSet bool
+	DriverVersion    string
+	IDTypeSet        bool
+	IDType           string
+	PCIVendorSet     bool
+	PCIVendor        uint
+	PCIDeviceSet     bool
+	PCIDevice        uint
+}
+
+func getDomainGuestInfoDeviceFieldInfo(idx int, params *DomainGuestInfoDevice) map[string]typedParamsFieldInfo {
+	return map[string]typedParamsFieldInfo{
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DEVICE_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DEVICE_SUFFIX_DRIVER_NAME, idx): typedParamsFieldInfo{
+			set: &params.DriverNameSet,
+			s:   &params.DriverName,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DEVICE_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DEVICE_SUFFIX_DRIVER_DATE, idx): typedParamsFieldInfo{
+			set: &params.DriverDateSet,
+			l:   &params.DriverDate,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DEVICE_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DEVICE_SUFFIX_DRIVER_VERSION, idx): typedParamsFieldInfo{
+			set: &params.DriverVersionSet,
+			s:   &params.DriverVersion,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DEVICE_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DEVICE_SUFFIX_ID_TYPE, idx): typedParamsFieldInfo{
+			set: &params.IDTypeSet,
+			s:   &params.IDType,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DEVICE_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DEVICE_SUFFIX_PCI_VENDOR, idx): typedParamsFieldInfo{
+			set: &params.PCIVendorSet,
+			ui:  &params.PCIVendor,
+		},
+		fmt.Sprintf(C.VIR_DOMAIN_GUEST_INFO_DEVICE_PREFIX+"%d"+
+			C.VIR_DOMAIN_GUEST_INFO_DEVICE_SUFFIX_PCI_DEVICE, idx): typedParamsFieldInfo{
+			set: &params.PCIDeviceSet,
+			ui:  &params.PCIDevice,
+		},
+	}
+}
+
 type DomainGuestInfo struct {
 	Users       []DomainGuestInfoUser
 	OS          *DomainGuestInfoOS
@@ -5642,6 +5693,7 @@ type DomainGuestInfo struct {
 	Disks       []DomainGuestInfoDisk
 	Interfaces  []DomainGuestInfoInterface
 	Load        *DomainGuestInfoLoad
+	Devices     []DomainGuestInfoDevice
 }
 
 func getDomainGuestInfoFieldInfo(params *DomainGuestInfo) map[string]typedParamsFieldInfo {
@@ -5662,6 +5714,8 @@ type domainGuestInfoLengths struct {
 	DiskCount          uint
 	InterfaceCountSet  bool
 	InterfaceCount     uint
+	DeviceCountSet     bool
+	DeviceCount        uint
 }
 
 func getDomainGuestInfoLengthsFieldInfo(params *domainGuestInfoLengths) map[string]typedParamsFieldInfo {
@@ -5681,6 +5735,10 @@ func getDomainGuestInfoLengthsFieldInfo(params *domainGuestInfoLengths) map[stri
 		C.VIR_DOMAIN_GUEST_INFO_IF_COUNT: typedParamsFieldInfo{
 			set: &params.InterfaceCountSet,
 			ui:  &params.InterfaceCount,
+		},
+		C.VIR_DOMAIN_GUEST_INFO_DEVICE_COUNT: typedParamsFieldInfo{
+			set: &params.DeviceCountSet,
+			ui:  &params.DeviceCount,
 		},
 	}
 }
@@ -5844,6 +5902,18 @@ func (d *Domain) GetGuestInfo(types DomainGuestInfoTypes, flags uint32) (*Domain
 	_, gerr = typedParamsUnpack(cparams, cnparams, loadInfo)
 	if gerr != nil {
 		return nil, gerr
+	}
+
+	if lengths.DeviceCountSet && lengths.DeviceCount > 0 {
+		info.Devices = make([]DomainGuestInfoDevice, lengths.DeviceCount)
+		for i := 0; i < int(lengths.DeviceCount); i++ {
+			device := getDomainGuestInfoDeviceFieldInfo(i, &info.Devices[i])
+
+			_, gerr = typedParamsUnpack(cparams, cnparams, device)
+			if gerr != nil {
+				return nil, gerr
+			}
+		}
 	}
 
 	return &info, nil
