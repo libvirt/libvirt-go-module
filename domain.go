@@ -6082,6 +6082,7 @@ func (d *Domain) GraphicsReload(typ DomainGraphicsReloadType, flags uint32) erro
 func (d *Domain) DelThrottleGroup(group string, flags DomainModificationImpact) error {
 	var err C.virError
 	cgroup := C.CString(group)
+	defer C.free(unsafe.Pointer(cgroup))
 	ret := C.virDomainDelThrottleGroupWrapper(d.ptr, cgroup, C.uint(flags), &err)
 	if ret == -1 {
 		return makeError(&err)
@@ -6101,6 +6102,7 @@ func (d *Domain) SetThrottleGroup(group string, params *DomainBlockIoTuneParamet
 
 	var err C.virError
 	cgroup := C.CString(group)
+	defer C.free(unsafe.Pointer(cgroup))
 	ret := C.virDomainSetThrottleGroupWrapper(d.ptr, cgroup, cparams, cnparams, C.uint(flags), &err)
 	if ret == -1 {
 		return makeError(&err)
