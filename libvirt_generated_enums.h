@@ -1102,8 +1102,11 @@
 #  if !LIBVIR_CHECK_VERSION(3, 4, 0)
 #    define VIR_DOMAIN_EVENT_SHUTDOWN_HOST 2
 #  endif
+#  if !LIBVIR_CHECK_VERSION(12, 9, 0)
+#    define VIR_DOMAIN_EVENT_SHUTDOWN_GUEST_RESET 3
+#  endif
 #  if !LIBVIR_CHECK_VERSION(0, 9, 10)
-#    define VIR_DOMAIN_EVENT_SHUTDOWN_LAST 3
+#    define VIR_DOMAIN_EVENT_SHUTDOWN_LAST 4
 #  endif
 
 /* enum virDomainEventStartedDetailType */
@@ -1243,8 +1246,11 @@
 #  if !LIBVIR_CHECK_VERSION(1, 2, 19)
 #    define VIR_DOMAIN_EVENT_UNDEFINED_RENAMED 1
 #  endif
+#  if !LIBVIR_CHECK_VERSION(12, 9, 0)
+#    define VIR_DOMAIN_EVENT_UNDEFINED_MIGRATED 2
+#  endif
 #  if !LIBVIR_CHECK_VERSION(0, 9, 10)
-#    define VIR_DOMAIN_EVENT_UNDEFINED_LAST 2
+#    define VIR_DOMAIN_EVENT_UNDEFINED_LAST 3
 #  endif
 
 /* enum virDomainEventWatchdogAction */
